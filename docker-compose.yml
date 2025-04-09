@@ -10,7 +10,7 @@ services:
     # - ./src/site/img:/usr/src/app/src/site/img
 
    ports:
-     - "8080:8080"
+     - "10034:8080"
    command: npm run dev
    environment:
      - NODE_ENV=development
