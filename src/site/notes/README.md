@@ -6,6 +6,12 @@
 
 Cunxi Gong / ansatz
 
+B.S.C in Chemistry, Zhengzhou University
+
+R.A. in Chinese University of Hong kong, Shenzhen
+
+[github](https://github.com/ansatzX)
+
 ## Interests
 
 - Quantum Chemistry
