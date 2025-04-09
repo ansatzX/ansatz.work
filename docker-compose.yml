@@ -4,7 +4,7 @@ services:
    image: qudange/obsidian-digital-garden:0.0.1
    volumes:
       - ./.env:/usr/src/app/.env
-    # - ./src/site/_includes/components/user/notes/footer:/usr/src/app/src/site/_includes/components/user/notes/footer #启用gisus评论功能 应该填入自己的相关信息
+    # - ./src/site/_includes/components/user/notes/footer:/usr/src/app/src/site/_includes/components/user/notes/footer 
       - ./src/site/notes:/usr/src/app/src/site/notes
     # - ./dist:/usr/src/app/dist
     # - ./src/site/img:/usr/src/app/src/site/img
