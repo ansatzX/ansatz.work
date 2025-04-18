@@ -31,7 +31,7 @@ Contents:
 ---
 # Today's Paper
 
-![first quant part 2|482x163](/img/user/pics/LiteratureReport： first-quant-2-1744915514699.webp)
+![first quant part 2|482x163](/img/user/pics/LiteratureReport-first-quant-2-1744915514699.webp)
 
 [paper](zotero://open-pdf/library/items/XYPFG4LA?page=1)
 This paper is mainly about how to write a quantum simulator with Qiskit to meet the minimum need of chemistry reaction.
@@ -75,31 +75,31 @@ Using a **cluster** for a quantum computer simulator would **add several simulat
 
 ### Wave Function
 The integer values in these registers are transformed from discretized positional coordinates into momentum coordinates (or vice versa) by using an inverse Fourier (or Fourier) transform.
-![LiteratureReport： first-quant-2-1744941980114.png](/img/user/pics/LiteratureReport%EF%BC%9A%20first-quant-2-1744941980114.png)
-![LiteratureReport： first-quant-2-1744942024744.png](/img/user/pics/LiteratureReport%EF%BC%9A%20first-quant-2-1744942024744.png)
+![LiteratureReport-first-quant-2-1744941980114.png](/img/user/pics/LiteratureReport-first-quant-2-1744941980114.png)
+![LiteratureReport-first-quant-2-1744942024744.png](/img/user/pics/LiteratureReport-first-quant-2-1744942024744.png)
 in the momentum representation,
 
-![LiteratureReport： first-quant-2-1744942046553.png](/img/user/pics/LiteratureReport%EF%BC%9A%20first-quant-2-1744942046553.png)
+![LiteratureReport-first-quant-2-1744942046553.png](/img/user/pics/LiteratureReport-first-quant-2-1744942046553.png)
 ### Initial Wave Function
-![LiteratureReport： first-quant-2-1744942456056.png](/img/user/pics/LiteratureReport%EF%BC%9A%20first-quant-2-1744942456056.png)
+![LiteratureReport-first-quant-2-1744942456056.png](/img/user/pics/LiteratureReport-first-quant-2-1744942456056.png)
 ### Antisymmetric States
 1. preparation of the ancillae to the k-sequence state, or the $ k_{\Sigma}  state
 2. shuffling.
 
- ![LiteratureReport： first-quant-2-1744942625168.png](/img/user/pics/LiteratureReport%EF%BC%9A%20first-quant-2-1744942625168.png)
+ ![LiteratureReport-first-quant-2-1744942625168.png](/img/user/pics/LiteratureReport-first-quant-2-1744942625168.png)
 
-![LiteratureReport： first-quant-2-1744942644540.png](/img/user/pics/LiteratureReport%EF%BC%9A%20first-quant-2-1744942644540.png)
-![LiteratureReport： first-quant-2-1744942683049.png](/img/user/pics/LiteratureReport%EF%BC%9A%20first-quant-2-1744942683049.png)
+![LiteratureReport-first-quant-2-1744942644540.png](/img/user/pics/LiteratureReport-first-quant-2-1744942644540.png)
+![LiteratureReport-first-quant-2-1744942683049.png](/img/user/pics/LiteratureReport-first-quant-2-1744942683049.png)
 ### Mixed State of Energy Configurations.
 
 thermal states
 
 ## Time Evolution
 Suzuki−Trotter decomposition.
-![LiteratureReport： first-quant-2-1744950902903.png](/img/user/pics/LiteratureReport%EF%BC%9A%20first-quant-2-1744950902903.png)
+![LiteratureReport-first-quant-2-1744950902903.png](/img/user/pics/LiteratureReport-first-quant-2-1744950902903.png)
 
 with B.O.
-![LiteratureReport： first-quant-2-1744950950590.png](/img/user/pics/LiteratureReport%EF%BC%9A%20first-quant-2-1744950950590.png)
+![LiteratureReport-first-quant-2-1744950950590.png](/img/user/pics/LiteratureReport-first-quant-2-1744950950590.png)
 
 
 ---
@@ -132,9 +132,9 @@ Four simulator configurations:
 ---
 # Example 1
 
-![LiteratureReport： first-quant-2-1744945959575.png](/img/user/LiteratureReport%EF%BC%9A%20first-quant-2-1744945959575.png)
+![LiteratureReport-first-quant-2-1744945959575.png](/img/user/pics/LiteratureReport-first-quant-2-1744945959575.png)
 
-![LiteratureReport： first-quant-2-1744950827491.png](/img/user/pics/LiteratureReport%EF%BC%9A%20first-quant-2-1744950827491.png)
+![LiteratureReport-first-quant-2-1744950827491.png](/img/user/pics/LiteratureReport-first-quant-2-1744950827491.png)
 
 [paper fig1:overall circuit](zotero://open-pdf/library/items/XYPFG4LA?page=6)
 
