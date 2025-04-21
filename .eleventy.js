@@ -17,7 +17,7 @@ const Image = require("@11ty/eleventy-img");
 const slugify = require("@sindresorhus/slugify");
 const temp = require('tmp');
 const markdownIt = require("markdown-it");
-const path = require('path'); // 引入 path 模块
+const path = require('path');
 
 
 function transformImage(src, cls, alt, sizes, widths = ["500", "700", "auto"]) {
@@ -110,11 +110,11 @@ function tikzPlugin(md, options) {
       return slf.renderToken(tokens, idx, options, env, slf);
     }
     const tikzCode = token.content.trim();
-    // 创建临时目录和文件
+
     const tmpDir = temp.dirSync({ unsafeCleanup: true });
     const texFile = path.join(tmpDir.name, 'tikz.tex');
     const svgFile = path.join(opts.outputDir, `${slugify(tikzCode.substring(0, 20))}.svg`);
-    // 构建 LaTeX 文档
+
     const texDocument = `
 \\documentclass{standalone}
 \\usepackage{amsmath}
@@ -206,7 +206,7 @@ module.exports = function (eleventyConfig) {
       closeMarker: "```",
     })
     .use(namedHeadingsFilter)
-    .use(tikzPlugin, { outputDir: './dist/img/tikz' }) // 添加 tikzPlugin
+    .use(tikzPlugin, { outputDir: './dist/img/tikz' }) 
     .use(function (md) {
       //https://github.com/DCsunset/markdown-it-mermaid-plugin
       const origFenceRule =

@@ -25,6 +25,8 @@ I referred to the following resources to create this website:
 
 5. set extension in obsidian, and publish your notes to the forked repository.
 
+6. run `docker build -f Dockerfile -t obsidian-digital-garden:25-04-21 . `
+
 6. run `docker compose up -d ` to raise the webiste on `localhost:port`
 
 7. use nginx to proxy_pass your webiste to your domain with ssl.

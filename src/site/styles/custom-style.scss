@@ -1,0 +1,127 @@
+body {
+    /***
+      ADD YOUR CUSTOM STYLING HERE. (INSIDE THE body {...} section.)
+      IT WILL TAKE PRECEDENCE OVER THE STYLING IN THE STYLE.CSS FILE.
+    ***/
+    // background-color: white;
+    // .content {
+    //   font-size: 14px;
+    // }
+    // h1 {
+    //   color: black;
+    // }
+}
+
+#giscus-container {
+    max-width: 50%;
+    width: 50%;
+    margin: 0 auto;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/* Memos 标题样式 */
+h2:has(+ .memos-container) {
+    color: var(--text-accent);
+    font-size: 1.8em;
+    margin-bottom: 1.5em;
+}
+
+/* Memos 容器样式 */
+.memos-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 20px;
+}
+
+/* Memo 卡片样式 */
+.memo {
+    background: var(--background-secondary);
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.memo:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Memo 头部样式 */
+.memo-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+/* 时间戳样式 */
+.memo-time {
+    font-size: 0.9em;
+    color: var(--text-muted);
+    background: var(--background-primary);
+    padding: 4px 8px;
+    border-radius: 4px;
+    margin-right: 12px;
+}
+
+/* 标签容器样式 */
+.memo-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+/* 标签样式 */
+.memo-tag {
+    display: inline-block;
+    background: var(--interactive-accent);
+    color: var(--text-on-accent);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.85em;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.memo-tag:hover {
+    background: var(--interactive-accent-hover);
+    text-decoration: none;
+}
+
+/* Memo 内容样式 */
+.memo-content {
+    line-height: 1.6;
+    color: var(--text-normal);
+    margin-top: 8px;
+}
+
+/* 深色模式适配 */
+.theme-dark .memo {
+    background: var(--background-primary);
+}
+
+.theme-dark .memo-time {
+    background: var(--background-secondary);
+}
+
+/* 移动设备适配 */
+@media (max-width: 768px) {
+    .memos-container {
+        padding: 0 15px;
+    }
+
+    .memo {
+        padding: 15px;
+    }
+
+    .memo-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .memo-time {
+        margin-bottom: 8px;
+    }
+}
