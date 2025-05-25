@@ -2,7 +2,9 @@
 {"dg-publish":true,"permalink":"/slides/tensor-network-for-quantum-computing/","dgPassFrontmatter":true}
 ---
 
+**Speaker** : Cunxi Gong
 
+Date: 2025-05-23
 ## 今日文章
 
 Berezutskii, A.; Acharya, A.; Ellerbrock, R.; Gray, J.; Haghshenas, R.; He, Z.; Khan, A.; Kuzmin, V.; Liu, M.; Lyakh, D.; Lykov, D.; Mandrà, S.; Mansell, C.; Melnikov, A.; Melnikov, A.; Mironov, V.; Morozov, D.; Neukart, F.; Nocera, A.; Perlin, M. A.; Perelshtein, M.; Shaydulin, R.; Villalonga, B.; Pflitsch, M.; Pistoia, M.; Vinokur, V.; Alexeev, Y. Tensor Networks for Quantum Computing. arXiv March 11, 2025. [https://doi.org/10.48550/arXiv.2503.08626](https://doi.org/10.48550/arXiv.2503.08626).
