@@ -13,7 +13,7 @@ Berezutskii, A.; Acharya, A.; Ellerbrock, R.; Gray, J.; Haghshenas, R.; He, Z.; 
 
 主要作者:
 Yuri Alexeev  
-![|208x208](/img/user/pics/tensor network for quantum computing-1747979508551.png)
+![|208x208](/img/user/pics/tensor_network_for_quantum_computing-1747979508551.png)
 
 [google scholar](https://scholar.google.com/citations?user=ovpBwPIAAAAJ&hl=en)
 [linkedin](https://www.linkedin.com/in/yalexeev)
@@ -36,7 +36,7 @@ nwchem gamess作者之一
 
 最后，我们将讨论张量网络在量子计算中的未来发展方向和面临的挑战。
 
-![](/img/user/pics/tensor network for quantum computing-1747976636277.png)
+![](/img/user/pics/tensor_network_for_quantum_computing-1747976636277.png)
 
 ----
 
@@ -66,15 +66,15 @@ nwchem gamess作者之一
 - **节点** 表示张量。
 - **边** 表示张量的指标，连接的边表示张量之间的收缩。  
     这种表示方法直观且便于计算，尤其在量子电路模拟中广泛应用。
-![tensor network for quantum computing-1747976707242.png](/img/user/pics/tensor%20network%20for%20quantum%20computing-1747976707242.png)
-![](/img/user/pics/tensor network for quantum computing-1747976761011.png)
+![tensor_network_for_quantum_computing-1747976707242.png](/img/user/pics/tensor_network_for_quantum_computing-1747976707242.png)
+![](/img/user/pics/tensor_network_for_quantum_computing-1747976761011.png)
 
 
-![](/img/user/pics/tensor network for quantum computing-1747976820819.png)
+![](/img/user/pics/tensor_network_for_quantum_computing-1747976820819.png)
 
 χ is the parameter called the bond dimension which controls the accuracy of compression
 This decomposition presents an opportunity for approximate representation of the original tensor by trimming the singular values
-![](/img/user/pics/tensor network for quantum computing-1747976862329.png)
+![](/img/user/pics/tensor_network_for_quantum_computing-1747976862329.png)
 
 
 ---
@@ -140,7 +140,7 @@ four steps:
 
 **案例：MPS的量子电路实现**  
 MPS可以通过分层等距变换转换为量子电路，适用于一维量子态的制备。
-![](/img/user/pics/tensor network for quantum computing-1747978306402.png)
+![](/img/user/pics/tensor_network_for_quantum_computing-1747978306402.png)
 
 ##### **4.2 硬件优化与自适应电路**
 
