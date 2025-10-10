@@ -1,16 +1,17 @@
 ---
 {"dg-publish":true,"permalink":"/","dgPassFrontmatter":true}
 ---
-
 # Aboubt Me
 
 Cunxi Gong / ansatz
 
 B.S.C in Chemistry, Zhengzhou University
 
-R.A. in Chinese University of Hong kong, Shenzhen
+R.A., Chinese University of Hong kong, Shenzhen
 
-[github](https://github.com/ansatzX)
+Phd student in Physics, Chinese University of Hong kong, Shenzhen
+
+[github homepage](https://github.com/ansatzX), 
 
 ## Interests
 
@@ -19,9 +20,6 @@ R.A. in Chinese University of Hong kong, Shenzhen
 - AI for Science
 - iOS/macos Development
 - Fortran Development
-
-
+- Music, Play
 
 Have fun visiting my website!
-
-
