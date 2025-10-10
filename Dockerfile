@@ -1,7 +1,7 @@
 # Stage 1: Build environment
 FROM node:18-bookworm-slim AS build
 
-RUN echo "nameserver 8.8.8.8" > /etc/resolv.conf
+# RUN echo "nameserver 8.8.8.8" > /etc/resolv.conf
 
 WORKDIR /usr/src/app
 
@@ -35,7 +35,7 @@ COPY package*.json ./
 RUN apt update && apt install perl wget curl -y && apt-get clean && rm -rf /var/lib/apt/lists/* && \
     export OSNAME=Linux; export OSTYPE=linux-gnu;mkdir -p /root/.local/bin; \
     wget -qO- "https://yihui.org/tinytex/install-bin-unix.sh" | sh && tlmgr install dvisvgm pgf siunitx preview standalone fp && \
-    npm ci --only=production && \
+    npm ci && \ 
     npm cache clean --force
 
 
