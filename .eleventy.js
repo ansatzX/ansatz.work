@@ -48,7 +48,7 @@ function getAnchorAttributes(filePath, linkTitle) {
     headerLinkPath = `#${headerToId(header)}`;
   }
 
-  let noteIcon = process.env.NOTE_ICON_DEFAULT;
+  let noteIcon = process.env.NOTE_ICON_DEFAULT || "";
   const title = linkTitle ? linkTitle : fileName;
   let permalink = `/notes/${slugify(filePath)}`;
   let deadLink = false;
@@ -96,7 +96,7 @@ function getAnchorAttributes(filePath, linkTitle) {
   }
 }
 
-const tagRegex = /(^|\s|\>)(#[^\s!@#$%^&*()=+\.,\[{\]};:'"?><]+)(?!([^<]*>))/g;
+const tagRegex = /(^|\s|>)(#[^\s!@#$%^&*()=+\.,\[{\]};:'"?><]+)(?![^<]*>)/g;
 
 function tikzPlugin(md, options) {
   const defaultOptions = {
@@ -116,9 +116,9 @@ function tikzPlugin(md, options) {
     const svgFile = path.join(opts.outputDir, `${slugify(tikzCode.substring(0, 20))}.svg`);
 
     const texDocument = `
-\\documentclass{standalone}
-\\usepackage{amsmath}
-\\usepackage{tikz}
+\documentclass{standalone}
+\usepackage{amsmath}
+\usepackage{tikz}
 
 ${tikzCode}
 
@@ -143,13 +143,15 @@ ${tikzCode}
       tmpDir.removeCallback();
       return `<div class="tikz-container">${svgContent}</div>`;
     } catch (error) {
-      console.error('TikZ compilation error:', error); // 输出完整的错误对象
-      console.error('TikZ compilation error message:', error.message);
+      console.error('--- TikZ Compilation Error ---');
+      console.error('Failed to compile the following TikZ code:');
+      console.error(tikzCode);
+      console.error('Error Message:', error.message);
       if (error.stderr) {
-        console.error('latex stderr:', error.stderr.toString()); // 修改为 latex
+        console.error('Compiler stderr:', error.stderr.toString());
       }
       if (error.stdout) {
-        console.error('latex stdout:', error.stdout.toString()); // 修改为 latex
+        console.error('Compiler stdout:', error.stdout.toString());
       }
       // 在发生错误时，打印 texFile 的内容
       try {
@@ -165,6 +167,14 @@ ${tikzCode}
 }
 
 module.exports = function (eleventyConfig) {
+  console.log("[11ty] Starting Eleventy configuration...");
+
+  eleventyConfig.on('eleventy.before', async ({ dir, runMode, outputMode }) => {
+    console.log(`[11ty] Starting build in ${runMode} mode.`);
+    console.log(`[11ty] Input directory: ${dir.input}`);
+    console.log(`[11ty] Output directory: ${dir.output}`);
+  });
+
   eleventyConfig.setLiquidOptions({
     dynamicPartials: true,
   });
@@ -187,6 +197,7 @@ module.exports = function (eleventyConfig) {
     .use(require("markdown-it-mathjax3"), {
       tex: {
         inlineMath: [["$", "$"]],
+        displayMath: [["$", "$"]],
       },
       options: {
         skipHtmlTags: { "[-]": ["pre"] },
@@ -269,8 +280,8 @@ module.exports = function (eleventyConfig) {
             collapseClasses += " is-collapsed"
           }
 
-          let res = `<div data-callout-metadata class="callout ${collapseClasses}" data-callout="${token.info.substring(3)
-            }">${titleDiv}\n<div class="callout-content">${md.render(
+          let res = `<div data-callout-metadata class="callout ${collapseClasses}" data-callout="${token.info.substring(3)}">${titleDiv}
+<div class="callout-content">${md.render(
               parts.slice(nbLinesToSkip).join("\n")
             )}</div></div>`;
           return res
@@ -344,22 +355,21 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.setLibrary("md", markdownLib);
 
   eleventyConfig.addFilter("isoDate", function (date) {
-    return date && date.toISOString();
+    if (!date || !date.toISOString) return "";
+    return date.toISOString();
   });
 
   eleventyConfig.addFilter("link", function (str) {
-    return (
-      str &&
-      str.replace(/\[\[(.*?\|.*?)\]\]/g, function (match, p1) {
-        //Check if it is an embedded excalidraw drawing or mathjax javascript
-        if (p1.indexOf("],[") > -1 || p1.indexOf('"$"') > -1) {
-          return match;
-        }
-        const [fileLink, linkTitle] = p1.split("|");
+    if (!str || typeof str !== 'string') return str;
+    return str.replace(/\`\[\[(.*?\|.*?)\]\]\`/g, function (match, p1) {
+      //Check if it is an embedded excalidraw drawing or mathjax javascript
+      if (p1.indexOf("],[") > -1 || p1.indexOf('"$"') > -1) {
+        return match;
+      }
+      const [fileLink, linkTitle] = p1.split("|");
 
-        return getAnchorLink(fileLink, linkTitle);
-      })
-    );
+      return getAnchorLink(fileLink, linkTitle);
+    });
   });
 
   eleventyConfig.addFilter("taggify", function (str) {
@@ -382,7 +392,8 @@ module.exports = function (eleventyConfig) {
         .join(", ");
     }
     if (tags) {
-      return `${tags},`;
+      return `${tags},
+`;
     } else {
       return "";
     }
@@ -428,7 +439,7 @@ module.exports = function (eleventyConfig) {
         let calloutMetaData = "";
         let isCollapsable;
         let isCollapsed;
-        const calloutMeta = /\[!([\w-]*)\|?(\s?.*)\](\+|\-){0,1}(\s?.*)/;
+        const calloutMeta = /\`\[!([\w-]*)\|?(\s?.*)\](\+|\-){0,1}(\s?.*)/;
         if (!content.match(calloutMeta)) {
           continue;
         }
@@ -580,6 +591,7 @@ module.exports = function (eleventyConfig) {
       outputPath &&
       outputPath.endsWith(".html")
     ) {
+      console.log(`[11ty] Minifying HTML for: ${outputPath}`);
       return htmlMinifier.minify(content, {
         useShortDoctype: true,
         removeComments: true,
@@ -618,9 +630,9 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addFilter("validJson", function (variable) {
     if (Array.isArray(variable)) {
-      return variable.map((x) => x.replaceAll("\\", "\\\\")).join(",");
+      return variable.map((x) => x.replaceAll("\", "\\\\")).join(",");
     } else if (typeof variable === "string") {
-      return variable.replaceAll("\\", "\\\\");
+      return variable.replaceAll("\", "\\\\");
     }
     return variable;
   });

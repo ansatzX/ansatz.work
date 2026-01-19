@@ -101,9 +101,9 @@ function getPermalinkMeta(note, key) {
 }
 
 function assignNested(obj, keyPath, value) {
-  lastKeyIndex = keyPath.length - 1;
-  for (var i = 0; i < lastKeyIndex; ++i) {
-    key = keyPath[i];
+  const lastKeyIndex = keyPath.length - 1;
+  for (let i = 0; i < lastKeyIndex; ++i) {
+    const key = keyPath[i];
     if (!(key in obj)) {
       obj[key] = { isFolder: true };
     }

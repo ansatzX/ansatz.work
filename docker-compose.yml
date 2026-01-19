@@ -1,6 +1,6 @@
 services:
  digital-garden:
-   image: obsidian-digital-garden:25-04-21
+   image: obsidian-digital-garden:latest
    volumes:
       - ./.env:/usr/src/app/.env
     # - ./src/site/_includes/components/user/notes/footer:/usr/src/app/src/site/_includes/components/user/notes/footer 

@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { globSync } = require("glob");
+const { globSync } } = require("glob");
 
 module.exports = async (data) => {
   let baseUrl = process.env.SITE_BASE_URL || "";
@@ -15,7 +15,7 @@ module.exports = async (data) => {
     filetree: false,
     links: false,
     title: false,
-    default: process.env.NOTE_ICON_DEFAULT,
+    default: process.env.NOTE_ICON_DEFAULT || "",
   };
 
   const styleSettingsCss = process.env.STYLE_SETTINGS_CSS || "";
@@ -40,8 +40,8 @@ module.exports = async (data) => {
     noteIconsSettings.links = true;
   }
   if (
-    process.env.NOTE_ICON_BACK_LINKS &&
-    process.env.NOTE_ICON_BACK_LINKS == "true"
+    process.env.NOTE_ICON_INTERNAL_LINKS &&
+    process.env.NOTE_ICON_INTERNAL_LINKS == "true"
   ) {
     bodyClasses.push("backlinks-note-icon");
     noteIconsSettings.backlinks = true;
@@ -57,6 +57,8 @@ module.exports = async (data) => {
     timestampFormat: process.env.TIMESTAMP_FORMAT || "MMM dd, yyyy h:mm a",
     showCreated: process.env.SHOW_CREATED_TIMESTAMP == "true",
     showUpdated: process.env.SHOW_UPDATED_TIMESTAMP == "true",
+    createdDateField: process.env.DG_CREATED_DATE || "created",
+    updatedDateField: process.env.DG_UPDATED_DATE || "updated",
   };
   const meta = {
     env: process.env.ELEVENTY_ENV,
