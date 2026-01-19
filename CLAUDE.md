@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is an **Obsidian Digital Garden** - a static site generator that transforms Obsidian notes into a public website. It preserves Obsidian's note-taking experience while providing a polished web interface with support for links, tags, callouts, diagrams, and more.
+This is an **Obsidian Digital Garden** - a static site generator that transforms Obsidian notes into a public website. It preserves Obsidian's note-taking experience while providing a polished web interface with support for links, (tags), callouts, diagrams, and more.
 
 ## Commands
 
@@ -17,7 +17,7 @@ This is an **Obsidian Digital Garden** - a static site generator that transforms
 
 ### Build
 - `npm run prebuild` - Clean the `dist` directory before building
-- `npm run build` - Full production build (theme + SASS + Eleventy)
+`- `npm run build` - Full production build (theme + SASS + Eleventy)
 - `npm run build:sass` - Compile SCSS to compressed CSS
 - `npm run build:eleventy` - Build Eleventy for production (with 4GB memory limit via NODE_OPTIONS)
 
@@ -35,7 +35,7 @@ This is an **Obsidian Digital Garden** - a static site generator that transforms
 4. **Eleventy Build** (`.eleventy.js`):
    - Reads markdown notes from `src/site/notes/`
    - Parses frontmatter with gray-matter
-   - Applies Nunjucks layouts from `_includes/layouts/`
+   - Applies Nunjucks layouts from `_includes/layouts/` (index.njk, note.njk)
    - Generates favicon from favicon.svg
    - Generates RSS feed
    - Processes markdown with custom markdown-it plugins (TikZ, Mermaid, PlantUML, MathJax, etc.)
@@ -49,48 +49,51 @@ This is an **Obsidian Digital Garden** - a static site generator that transforms
 ```
 src/
 ├── helpers/              # Utility functions
-│   ├── constants.js      # Constant definitions
-│   ├── filetreeUtils.js  # File tree navigation
+│   ├── constants.js      # Constant definitions including ALL_NOTE_SETTINGS
+│   ├── filetreeUtils.js  # File tree navigation utilities
 │   ├── linkUtils.js      # Link parsing for [[wiki-links]], notes graph generation
-│   ├── userSetup.js      # User customization hooks for plugins
-│   ├── userUtils.js      # User-specific utilities
+│   ├── userSetup.js      # User customization hooks for plugins (markdown, Eleventy)
+│   ├── userUtils.js      # User-specific utilities (computed data)
 │   └── utils.js          # General utilities (slugify, headerToId, namedHeadingsFilter)
 └── site/                 # Eleventy input directory
     ├── _data/            # Eleventy data files
     │   ├── meta.js       # Site metadata from .env variables
     │   ├── dynamics.js   # Dynamic data (file tree, notes graph, user components)
-    │   └── eleventyComputed.js # Computed properties
+    │   ├── eleventyComputed.js # Computed properties
+    │   └── notes.11tydata.js # Per-note data and layout selection
     ├── _includes/         # Nunjucks templates
     │   ├── components/    # Reusable UI components
+    │   │   ├── calloutScript.njk, filetree.njk, graphScript.njk
+    │   │   ├── linkPreview.njk, searchContainer.njk, searchScript.njk
     │   │   ├── navbar.njk, sidebar.njk, pageheader.njk
-    │   │   ├── filetree.njk, searchContainer.njk, searchScript.njk
-    │   │   ├── graphScript.njk, linkPreview.njk, calloutScript.njk
     │   │   ├── references.njk, timestamps.njk
     │   │   └── user/     # User custom components (extensibility)
     │   └── layouts/       # Page layouts (index.njk, note.njk)
     ├── notes/            # Obsidian markdown notes (content source)
-    │   ├── README.md     # Garden entry point (with gardenEntry tag)
-    │   ├── notes.11tydata.js  # Per-directory data
-    │   └── notes.json    # Notes collection config
+    │   └── notes.11tytydata.js # Per-note settings
     ├── styles/           # SCSS stylesheets
     │   └── user/        # User custom SCSS (auto-included)
-    ├── scripts/          # JavaScript files (passthrough to dist/scripts/)
-    ├── img/              # Image assets (passthrough to dist/img/)
     ├── get-theme.js      # Theme downloader
-    ├── 404.njk           # 404 error page
+    ├── robots.txt         # SEO configuration
     ├── feed.njk           # RSS feed template
     ├── search-index.njk    # Search index template
     ├── graph.njk          # Graph visualization page
-    ├── sitemap.njk        # Sitemap generation
-    └── robots.txt         # SEO configuration
+    └── sitemap.njk        # Sitemap generation
 dist/                     # Eleventy output directory (generated)
 ```
 
 ### Eleventy Data Files
 
-- **meta.js**: Reads all `process.env` variables and formats them for templates. Returns theme, bodyClasses, noteIconsSettings, timestampSettings, site metadata.
+- **meta.js**: Reads all `process.env` variables and formats them for templates.
+  - Returns theme, bodyClasses, noteIconsSettings, timestampSettings
+  - Supports `D_G_CREATED_DATE` and `D_G_UPDATED_DATE` for custom timestamp field names
+
 - **dynamics.js**: Dynamically discovers and loads user components from `components/user/` and user styles from `styles/user/`. Organizes by namespace and slot.
-- **eleventyComputed.js**: Computed properties available in templates
+
+- **notes.11tydata.js**: Per-note settings processing.
+  - Supports all settings in `ALL_NOTE_SETTINGS` from constants.js
+  - Settings precedence: note frontmatter > global env var
+  - Settings include: dgHomeLink, dgPassFrontmatter, dgShowBacklinks, dgShowLocalGraph, dgShowInlineTitle, dgShowFileTree, dgEnableSearch, dgShowToc, dgLinkPreview, dgShowTags, dgNoteIcon, dgCreatedDate, dgUpdatedDate
 
 ### Markdown Processing (.eleventy.js)
 
@@ -104,15 +107,14 @@ The markdown pipeline uses markdown-it with these plugins:
 - `markdown-it-plantuml`: PlantUML diagrams in ` ```plantuml ` blocks
 - **namedHeadingsFilter** (from utils.js): Custom plugin for generating valid heading IDs
 - **tikzPlugin**: Custom TikZ LaTeX diagram rendering (` ```tikz `) - requires LaTeX installation (dvisvgm)
-- **Custom Mermaid plugin**: ` ```mermaid ` block support (renders as `<pre class="mermaid">`)
+- **Custom Mermaid plugin**: ` ```mermaid ` block support
 - **Custom Transclusion plugin**: ` ```transclusion ` blocks (renders nested markdown)
-- **Custom ad-* blocks**: Advanced callout blocks with ` ```ad-type ` syntax (supports title, icon, collapse, color metadata)
+- **Custom ad-* blocks**: Advanced callout blocks with ` ```ad-type ` syntax
 - **Custom link renderer**: External links automatically get `target="_blank"` and `external-link` class
-- **`[[wiki-link]]` syntax**: Internal Obsidian-style links are converted to HTML anchors
 
 ### Eleventy Filters
 
-- **isoDate**: Formats dates to ISO strings
+- **isoDate**: Formats dates to ISO strings (with null check)
 - **dateToZulu**: Formats dates to Zulu-8601 format
 - **link**: Converts `[[wiki-links]]` to proper HTML anchors
 - **taggify**: Converts `#tags` to clickable search links
@@ -124,7 +126,7 @@ The markdown pipeline uses markdown-it with these plugins:
 ### Eleventy Transforms
 
 - **dataview-js-links**: Process Dataview plugin links with `data-href` attributes
-- **callout-block**: Transforms `> [!type]` blockquotes (and ` ```ad-type ` blocks) to callout components with collapsible support
+- **callout-block**: Transforms `> [!type]` blockquotes and ` ```ad-type ` blocks to callout components
 - **picture**: Image optimization with responsive source sets (webp/jpeg) unless `USE_FULL_RESOLUTION_IMAGES=true`
 - **table**: Wraps tables in scrollable container, adds Dataview table classes
 - **htmlMinifier**: HTML minification for production (in `ELEVENTY_ENV=prod` mode)
@@ -154,9 +156,7 @@ This file exports two functions for extending the build without modifying core c
 
 ### User Components (Extensibility)
 
-The `dynamics.js` data file automatically discovers and loads user components:
-
-**Component paths**: `src/site/_includes/components/user/{namespace}/{slot}/{name}.njk`
+Create components in `src/site/_includes/components/user/{namespace}/{slot}/{name}.njk` to extend the site.
 
 **Namespaces**:
 - `index`: Components included on index page
@@ -176,8 +176,6 @@ User styles in `src/site/styles/user/*.scss` are automatically compiled and incl
 
 ### Configuration (.env)
 
-All environment variables:
-
 **Site Metadata**:
 - `SITE_NAME_HEADER`: Site name displayed in header
 - `SITE_BASE_URL`: Base URL for canonical links and RSS
@@ -195,6 +193,9 @@ All environment variables:
 - `NOTE_ICON_FILETREE`: Show note icon in file tree (true/false)
 - `NOTE_ICON_INTERNAL_LINKS`: Show note icon in links (true/false)
 - `NOTE_ICON_BACK_LINKS`: Show note icon in backlinks (true/false)
+- `dgNoteIcon`: Per-note icon setting (frontmatter)
+- `dgCreatedDate`: Per-note created date field name (default: "created")
+- `dgUpdatedDate`: Per-note updated date field name (default: "updated")
 
 **Timestamps**:
 - `SHOW_CREATED_TIMESTAMP`: Show note creation date (true/false)
@@ -216,30 +217,6 @@ All environment variables:
 - `dgLinkPreview`: Enable link hover preview
 - `dgShowTags`: Show tags
 
-### Tricky Parts & Edge Cases
-
-**TikZ Diagram Rendering**:
-- Requires LaTeX installation (dvisvgm, pgf, tikz)
-- Docker image includes TinyTeX with required packages
-- Errors are caught and displayed in console; renders error div in HTML
-- Uses temporary directory for LaTeX compilation
-- SVG output saved to `dist/img/tikz/`
-
-**Dead Links**:
-- Internal links to non-existent notes are redirected to `/404` with `is-unresolved` class
-- Link resolution tries both `.md` extension and bare filename
-
-**Callout Edge Cases**:
-- Callouts with only a title have empty `callout-content` div (hacky fix for `<p>` tag)
-- Both `> [!type]` blockquotes and ` ```ad-type ` code blocks are supported
-- Collapse syntax: `+` for collapsible open, `-` for collapsible collapsed
-
-**Image Optimization**:
-- Can be disabled with `USE_FULL_RESOLUTION_IMAGES=true`
-- Generates responsive source sets: 480px and 1024px variants
-- Formats: webp (preferred) and jpeg (fallback)
-- Fault-tolerant: fails silently if image processing fails
-
 ### Docker Configuration
 
 **Multi-stage build**:
@@ -251,6 +228,7 @@ All environment variables:
 - Sets `NODE_ENV=production`
 - Exposes port 8080
 - Runs `node app.js` (Express server)
+- **Health check**: Verifies application is running
 
 **docker-compose.yml**:
 - Image: `obsidian-digital-garden:latest`
@@ -263,11 +241,41 @@ All environment variables:
 - Serves static files from `dist/` directory
 - Provides `/api/search` endpoint for client-side search
 - All unmatched routes redirect to `/404`
-- Listens on port 8080
+- Supports `PORT` environment variable (default: 8080)
 
 ### Obsidian Integration
 
 - Notes should be written in `src/site/notes/`
 - Use Obsidian Digital Garden plugin to publish notes to this repository
-- Frontmatter supports: `title`, `permalink`, `tags`, `noteIcon`, `cssclass`, etc.
+- Frontmatter supports: title, permalink, tags, noteIcon, etc.
 - Garden entry point: `src/site/notes/README.md` with `tags: [gardenEntry]`
+
+### Per-Note Settings
+
+All settings defined in `src/helpers/constants.js` (ALL_NOTE_SETTINGS) are supported in note frontmatter with `dg` prefix. Settings precedence:
+1. Note frontmatter value
+2. Global environment variable (if set to "true")
+3. Default to false
+
+Available per-note settings:
+- dgNoteIcon: Custom note icon (overrides global NOTE_ICON_DEFAULT)
+- dgCreatedDate: Custom created date field name (default: "created")
+- dgUpdatedDate: Custom updated date field name (default: "updated")
+
+### Custom Timestamp Fields
+
+To use custom timestamp fields in frontmatter:
+
+```yaml
+---
+dgCreatedDate: "publishDate"  # Use 'publishDate' field instead of 'created'
+dgUpdatedDate: "lastModified"  # Use 'lastModified' field instead of 'updated'
+---
+```
+
+Or set global defaults in `.env`:
+
+```env
+D_G_CREATED_DATE="date"      # Default field name for created date
+D_G_UPDATED_DATE="modified"   # Default field name for updated date
+```
