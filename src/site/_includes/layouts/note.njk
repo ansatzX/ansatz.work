@@ -13,21 +13,25 @@ permalink: "notes/{{ page.fileSlug | slugify }}/"
       {% include imp %}
     {% endfor %}
   </head>
-  <body class="theme-{{meta.baseTheme}} markdown-preview-view markdown-rendered markdown-preview-section {{meta.bodyClasses}}">
-    {%include "components/notegrowthhistory.njk"%}
-    
-    {% if settings.dgShowFileTree !== true %}
-      {%include "components/navbar.njk"%}
-    {%else%}
-      {%include "components/filetree.njk"%}
-    {% endif %}
+  <body class="theme-{{meta.baseTheme}} {{meta.bodyClasses}}">
+    {% include "components/user/common/theme-switcher.njk" %}
+    {% include "components/notegrowthhistory.njk" %}
+    <div class="luxury-app-layout">
+      <aside class="luxury-sidebar-left">
 
-    {% if settings.dgEnableSearch === true %}
-      {%include "components/searchContainer.njk"%}
-    {% endif %}
+        {% if settings.dgShowFileTree !== true %}
+          {%include "components/navbar.njk"%}
+        {%else%}
+          {%include "components/filetree.njk"%}
+        {% endif %}
+      </aside>
 
-    <main class="content cm-s-obsidian {{contentClasses}}">
-      <header>
+      <main class="luxury-content-core cm-s-obsidian markdown-rendered theme-dark {{contentClasses}}">
+        {% if settings.dgEnableSearch === true %}
+          {%include "components/searchContainer.njk"%}
+        {% endif %}
+
+        <header>
         {% if settings.dgShowInlineTitle === true %}
           <h1 data-note-icon="{% if noteIcon %}{{noteIcon}}{% else %}{{meta.noteIconsSettings.default}}{% endif %}">{% if title %}{{ title }}{% else %}{{ page.fileSlug }}{% endif %}</h1>
         {% endif %}
@@ -74,16 +78,20 @@ permalink: "notes/{{ page.fileSlug | slugify }}/"
       {% for imp in dynamics.notes.afterContent %}
         {% include imp %}
       {% endfor %}
+
+      {% if settings.dgLinkPreview === true %}
+        {%include "components/linkPreview.njk"%}
+      {% endif %}
     </main>
 
-    {% if settings.dgShowBacklinks === true or settings.dgShowLocalGraph === true or settings.dgShowToc === true%}
-      {%include "components/sidebar.njk"%}
-    {% endif %}
+    <aside class="luxury-sidebar-right">
+      {% if settings.dgShowBacklinks === true or settings.dgShowLocalGraph === true or settings.dgShowToc === true%}
+        {%include "components/sidebar.njk"%}
+      {% endif %}
+    </aside>
+  </div>
 
-    {% if settings.dgLinkPreview === true %}
-      {%include "components/linkPreview.njk"%}
-    {% endif %}
-    {% include "components/references.njk" %}
+  {% include "components/references.njk" %}
     {% include "components/timestamps.njk" %}
     {% for imp in dynamics.common.footer %}
       {% include imp %}

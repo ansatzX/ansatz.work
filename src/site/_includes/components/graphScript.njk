@@ -68,8 +68,9 @@
         height = el.offsetHeight;
         const highlightNodes = new Set();
         let hoverNode = null;
-        const color = getCssVar("--graph-main");
-        const mutedColor = getCssVar("--graph-muted");
+        const color = "#0A84FF"; // Apple Accent Blue
+        const mutedColor = "rgba(255, 255, 255, 0.4)"; // Starlight white
+        const nodeGlow = "#FFFFFF";
         let Graph = ForceGraph()
         (el)
             .graphData(graphData)
@@ -85,33 +86,37 @@
             .autoPauseRedraw(false)
             .linkColor((link) => {
                 if (hoverNode == null) {
-                    return color;
+                    return "rgba(255, 255, 255, 0.15)";
                 }
                 if (link.source.id == hoverNode.id || link.target.id == hoverNode.id) {
                     return color;
                 } else {
                     return mutedColor;
                 }
-                
+
             })
             .nodeCanvasObject((node, ctx) => {
                 const numberOfNeighbours = (node.neighbors && node.neighbors.length) || 2;
                 const nodeR = Math.min(7, Math.max(numberOfNeighbours / 2, 2));
-                
+
                 ctx.beginPath();
                 ctx.arc(node.x, node.y, nodeR, 0, 2 * Math.PI, false);
                 if (hoverNode == null) {
-                    ctx.fillStyle = color;
+                    ctx.fillStyle = nodeGlow;
+                    ctx.shadowColor = 'rgba(255,255,255,0.8)';
+                    ctx.shadowBlur = 10;
                 } else {
                     if (node == hoverNode || highlightNodes.has(node.url)) {
                         ctx.fillStyle = color;
                     } else {
                         ctx.fillStyle = mutedColor;
                     }
+                    ctx.shadowBlur = 0;
                 }
-                 
+
                 ctx.fill();
-                
+                ctx.shadowBlur = 0;
+
                 if (node.current) {
                     ctx.beginPath();
                     ctx.arc(node.x, node.y, nodeR + 1, 0, 2 * Math.PI, false);

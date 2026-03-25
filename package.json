@@ -4,6 +4,8 @@
     "description": "",
     "main": "index.js",
     "scripts": {
+        "test": "jest",
+        "test:watch": "jest --watch --",
         "prebuild": "npx rimraf dist",
         "start": "npm-run-all get-theme build:sass --parallel watch:*",
         "watch:sass": "sass --watch src/site/styles:dist/styles",
@@ -12,7 +14,8 @@
         "build:sass": "sass src/site/styles:dist/styles --style compressed",
         "get-theme": "node src/site/get-theme.js",
         "build": "npm-run-all get-theme build:*",
-        "dev": "nodemon --watch src/site/notes --exec \"npm run start\" --legacy-watch"
+        "dev": "nodemon --watch src/site/notes --exec \"npm run start\" --legacy-watch",
+        "serve": "concurrently \"npm run dev\" \"node app.js\""
     },
     "keywords": [],
     "author": "",
@@ -20,11 +23,13 @@
     "devDependencies": {
         "@11ty/eleventy": "^2.0.1",
         "@11ty/eleventy-plugin-rss": "^1.2.0",
+        "concurrently": "^9.2.1",
         "cross-env": "^7.0.3",
         "html-minifier-terser": "^7.2.0",
+        "jest": "^30.3.0",
         "node-html-parser": "^6.1.13",
-        "sass": "^1.49.9",
-        "nodemon": "^3.0.0"
+        "nodemon": "^3.0.0",
+        "sass": "^1.49.9"
     },
     "dependencies": {
         "@11ty/eleventy-img": "^4.0.2",

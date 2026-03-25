@@ -1,0 +1,38 @@
+<div class="theme-switcher">
+    <button onclick="setTheme('')" title="Cupertino"></button>
+    <button onclick="setTheme('theme-studio')" title="Studio"></button>
+    <button onclick="setTheme('theme-ink')" title="Ink"></button>
+</div>
+
+<style>
+    .theme-switcher { position: fixed; top: 1rem; right: 1rem; display: flex; gap: 8px; z-index: 1000; }
+    .theme-switcher button { width: 16px; height: 16px; border-radius: 50%; border: 1px solid rgba(128,128,128,0.3); cursor: pointer; background: transparent; }
+    .theme-switcher button:hover { transform: scale(1.1); }
+</style>
+
+<script>
+    function setTheme(theme) {
+        // Core Fix: Strip Obsidian's default intrusive themes so our minimalist theme can breathe
+        document.body.classList.remove('theme-dark', 'theme-light', 'theme-studio', 'theme-ink');
+
+        // Apply the new theme
+        if (theme) {
+            document.body.classList.add(theme);
+        } else {
+            // Default to Cupertino style by not having studio/ink, but we must prevent Obsidian from falling back to dark
+            document.body.classList.add('theme-cupertino');
+        }
+        localStorage.setItem('site-theme', theme || 'theme-cupertino');
+    }
+
+    // Apply saved theme on load, overriding Obsidian defaults
+    document.addEventListener("DOMContentLoaded", () => {
+        const savedTheme = localStorage.getItem('site-theme');
+        if (savedTheme) {
+            setTheme(savedTheme === 'theme-cupertino' ? '' : savedTheme);
+        } else {
+            // Force default to our Cupertino on first load instead of Obsidian Dark
+            setTheme('');
+        }
+    });
+</script>

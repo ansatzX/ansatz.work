@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { globSync } } = require("glob");
+const { globSync } = require("glob");
 
 module.exports = async (data) => {
   let baseUrl = process.env.SITE_BASE_URL || "";
