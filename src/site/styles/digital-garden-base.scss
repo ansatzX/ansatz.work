@@ -85,24 +85,24 @@ ul.task-list {
         }
     }
     .graph-fs {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        height: calc(100vmin - 100px);
-        width: calc(100vmin - 100px);
-        min-height: 350px;
-        min-width: 350px;
-        transform: translate(-50%, -50%);
-        z-index: 9999;
-        display: block;
-        background-color: var(--background-secondary);
-        border: 1px solid var(--text-accent);
-        border-radius: 5px;
-        padding-top: 5px;
+        position: fixed !important;
+        top: 50% !important;
+        left: 50% !important;
+        height: calc(100vmin - 100px) !important;
+        width: calc(100vmin - 100px) !important;
+        min-height: 350px !important;
+        min-width: 350px !important;
+        transform: translate(-50%, -50%) !important;
+        z-index: 99999 !important;
+        display: block !important;
+        background-color: var(--background-secondary) !important;
+        border: 1px solid var(--text-accent) !important;
+        border-radius: 5px !important;
+        padding-top: 5px !important;
 
         #link-graph {
-            width: 100%;
-            height: 100%;
+            width: 100% !important;
+            height: 100% !important;
         }
 
         #graph-controls {
