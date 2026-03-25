@@ -1,0 +1,53 @@
+[  392938ms] [WARNING] [Lucide] Some icons were found with the now deprecated icon-name attribute. These will still be replaced for backwards compatibility, but will no longer be supported in v1.0 and you should switch to data-lucide @ https://fastly.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js:7
+[  392965ms] [WARNING] Alpine Expression Error: directiveName is not defined
+
+Expression: "{isOpen: $persist(false).as('blogs')}"
+
+ JSHandle@node @ https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:0
+[  392965ms] [WARNING] Alpine Expression Error: directiveName is not defined
+
+Expression: "{isOpen: $persist(false).as('slides')}"
+
+ JSHandle@node @ https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:0
+[  392968ms] Uncaught ReferenceError: directiveName is not defined
+    at <anonymous> (https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:4:24462)
+    at get (https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:0:4814)
+    at get (https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:0:3573)
+    at eval (:2:56)
+    at <anonymous> (https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:4:987)
+    at Qt (https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:0:4877)
+    at P (https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:4:127)
+    at <anonymous> (https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:4:31542)
+    at <anonymous> (https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:4:10993)
+    at r (https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:4:2188)
+    at n (https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:4:2218)
+    at sr (https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:4:2228)
+    at E (https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:4:4864)
+    at <anonymous> (https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:4:4345)
+    at ur (https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:4:4333)
+    at <anonymous> (https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:4:36292)
+[  392968ms] Uncaught ReferenceError: directiveName is not defined
+    at <anonymous> (https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:4:24462)
+    at get (https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:0:4814)
+    at get (https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:0:3573)
+    at eval (:2:56)
+    at <anonymous> (https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:4:987)
+    at Qt (https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:0:4877)
+    at P (https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:4:127)
+    at <anonymous> (https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:4:31542)
+    at <anonymous> (https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:4:10993)
+    at r (https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:4:2188)
+    at n (https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:4:2218)
+    at sr (https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:4:2228)
+    at E (https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:4:4864)
+    at <anonymous> (https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:4:4345)
+    at ur (https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:4:4333)
+    at <anonymous> (https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:4:36292)
+[  395333ms] [ERROR] Failed to load resource: the server responded with a status of 403 () @ https://giscus.app/api/discussions?repo=dangehub%2Fqlog&term=README&category=Announcements&number=0&strict=true&first=15:0
+[  395334ms] [ERROR] Failed to load resource: the server responded with a status of 403 () @ https://giscus.app/api/discussions?repo=dangehub%2Fqlog&term=README&category=Announcements&number=0&strict=true&last=15:0
+[  395335ms] [ERROR] [giscus] An error occurred. Error message: "giscus is not installed on this repository". Please consider reporting this error at https://github.com/giscus/giscus/issues/new. @ https://giscus.app/client.js:6
+[  412041ms] [WARNING] [Lucide] Some icons were found with the now deprecated icon-name attribute. These will still be replaced for backwards compatibility, but will no longer be supported in v1.0 and you should switch to data-lucide @ https://fastly.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js:7
+[  413356ms] [ERROR] Failed to load resource: the server responded with a status of 403 () @ https://giscus.app/api/discussions?repo=dangehub%2Fqlog&term=README&category=Announcements&number=0&strict=true&last=15:0
+[  413360ms] [ERROR] Failed to load resource: the server responded with a status of 403 () @ https://giscus.app/api/discussions?repo=dangehub%2Fqlog&term=README&category=Announcements&number=0&strict=true&first=15:0
+[  413360ms] [ERROR] [giscus] An error occurred. Error message: "giscus is not installed on this repository". Please consider reporting this error at https://github.com/giscus/giscus/issues/new. @ https://giscus.app/client.js:6
+[  413376ms] [ERROR] [giscus] An error occurred. Error message: "giscus is not installed on this repository". Please consider reporting this error at https://github.com/giscus/giscus/issues/new. @ https://giscus.app/client.js:6

@@ -7,6 +7,9 @@
     "scripts": {
         "test": "jest",
         "test:watch": "jest --watch --",
+        "test:playwright": "playwright test",
+        "test:sitemap": "playwright test tests/sitemap.spec.js",
+        "validate:sitemap": "node scripts/validate-sitemap.js",
         "prebuild": "npx rimraf dist",
         "start": "npm-run-all get-theme build:sass --parallel watch:*",
         "watch:sass": "sass --watch src/site/styles:dist/styles",
@@ -24,6 +27,7 @@
     "devDependencies": {
         "@11ty/eleventy": "^3.1.5",
         "@11ty/eleventy-plugin-rss": "^3.0.0",
+        "@playwright/test": "^1.58.2",
         "concurrently": "^9.2.1",
         "cross-env": "^10.1.0",
         "html-minifier-terser": "^7.2.0",
