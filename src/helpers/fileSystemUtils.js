@@ -1,9 +1,9 @@
-const fs = require("fs");
+import fs from "fs";
 
 const fileCache = new Map(); // path -> string (file content)
 const existenceCache = new Map(); // path -> boolean
 
-function memoizedReadFile(fullPath) {
+export function memoizedReadFile(fullPath) {
   if (fileCache.has(fullPath)) return fileCache.get(fullPath);
   try {
     const content = fs.readFileSync(fullPath, "utf8");
@@ -19,11 +19,9 @@ function memoizedReadFile(fullPath) {
   }
 }
 
-function exists(fullPath) {
+export function exists(fullPath) {
   if (existenceCache.has(fullPath)) return existenceCache.get(fullPath);
   const result = fs.existsSync(fullPath);
   existenceCache.set(fullPath, result);
   return result;
 }
-
-module.exports = { memoizedReadFile, exists };

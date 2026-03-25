@@ -1,15 +1,15 @@
-const faviconsPlugin = require("eleventy-plugin-gen-favicons");
-const tocPlugin = require("eleventy-plugin-nesting-toc");
-const pluginRss = require("@11ty/eleventy-plugin-rss");
+import faviconsPlugin from "eleventy-plugin-gen-favicons";
+import tocPlugin from "eleventy-plugin-nesting-toc";
+import pluginRss from "@11ty/eleventy-plugin-rss";
 
-const buildFilters = require("./src/helpers/eleventy-filters");
-const buildTransforms = require("./src/helpers/eleventy-transforms");
-const { getAnchorAttributes, getAnchorLink } = require("./src/helpers/getAnchorAttributes");
-const { userEleventySetup } = require("./src/helpers/userSetup");
-const { createMarkdownIt, tagRegex } = require("./src/helpers/markdown-plugins");
+import buildFilters from "./src/helpers/eleventy-filters.js";
+import buildTransforms from "./src/helpers/eleventy-transforms.js";
+import { getAnchorAttributes, getAnchorLink } from "./src/helpers/getAnchorAttributes.js";
+import { userEleventySetup } from "./src/helpers/userSetup.js";
+import { createMarkdownIt, tagRegex } from "./src/helpers/markdown-plugins.js";
 
 
-module.exports = function (eleventyConfig) {
+export default function (eleventyConfig) {
   console.log("[11ty] Starting Eleventy configuration...");
 
   eleventyConfig.on('eleventy.before', async ({ dir, runMode, outputMode }) => {

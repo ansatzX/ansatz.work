@@ -1,10 +1,6 @@
 const wikiLinkRegex = /\[\[(.*?\|.*?)\]\]/g;
 const internalLinkRegex = /href="\/(.*?)"/g;
 
-function caselessCompare(a, b) {
-  return a.toLowerCase() === b.toLowerCase();
-}
-
 function extractLinks(content) {
   return [
     ...(content.match(wikiLinkRegex) || []).map(
@@ -30,18 +26,31 @@ function extractLinks(content) {
   ];
 }
 
-function getGraph(data) {
+async function getGraph(data) {
   let nodes = {};
   let links = [];
   let stemURLs = {};
   let homeAlias = "/";
-  (data.collections.note || []).forEach((v, idx) => {
+  const notes = data.collections.note || [];
+
+  // Process all notes in parallel for Eleventy v3 async template reading
+  await Promise.all(notes.map(async (v, idx) => {
     let fpath = v.filePathStem.replace("/notes/", "");
     let parts = fpath.split("/");
     let group = "none";
     if (parts.length >= 3) {
       group = parts[parts.length - 2];
     }
+
+    // Use async read() method for Eleventy v3
+    let content = '';
+    try {
+      const templateContent = await v.template.read(v.inputPath);
+      content = templateContent.frontMatter?.content || '';
+    } catch (e) {
+      console.error(`Error reading template ${v.inputPath}:`, e);
+    }
+
     nodes[v.url] = {
       id: idx,
       title: v.data.title || v.fileSlug,
@@ -51,7 +60,7 @@ function getGraph(data) {
         v.data["dg-home"] ||
         (v.data.tags && v.data.tags.indexOf("gardenEntry") > -1) ||
         false,
-      outBound: extractLinks(v.template.frontMatter.content),
+      outBound: extractLinks(content),
       neighbors: new Set(),
       backLinks: new Set(),
       noteIcon: v.data.noteIcon || process.env.NOTE_ICON_DEFAULT,
@@ -64,7 +73,7 @@ function getGraph(data) {
     ) {
       homeAlias = v.url;
     }
-  });
+  }));
   Object.values(nodes).forEach((node) => {
     let outBound = new Set();
     node.outBound.forEach((olink) => {
@@ -94,7 +103,4 @@ function getGraph(data) {
   };
 }
 
-exports.wikiLinkRegex = wikiLinkRegex;
-exports.internalLinkRegex = internalLinkRegex;
-exports.extractLinks = extractLinks;
-exports.getGraph = getGraph;
+export { wikiLinkRegex, internalLinkRegex, extractLinks, getGraph };

@@ -1,28 +1,35 @@
-const markdownIt = require("markdown-it");
-const { headerToId } = require("./utils");
-const { userMarkdownSetup } = require("./userSetup");
+import markdownIt from "markdown-it";
+import markdownItAnchor from "markdown-it-anchor";
+import markdownItMark from "markdown-it-mark";
+import markdownItFootnote from "markdown-it-footnote";
+import markdownItMathjax3 from "markdown-it-mathjax3";
+import markdownItAttrs from "markdown-it-attrs";
+import markdownItTaskCheckbox from "markdown-it-task-checkbox";
+import markdownItPlantuml from "markdown-it-plantuml";
 
-const tikzPlugin = require("./tikz-plugin");
+import { headerToId, namedHeadingsFilter } from "./utils.js";
+import { userMarkdownSetup } from "./userSetup.js";
+import tikzPlugin from "./tikz-plugin.js";
 
-const tagRegex = /(^|\s|>)(#[^\s!@#$%^&*()=+\.,\[{\]};:'"?><]+)(?![^<]*>)/g;
+export const tagRegex = /(^|\s|>)(#[^\s!@#$%^&*()=+\.,\[{\]};:'"?><]+)(?![^<]*>)/g;
 
-function createMarkdownIt() {
+export function createMarkdownIt() {
   let markdownLib = markdownIt({
     breaks: true,
     html: true,
     linkify: true,
   })
-    .use(require("markdown-it-anchor"), {
+    .use(markdownItAnchor, {
       slugify: headerToId,
     })
-    .use(require("markdown-it-mark"))
-    .use(require("markdown-it-footnote"))
+    .use(markdownItMark)
+    .use(markdownItFootnote)
     .use(function (md) {
       md.renderer.rules.hashtag_open = function (tokens, idx) {
         return '<a class="tag" onclick="toggleTagSearch(this)">';
       };
     })
-    .use(require("markdown-it-mathjax3"), {
+    .use(markdownItMathjax3, {
       tex: {
         inlineMath: [["$", "$"]],
         displayMath: [["$", "$"]],
@@ -31,8 +38,8 @@ function createMarkdownIt() {
         skipHtmlTags: { "[-]": ["pre"] },
       },
     })
-    .use(require("markdown-it-attrs"))
-    .use(require("markdown-it-task-checkbox"), {
+    .use(markdownItAttrs)
+    .use(markdownItTaskCheckbox, {
       disabled: true,
       divWrap: false,
       divClass: "checkbox",
@@ -40,11 +47,11 @@ function createMarkdownIt() {
       ulClass: "task-list",
       liClass: "task-list-item",
     })
-    .use(require("markdown-it-plantuml"), {
+    .use(markdownItPlantuml, {
       openMarker: "```plantuml",
       closeMarker: "```",
     })
-    .use(require("./utils").namedHeadingsFilter)
+    .use(namedHeadingsFilter)
     .use(tikzPlugin, { outputDir: "./dist/img/tikz" })
     .use(function (md) {
       // https://github.com/DCsunset/markdown-it-mermaid-plugin
@@ -182,5 +189,3 @@ function createMarkdownIt() {
 
   return markdownLib;
 }
-
-module.exports = { createMarkdownIt, tagRegex };

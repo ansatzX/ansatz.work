@@ -1,7 +1,10 @@
-require("dotenv").config();
-const { globSync } = require("glob");
+import dotenv from "dotenv";
+import { globSync } from "glob";
 
-module.exports = async (data) => {
+// Load environment variables
+dotenv.config();
+
+export default async (data) => {
   let baseUrl = process.env.SITE_BASE_URL || "";
   if (baseUrl && !baseUrl.startsWith("http")) {
     baseUrl = "https://" + baseUrl;

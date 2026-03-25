@@ -1,8 +1,8 @@
-const express = require('express')
-const app = express()
+import express from 'express';
+const app = express();
 const port = process.env.PORT || 8080;
 
-// 注释：搜索功能已在前端实现（searchScript.njk），此处保留接口以保持兼容性
+// 注释：搜索功能已在前端实现，此处保留接口以保持兼容性
 // 如果需要服务端搜索，可以在此实现 searchHandler 函数
 async function searchHandler(event) {
   return {
@@ -21,14 +21,14 @@ app.get('/api/search', async (req, res) => {
     console.error('Search error:', error);
     res.status(500).json({ error: 'Search failed' });
   }
-})
+});
 
-app.use(express.static('dist'))
+app.use(express.static('dist'));
 
 app.get('*', (req, res) => {
-  res.redirect('/404')
-})
+  res.redirect('/404');
+});
 
 app.listen(port, () => {
-  console.log(`Digital garden running on port ${port}`)
-})
+  console.log(`Digital garden running on port ${port}`);
+});

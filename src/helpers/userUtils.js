@@ -13,8 +13,6 @@
  *   customSetting: process.env.MY_CUSTOM_SETTING
  * };
  */
-function userComputed(data) {
+export function userComputed(data) {
   return {};
 }
-
-exports.userComputed = userComputed;

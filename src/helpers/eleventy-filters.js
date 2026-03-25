@@ -1,7 +1,7 @@
-const { tagRegex } = require("./markdown-plugins");
-const { getAnchorLink } = require("./getAnchorAttributes");
+import { tagRegex } from "./markdown-plugins.js";
+import { getAnchorLink } from "./getAnchorAttributes.js";
 
-function buildFilters(eleventyConfig) {
+export default function buildFilters(eleventyConfig) {
   eleventyConfig.addFilter("isoDate", function (date) {
     if (!date || !date.toISOString) return "";
     return date.toISOString();
@@ -76,5 +76,3 @@ function buildFilters(eleventyConfig) {
     return variable;
   });
 }
-
-module.exports = buildFilters;

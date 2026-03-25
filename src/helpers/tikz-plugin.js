@@ -1,10 +1,11 @@
-const { exec } = require("child_process");
-const { promisify } = require("util");
+import { exec } from "child_process";
+import { promisify } from "util";
+import fs from "fs";
+import path from "path";
+import temp from "tmp";
+import slugify from "@sindresorhus/slugify";
+
 const execAsync = promisify(exec);
-const fs = require("fs");
-const path = require("path");
-const temp = require("tmp");
-const slugify = require("@sindresorhus/slugify");
 
 /**
  * markdown-it plugin for rendering TikZ diagrams.
@@ -15,7 +16,7 @@ const slugify = require("@sindresorhus/slugify");
  * @param {string} [options.outputDir='./dist/img/tikz'] - Directory to write SVG files
  * @param {string} [options.texOptions='-shell-escape -halt-on-error -interaction=nonstopmode'] - LaTeX flags
  */
-function tikzPlugin(md, options) {
+export default function tikzPlugin(md, options) {
   const defaultOptions = {
     outputDir: "./dist/img/tikz",
     texOptions: "-shell-escape -halt-on-error -interaction=nonstopmode",
@@ -88,5 +89,3 @@ ${tikzCode}
     }
   };
 }
-
-module.exports = tikzPlugin;

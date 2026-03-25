@@ -1,8 +1,8 @@
-const matter = require("gray-matter");
-const path = require("path");
-const slugify = require("@sindresorhus/slugify");
-const { headerToId } = require("./utils");
-const { memoizedReadFile } = require("./fileSystemUtils");
+import matter from "gray-matter";
+import path from "path";
+import slugify from "@sindresorhus/slugify";
+import { headerToId } from "./utils.js";
+import { memoizedReadFile, exists } from "./fileSystemUtils.js";
 
 class LinkResolutionError extends Error {
   constructor(message, filePath, cause) {
@@ -25,14 +25,14 @@ function resolveFilePath(cleanPath) {
   for (const dir of NOTES_DIRS) {
     const withExt = cleanPath.endsWith(".md") ? cleanPath : `${cleanPath}.md`;
     const fullPath = path.join(dir, withExt);
-    if (require("./fileSystemUtils").exists(fullPath)) return fullPath;
+    if (exists(fullPath)) return fullPath;
   }
   // Fall back to production path for cache key
   const withExt = cleanPath.endsWith(".md") ? cleanPath : `${cleanPath}.md`;
   return path.join(NOTES_DIRS[NOTES_DIRS.length - 1], withExt);
 }
 
-function getCachedFrontMatter(fullPath) {
+export function getCachedFrontMatter(fullPath) {
   if (frontMatterCache.has(fullPath)) return frontMatterCache.get(fullPath);
 
   const content = memoizedReadFile(fullPath);
@@ -48,7 +48,7 @@ function getCachedFrontMatter(fullPath) {
   return result;
 }
 
-function getAnchorAttributes(filePath, linkTitle) {
+export function getAnchorAttributes(filePath, linkTitle) {
   let cleanPath = filePath.replaceAll("&amp;", "&");
   let headerLinkPath = "";
   if (cleanPath.includes("#")) {
@@ -88,9 +88,9 @@ function getAnchorAttributes(filePath, linkTitle) {
   };
 }
 
-function getAnchorLink(filePath, linkTitle) {
+export function getAnchorLink(filePath, linkTitle) {
   const { attributes, innerHTML } = getAnchorAttributes(filePath, linkTitle);
   return `<a ${Object.keys(attributes).map(key => `${key}="${attributes[key]}"`).join(" ")}>${innerHTML}</a>`;
 }
 
-module.exports = { getAnchorAttributes, getAnchorLink, getCachedFrontMatter, LinkResolutionError };
+export { LinkResolutionError };

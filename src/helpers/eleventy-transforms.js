@@ -1,8 +1,8 @@
-const { parse } = require("node-html-parser");
-const htmlMinifier = require("html-minifier-terser");
-const Image = require("@11ty/eleventy-img");
+import { parse } from "node-html-parser";
+import htmlMinifier from "html-minifier-terser";
+import Image from "@11ty/eleventy-img";
 
-const { getAnchorAttributes } = require("./getAnchorAttributes");
+import { getAnchorAttributes } from "./getAnchorAttributes.js";
 
 // Module-level cache: keyed by src, value is the resolved stats metadata.
 // Prevents duplicate image processing when the same image appears in multiple places.
@@ -27,7 +27,7 @@ async function transformImageAsync(src) {
   return imageStatsCache.get(src);
 }
 
-function buildTransforms(eleventyConfig) {
+export default function buildTransforms(eleventyConfig) {
 
   eleventyConfig.addTransform("dataview-js-links", function (str) {
     const parsed = parse(str);
@@ -220,5 +220,3 @@ function buildTransforms(eleventyConfig) {
   });
 
 }
-
-module.exports = buildTransforms;

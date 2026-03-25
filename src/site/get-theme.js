@@ -1,8 +1,11 @@
-require("dotenv").config();
-const axios = require("axios");
-const fs = require("fs");
-const crypto = require("crypto");
-const {globSync} = require("glob");
+import dotenv from "dotenv";
+import axios from "axios";
+import fs from "fs";
+import crypto from "crypto";
+import { globSync } from "glob";
+
+// Load environment variables
+dotenv.config();
 
 const themeCommentRegex = /\/\*[\s\S]*?\*\//g;
 
@@ -27,7 +30,9 @@ async function getTheme() {
       existing.forEach((file) => {
         fs.rmSync(file);
       });
-    } catch {}
+    } catch (error) {
+      // Ignore errors if no existing theme files to remove
+    }
     let skippedFirstComment = false;
     const data = res.data.replace(themeCommentRegex, (match) => {
       if (skippedFirstComment) {
