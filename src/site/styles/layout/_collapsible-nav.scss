@@ -1,0 +1,147 @@
+// ============================================================================
+// 可收起导航样式
+// ============================================================================
+
+.collapsible-nav {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 280px;
+  height: 100vh;
+  background-color: var(--color-bg-surface);
+  backdrop-filter: blur(10px);
+  border-right: 1px solid var(--color-border);
+  box-shadow: var(--shadow-lg);
+  z-index: var(--z-sticky);
+  transform: translateX(0);
+  transition: transform var(--transition-base);
+  overflow-y: auto;
+  padding: var(--spacing-lg);
+
+  &.collapsed {
+    transform: translateX(-100%);
+  }
+
+  .nav-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 1px solid var(--color-border);
+
+    .nav-title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-primary);
+    }
+
+    .nav-toggle {
+      padding: var(--spacing-sm);
+      cursor: pointer;
+      border-radius: var(--radius-sm);
+      transition: background-color var(--transition-fast);
+
+      &:hover {
+        background-color: var(--color-bg-overlay);
+      }
+
+      i {
+        color: var(--color-text-secondary);
+      }
+    }
+  }
+
+  .nav-content {
+    h3 {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-bold);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-text-secondary);
+      margin-top: var(--spacing-lg);
+      margin-bottom: var(--spacing-sm);
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        margin-bottom: var(--spacing-xs);
+
+        a {
+          display: block;
+          padding: var(--spacing-sm) var(--spacing-md);
+          border-radius: var(--radius-sm);
+          color: var(--color-text-primary);
+          font-size: var(--font-size-sm);
+          transition: all var(--transition-fast);
+
+          &:hover {
+            background-color: var(--color-bg-overlay);
+            color: var(--color-accent);
+            padding-left: var(--spacing-lg);
+          }
+
+          &.active {
+            background-color: var(--color-accent-light);
+            color: var(--color-accent);
+            font-weight: var(--font-weight-medium);
+          }
+        }
+      }
+    }
+  }
+}
+
+// 导航切换按钮（页面上的）
+.nav-toggle-button {
+  position: fixed;
+  left: var(--spacing-md);
+  top: var(--spacing-md);
+  z-index: var(--z-dropdown);
+  padding: var(--spacing-sm);
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-fast);
+
+  &:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-1px);
+  }
+
+  i {
+    color: var(--color-text-primary);
+    font-size: var(--font-size-lg);
+  }
+}
+
+// 页面内容区域需要留出导航的空间
+.app-layout.with-collapsible-nav {
+  margin-left: 280px;
+  transition: margin-left var(--transition-base);
+
+  &.nav-collapsed {
+    margin-left: 0;
+  }
+}
+
+// 响应式：移动端隐藏固定导航
+@media (max-width: 768px) {
+  .collapsible-nav {
+    display: none;
+  }
+
+  .app-layout.with-collapsible-nav {
+    margin-left: 0;
+  }
+
+  .nav-toggle-button {
+    display: block;
+  }
+}

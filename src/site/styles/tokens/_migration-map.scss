@@ -1,0 +1,24 @@
+// ============================================================================
+// 变量迁移映射表
+// 用于从旧变量系统迁移到新变量系统
+// ============================================================================
+
+// minimalist-theme.scss 变量 -> _variables.scss 变量
+$variable-migration-map: (
+  // 布局变量
+  '--sidebar-left-width': '--grid-column-left',
+  '--sidebar-right-width': '--grid-column-right',
+  '--content-max-width': '--grid-column-main',
+
+  // 颜色变量
+  '--color-bg-base': '--color-bg-primary',
+  '--color-bg-surface': '--color-bg-surface',
+  '--color-bg-nebula': '--color-bg-primary',
+
+  // 阴影变量
+  '--shadow-glass': '--shadow-glass',
+  '--shadow-element': '--shadow-md',
+);
+
+// 输出兼容性别名（已在 _variables.scss 中直接定义）
+// 此文件保留作为迁移参考和文档记录

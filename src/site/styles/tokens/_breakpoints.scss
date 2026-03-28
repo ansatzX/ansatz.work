@@ -1,0 +1,59 @@
+// ============================================================================
+// 响应式断点系统
+// ============================================================================
+
+// 断点定义
+$breakpoints: (
+  'sm': 640px,
+  'md': 768px,
+  'lg': 1024px,
+  'xl': 1280px,
+  '2xl': 1536px,
+  '3xl': 1920px
+);
+
+// 媒体查询 Mixin
+@mixin respond-to($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media (min-width: map-get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  } @else {
+    @warn "Breakpoint '#{$breakpoint}' not found in $breakpoints";
+  }
+}
+
+@mixin respond-below($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media (max-width: map-get($breakpoints, $breakpoint) - 1px) {
+      @content;
+    }
+  } @else {
+    @warn "Breakpoint '#{$breakpoint}' not found in $breakpoints";
+  }
+}
+
+// 常用断点快捷方式
+@mixin mobile {
+  @include respond-below('md') {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @include respond-to('md') {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @include respond-to('lg') {
+    @content;
+  }
+}
+
+@mixin large-desktop {
+  @include respond-to('xl') {
+    @content;
+  }
+}

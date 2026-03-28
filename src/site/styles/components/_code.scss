@@ -1,0 +1,46 @@
+// ============================================================================
+// 代码块样式
+// ============================================================================
+
+// 内联代码
+code {
+  font-family: var(--font-family-mono);
+  font-size: 0.9em;
+  padding: 0.2em 0.4em;
+  background-color: var(--color-bg-overlay);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-primary);
+}
+
+// 代码块
+pre {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-sm);
+  padding: var(--spacing-md);
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+  margin-bottom: var(--spacing-md);
+  line-height: var(--line-height-base);
+
+  code {
+    padding: 0;
+    background: none;
+    border: none;
+    color: inherit;
+  }
+}
+
+// 代码高亮（可选）
+.highlight {
+  pre {
+    background-color: #f8f8f8;
+  }
+
+  .keyword { color: #0066cc; }
+  .string { color: #d14; }
+  .comment { color: #999; font-style: italic; }
+  .function { color: #990000; }
+  .number { color: #009999; }
+}

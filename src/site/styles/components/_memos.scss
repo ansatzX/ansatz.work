@@ -1,0 +1,117 @@
+// ============================================================================
+// Memos 组件样式
+// ============================================================================
+
+#giscus-container {
+  max-width: 50%;
+  width: 50%;
+  margin: 0 auto;
+  padding: var(--spacing-md);
+  box-sizing: border-box;
+}
+
+/* Memos 标题样式 */
+h2:has(+ .memos-container) {
+  color: var(--color-accent);
+  font-size: 1.8em;
+  margin-bottom: 1.5em;
+}
+
+/* Memos 容器样式 */
+.memos-container {
+  max-width: 800px;
+  margin: var(--spacing-xl) auto;
+  padding: 0 var(--spacing-lg);
+}
+
+/* Memo 卡片样式 */
+.memo {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+  }
+}
+
+/* Memo 头部样式 */
+.memo-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+}
+
+/* 时间戳样式 */
+.memo-time {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  background: var(--color-bg-primary);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  margin-right: var(--spacing-md);
+}
+
+/* 标签容器样式 */
+.memo-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}
+
+/* 标签样式 */
+.memo-tag {
+  display: inline-block;
+  background: var(--color-accent);
+  color: var(--color-text-inverse);
+  padding: 2px var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+  text-decoration: none;
+  transition: background-color var(--transition-fast);
+
+  &:hover {
+    background: var(--color-accent-hover);
+    text-decoration: none;
+  }
+}
+
+/* Memo 内容样式 */
+.memo-content {
+  line-height: var(--line-height-base);
+  color: var(--color-text-primary);
+  margin-top: var(--spacing-sm);
+}
+
+/* 深色模式适配 */
+[data-theme="dark"] .memo {
+  background: var(--color-bg-primary);
+}
+
+[data-theme="dark"] .memo-time {
+  background: var(--color-bg-secondary);
+}
+
+/* 移动设备适配 */
+@include respond-below('md') {
+  .memos-container {
+    padding: 0 var(--spacing-md);
+  }
+
+  .memo {
+    padding: var(--spacing-md);
+  }
+
+  .memo-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .memo-time {
+    margin-bottom: var(--spacing-xs);
+  }
+}
