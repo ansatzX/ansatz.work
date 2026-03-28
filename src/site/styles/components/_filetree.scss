@@ -125,9 +125,15 @@
 
 // ========== 文件列表 ==========
 .filelist {
-  margin-left: var(--spacing-md);
-  border-left: 1px solid var(--color-border);
+  margin-left: var(--spacing-lg);  // 增加缩进
   padding-left: var(--spacing-sm);
+  border-left: 1px solid var(--color-border);
+
+  // 多层嵌套时增加缩进
+  .filelist {
+    margin-left: var(--spacing-lg);  // 增加缩进
+    padding-left: var(--spacing-sm);
+  }
 }
 
 // ========== 文件名 ==========
