@@ -156,6 +156,10 @@
 
 // 全局图谱弹窗
 #full-graph {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: calc(100vw - 100px);
   height: calc(100vh - 100px);
   max-width: 1200px;
@@ -163,6 +167,10 @@
   border-radius: var(--radius-lg);
   border: 2px solid var(--color-accent);
   box-shadow: var(--shadow-xl);
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 10000;
 
   #full-graph-container {
     width: 100%;
@@ -170,10 +178,16 @@
   }
 
   #full-graph-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    z-index: 10001;
+
     i {
-      width: 20px;
-      height: 20px;
-      color: var(--color-text-primary);
+      width: 24px;
+      height: 24px;
+      color: white;
 
       &:hover {
         color: var(--color-accent);
