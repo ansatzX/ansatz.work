@@ -28,11 +28,13 @@
 .sidebar-left {
   grid-area: left;
 
+  // 占据全部高度
+  height: auto;
+  min-height: calc(100vh - var(--spacing-xl) * 2);
+
   // 关键：固定在左侧，跟随滚动
   position: sticky;
   top: var(--spacing-lg);
-  height: fit-content;
-  max-height: calc(100vh - var(--spacing-2xl));
 
   // 平滑过渡
   transition: all var(--transition-base);
