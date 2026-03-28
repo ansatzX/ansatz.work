@@ -53,6 +53,22 @@
 
   .search-icon {
     opacity: 0.6;
+    transition: all var(--transition-fast);
+
+    [icon-name="search"] {
+      width: 1.125rem;   // 18px
+      height: 1.125rem;
+      color: var(--color-text-secondary);
+      transition: color 0.2s ease;
+    }
+  }
+
+  &:hover .search-icon {
+    opacity: 1;
+
+    [icon-name="search"] {
+      color: var(--color-accent);
+    }
   }
 
   .search-text {
