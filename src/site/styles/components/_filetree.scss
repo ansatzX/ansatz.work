@@ -34,8 +34,9 @@
     margin-bottom: var(--spacing-lg);
   }
 
-  // 文件树容器占据剩余空间
+  // 文件树容器
   .folder {
+    width: 100%;
     flex: 1;
     overflow-y: auto;
   }
