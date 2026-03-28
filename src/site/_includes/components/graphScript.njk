@@ -68,9 +68,12 @@
         height = el.offsetHeight;
         const highlightNodes = new Set();
         let hoverNode = null;
-        const color = "#0A84FF"; // Apple Accent Blue
-        const mutedColor = "rgba(255, 255, 255, 0.4)"; // Starlight white
-        const nodeGlow = "#FFFFFF";
+
+        // 使用CSS变量替代硬编码颜色
+        const color = getCssVar("--color-graph-main").trim() || "#0066cc";
+        const mutedColor = getCssVar("--color-graph-muted").trim() || "#999999";
+        const linkColor = getCssVar("--color-graph-link").trim() || "rgba(0, 0, 0, 0.08)";
+
         let Graph = ForceGraph()
         (el)
             .graphData(graphData)
@@ -86,7 +89,7 @@
             .autoPauseRedraw(false)
             .linkColor((link) => {
                 if (hoverNode == null) {
-                    return "rgba(255, 255, 255, 0.15)";
+                    return linkColor;
                 }
                 if (link.source.id == hoverNode.id || link.target.id == hoverNode.id) {
                     return color;
@@ -101,21 +104,19 @@
 
                 ctx.beginPath();
                 ctx.arc(node.x, node.y, nodeR, 0, 2 * Math.PI, false);
+
+                // 简化节点渲染，移除glow效果
                 if (hoverNode == null) {
-                    ctx.fillStyle = nodeGlow;
-                    ctx.shadowColor = 'rgba(255,255,255,0.8)';
-                    ctx.shadowBlur = 10;
+                    ctx.fillStyle = color;
                 } else {
                     if (node == hoverNode || highlightNodes.has(node.url)) {
                         ctx.fillStyle = color;
                     } else {
                         ctx.fillStyle = mutedColor;
                     }
-                    ctx.shadowBlur = 0;
                 }
 
                 ctx.fill();
-                ctx.shadowBlur = 0;
 
                 if (node.current) {
                     ctx.beginPath();
@@ -143,7 +144,7 @@
                 node.neighbors.forEach(neighbor => highlightNodes.add(neighbor));
                 }
                 hoverNode = node || null;
-                
+
             });
             if (fullScreen || (delay != null && graphData.nodes.length > 4)) {
                 setTimeout(() => {
