@@ -66,23 +66,22 @@
         {% include imp %}
       {% endfor %}
 
-      {% for imp in dynamics.index.footer %}
-        {% include imp %}
-      {% endfor %}
-
       {% if settings.dgLinkPreview === true %}
         {% include "components/linkPreview.njk" %}
       {% endif %}
     </main>
 
-    {% if settings.dgShowBacklinks === true or settings.dgShowLocalGraph === true or settings.dgShowToc === true %}
-      <aside class="sidebar-right">
+    <aside class="sidebar sidebar-right">
+      {% if settings.dgShowBacklinks === true or settings.dgShowLocalGraph === true or settings.dgShowToc === true %}
         {% include "components/sidebar.njk" %}
-      </aside>
-    {% endif %}
+      {% endif %}
+    </aside>
   </div>
 
   {% for imp in dynamics.common.footer %}
+    {% include imp %}
+  {% endfor %}
+  {% for imp in dynamics.index.footer %}
     {% include imp %}
   {% endfor %}
   {% include "components/lucideIcons.njk" %}

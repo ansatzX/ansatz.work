@@ -1,0 +1,17 @@
+[     116ms] [ERROR] Refused to apply style from 'http://localhost:8080/styles/user/minimalist-theme.css.bak' because its MIME type ('text/html') is not a supported stylesheet MIME type, and strict MIME checking is enabled. @ http://localhost:8080/:0
+[     904ms] ReferenceError: lucide is not defined
+    at http://localhost:8080/:1454:1
+[    2227ms] [WARNING] Alpine Expression Error: Cannot set properties of undefined (setting 'innerHTML')
+
+Expression: "window.graph = renderLocalGraph(graphData, depth, fullScreen)"
+
+ JSHandle@node @ https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:0
+[    2247ms] Uncaught TypeError: Cannot set properties of undefined (setting 'innerHTML')
+    at init (https://fastly.jsdelivr.net/npm/force-graph@1.43.0/dist/force-graph.min.js:4:72545)
+    at o (https://fastly.jsdelivr.net/npm/force-graph@1.43.0/dist/force-graph.min.js:1:68021)
+    at i (https://fastly.jsdelivr.net/npm/force-graph@1.43.0/dist/force-graph.min.js:1:67986)
+    at Ae (https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:4:1200)
+    at <anonymous> (https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:4:1025)
+    at Qt (https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:0:4877)
+    at r (https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:4:16816)
+    at _n (https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:0:257)

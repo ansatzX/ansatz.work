@@ -1,0 +1,508 @@
+:root {
+    /* Smartisan/Apple Pro Typography - Extreme precision, geometric, solid */
+    --font-family-sans: "SF Pro Display", -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", "Microsoft YaHei", sans-serif;
+
+    /* Layout Constants - Fully Dynamic */
+    --sidebar-left-width: 1fr;
+    --sidebar-right-width: 1fr;
+    --content-max-width: 2.5fr;
+
+    /* Theme: Clean Light (White background, Black text) */
+    --color-bg-base: #ffffff;
+    --color-bg-surface: rgba(240, 240, 240, 0.8); /* Light frosted glass */
+    --color-bg-nebula: radial-gradient(circle at 80% 20%, rgba(230, 240, 255, 0.4), transparent 40%),
+                       radial-gradient(circle at 20% 80%, rgba(240, 240, 250, 0.3), transparent 40%),
+                       #ffffff;
+
+    --color-text-primary: #1a1a1a;
+    --color-text-secondary: #6b6b6b;
+    --color-border: rgba(0, 0, 0, 0.08);
+    --color-accent: #0066cc;
+
+    /* Luxury Shadows & Glows - Light theme */
+    --shadow-glass: 0 20px 40px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    --shadow-element: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* ========================================================================
+   1.5. LUXURY APP SHELL (Grid Architecture)
+   ======================================================================== */
+.luxury-app-layout,
+.app-layout {
+    display: grid;
+    grid-template-columns: 0.8fr 3.5fr 0.8fr;
+    grid-template-areas: "left main right";
+    gap: 1.5rem;
+    min-height: 100vh;
+    height: auto;
+    overflow-y: auto;
+    padding: 1.5rem 2vw;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100vw;
+}
+
+.luxury-sidebar-left,
+.sidebar-left {
+    grid-area: left;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.luxury-content-core,
+.content-main {
+    grid-area: main;
+    width: 100%;
+    padding: 2.5rem 2rem !important;
+    background: transparent !important;
+    min-height: 100vh;
+    height: auto;
+    overflow-y: auto;
+}
+
+.luxury-sidebar-right,
+.sidebar-right {
+    grid-area: right;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Responsive Behavior */
+@media (max-width: 1600px) {
+    .luxury-app-layout,
+    .app-layout {
+        grid-template-columns: 0.8fr 3.5fr 0.8fr;
+    }
+}
+
+@media (max-width: 1400px) {
+    .luxury-sidebar-left,
+    .sidebar-left { display: none; }
+    .luxury-app-layout,
+    .app-layout {
+        grid-template-columns: 1fr 0.9fr;
+        grid-template-areas: "main right";
+    }
+}
+
+@media (max-width: 1100px) {
+    .luxury-app-layout,
+    .app-layout {
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+    }
+    .luxury-sidebar-left, .luxury-sidebar-right,
+    .sidebar-left, .sidebar-right {
+        width: 100%;
+        max-width: 100%;
+    }
+    .luxury-content-core,
+    .content-main {
+        padding: 2rem 1.5rem !important;
+    }
+}
+
+/* ========================================================================
+   1. GLOBAL ARCHITECTURE & BACKGROUND
+   ======================================================================== */
+html, body {
+    background: var(--color-bg-nebula);
+    background-color: var(--color-bg-base);
+    color: var(--color-text-primary);
+    font-family: var(--font-family-sans);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    height: auto;
+    overflow-y: auto;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: 0.01em;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* ========================================================================
+   2. THE LUXURY GLASS PANELS (Sidebars)
+   ======================================================================== */
+
+/* Reset Obsidian's destructive layout locks */
+body[class*="theme-"] nav.filetree-sidebar,
+body[class*="theme-"] aside .sidebar,
+body[class*="theme-"] aside .sidebar-container,
+body[class*="theme-"] .backlinks,
+body[class*="theme-"] .toc,
+body[class*="theme-"] .file-tree {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+}
+
+/* --- Left Nav (The Catalog) --- */
+.luxury-sidebar-left nav.filetree-sidebar {
+    width: var(--sidebar-left-width) !important;
+    height: auto !important;
+
+    /* Vision Pro Glass */
+    background: var(--color-bg-surface) !important;
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    border: 1px solid var(--color-border) !important;
+    border-radius: 20px !important;
+    box-shadow: var(--shadow-glass) !important;
+
+    overflow-y: auto;
+    overflow-x: hidden; /* FIX OVERFLOW */
+    z-index: 100;
+    padding: 2rem 1.5rem !important;
+    display: block !important;
+    box-sizing: border-box !important;
+}
+
+/* --- Right Panel (The Nebula Map) --- */
+.luxury-sidebar-right .sidebar,
+.sidebar-right .sidebar {
+    width: var(--sidebar-right-width) !important;
+    height: auto !important;
+
+    /* Glass Framing */
+    background: var(--color-bg-surface) !important;
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    border: 1px solid var(--color-border) !important;
+    border-radius: 20px !important;
+    box-shadow: var(--shadow-glass) !important;
+
+    overflow-y: auto;
+    overflow-x: hidden; /* FIX OVERFLOW */
+    z-index: 100;
+    padding: 1.5rem !important;
+    display: flex !important;
+    flex-direction: column;
+    box-sizing: border-box !important;
+}
+
+/* ========================================================================
+   3. THE THEATER (Main Content)
+   ======================================================================== */
+.luxury-content-core,
+.content-main {
+    width: 100% !important;
+    flex: 1;
+    padding: 2.5rem 3rem !important;
+    max-width: var(--content-max-width);
+    background: #ffffff !important;
+    color: #1a1a1a !important;
+    min-height: 100vh;
+    height: auto;
+    overflow-y: auto;
+    margin: 0 auto;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* ========================================================================
+   4. COMPONENT CRAFTSMANSHIP (Graph, TOC, Links)
+   ======================================================================== */
+
+/* Graph View (The Galaxy) - FIX STRUCTURE */
+body[class*="theme-"] .graph-section,
+body[class*="theme-"] .graph-view-wrapper,
+body[class*="theme-"] #graph-component {
+    /* A light space window */
+    background: radial-gradient(circle at center, rgba(240, 240, 250, 0.8), #fff) !important;
+    border-radius: 16px;
+    border: 1px solid rgba(0,0,0,0.1) !important;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.05) !important;
+    margin-bottom: 2.5rem;
+    overflow: hidden;
+    position: relative;
+    width: 100% !important; /* Force fit inside container */
+    max-width: 100% !important;
+    box-sizing: border-box;
+    padding: 1rem;
+}
+
+/* Graph section container */
+.graph-section {
+    margin-bottom: 2rem;
+    width: 100%;
+}
+
+/* Force inner canvas to behave */
+body[class*="theme-"] #graph-component > div {
+    max-width: 100% !important;
+}
+
+body[class*="theme-"] .graph-title-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+body[class*="theme-"] .graph-title {
+    color: #1a1a1a !important;
+    font-size: 0.9rem !important;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    width: 100%;
+}
+
+body[class*="theme-"] #graph-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 5px;
+}
+
+body[class*="theme-"] .depth-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+body[class*="theme-"] .depth-control label,
+body[class*="theme-"] #depth-display,
+body[class*="theme-"] .ctrl-right span i {
+    color: #6b6b6b !important;
+}
+
+body[class*="theme-"] .slider input[type="range"] {
+    width: 60px;
+}
+
+/* Fix TOC and Backlink text overflow */
+body[class*="theme-"] .sidebar-container,
+body[class*="theme-"] .toc,
+body[class*="theme-"] .backlinks {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important; /* Prevent ANY horizontal scroll */
+}
+
+body[class*="theme-"] .toc-container,
+body[class*="theme-"] .backlink-list {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    display: flex;
+    flex-direction: column;
+}
+
+body[class*="theme-"] .toc ol,
+body[class*="theme-"] .toc li {
+    padding-left: 0.8rem !important;
+    margin-left: 0 !important;
+    word-wrap: break-word !important; /* FIX OVERFLOW */
+    white-space: normal !important;
+    max-width: 100%;
+    box-sizing: border-box !important;
+}
+
+/* Fix Backlink Cards text cutoff */
+body[class*="theme-"] .backlink-card {
+    background: rgba(0, 0, 0, 0.02) !important;
+    border: 1px solid rgba(0,0,0,0.08) !important;
+    border-radius: 12px !important;
+    padding: 1.2rem !important;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08) !important;
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    word-wrap: break-word !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+    display: block !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+body[class*="theme-"] .backlink-card:hover {
+    background: rgba(0, 0, 0, 0.04) !important;
+    border-color: rgba(0,0,0,0.15) !important;
+    transform: translateY(-2px) scale(1.01);
+}
+
+/* Typography in Sidebars */
+body[class*="theme-"] a,
+body[class*="theme-"] .file-title-text,
+body[class*="theme-"] .folder-title-text,
+body[class*="theme-"] .backlink,
+body[class*="theme-"] .toc a,
+body[class*="theme-"] .no-backlinks-message {
+    color: #2a2a2a !important;
+    text-decoration: none !important;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+    white-space: normal !important; /* Prevent text clipping */
+    display: inline-block;
+}
+
+body[class*="theme-"] a:hover {
+    color: #000000 !important;
+}
+
+/* Selection Color (The Magic Touch) */
+::selection {
+    background: rgba(0, 102, 204, 0.2) !important;
+    color: #1a1a1a !important;
+}
+::-moz-selection {
+    background: rgba(0, 102, 204, 0.2) !important;
+    color: #1a1a1a !important;
+}
+
+/* Section Titles (Micro-typography) */
+body[class*="theme-"] .toc-title,
+body[class*="theme-"] .backlink-title {
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #6b6b6b !important;
+    margin-bottom: 1.5rem !important;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    padding-bottom: 0.5rem;
+}
+
+/* ========================================================================
+   5. CINEMATIC TYPOGRAPHY (Reading Experience)
+   ======================================================================== */
+
+.luxury-content-core h1 {
+    font-size: 4rem;
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    line-height: 1.1;
+    margin-bottom: 3rem;
+    margin-top: 0;
+
+    /* Dark gradient for H1 on light background */
+    background: linear-gradient(180deg, #1a1a1a 0%, #4a4a4a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    border: none !important;
+}
+
+.luxury-content-core h2 {
+    font-size: 2.2rem;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    margin-top: 4rem;
+    margin-bottom: 1.5rem;
+    color: #1a1a1a !important;
+    border-bottom: 1px solid rgba(0,0,0,0.1) !important;
+    padding-bottom: 0.8rem;
+}
+
+.luxury-content-core h3 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    color: #2a2a2a !important;
+}
+
+.luxury-content-core p,
+.luxury-content-core li {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: #333333 !important;
+    margin-bottom: 1.8rem;
+    font-weight: 400;
+}
+
+.luxury-content-core strong {
+    color: #1a1a1a !important;
+    font-weight: 600;
+}
+
+.luxury-content-core a.internal-link,
+.content-main a.internal-link {
+    color: var(--color-accent) !important;
+    text-decoration: underline !important;
+    text-decoration-thickness: 2px !important;
+    text-underline-offset: 3px !important;
+    border-bottom: none !important;
+    transition: all 0.2s ease;
+}
+
+.luxury-content-core a.internal-link:hover,
+.content-main a.internal-link:hover {
+    background: rgba(10, 132, 255, 0.1);
+    text-decoration-thickness: 3px !important;
+}
+
+/* External links */
+.luxury-content-core a:not(.internal-link),
+.content-main a:not(.internal-link) {
+    color: var(--color-accent) !important;
+    text-decoration: underline !important;
+    text-decoration-thickness: 2px !important;
+    text-underline-offset: 3px !important;
+    transition: all 0.2s ease;
+}
+
+.luxury-content-core a:not(.internal-link):hover,
+.content-main a:not(.internal-link):hover {
+    background: rgba(10, 132, 255, 0.1);
+    text-decoration-thickness: 3px !important;
+}
+
+/* Hide theme switcher temporarily as we enforce this master theme */
+.theme-switcher { display: none !important; }
+theme-switcher { display: none !important; }
+
+/* Navigation Toggle Button */
+.nav-toggle-button {
+    position: fixed;
+    left: 1rem;
+    top: 1rem;
+    z-index: 1000;
+    padding: 0.75rem;
+    background: var(--color-bg-surface);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+
+    &:hover {
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        transform: translateY(-2px);
+    }
+
+    i {
+        color: var(--color-text-primary);
+        width: 20px;
+        height: 20px;
+    }
+}
+
+/* App layout adjustments for collapsible nav */
+.app-layout.nav-collapsed {
+    grid-template-columns: 0 1fr var(--sidebar-right-width) !important;
+}
+
+/* Smooth transition for sidebar */
+.sidebar-left {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1100px) {
+    .luxury-content-core {
+        padding: 2rem 1.5rem !important;
+    }
+}

@@ -16,13 +16,13 @@ code {
 pre {
   font-family: var(--font-family-mono);
   font-size: var(--font-size-sm);
-  padding: var(--spacing-md);
+  padding: var(--spacing-lg);
   background-color: var(--color-bg-secondary);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   overflow-x: auto;
   margin-bottom: var(--spacing-md);
-  line-height: var(--line-height-base);
+  line-height: 1.6;
 
   code {
     padding: 0;
@@ -30,6 +30,32 @@ pre {
     border: none;
     color: inherit;
   }
+
+  // 自定义滚动条
+  &::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: var(--radius-sm);
+
+    &:hover {
+      background: var(--color-border-hover);
+    }
+  }
+}
+
+// Mermaid 图表优化
+pre.mermaid {
+  background: var(--color-bg-primary);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-lg);
+  text-align: center;
 }
 
 // 代码高亮（可选）

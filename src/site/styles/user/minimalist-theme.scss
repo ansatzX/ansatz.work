@@ -1,6 +1,10 @@
 /* ========================================================================
    1. GLOBAL ARCHITECTURE & BACKGROUND
    ======================================================================== */
+
+/* 引入 Merriweather 字体 - 优化阅读体验 */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap');
+
 html, body {
     background: var(--color-bg-nebula);
     background-color: var(--color-bg-base);
@@ -93,7 +97,13 @@ body {
     width: 100%;
     flex: 1;
     padding: var(--spacing-xl) var(--spacing-lg);
-    max-width: var(--content-max-width);
+    max-width: 900px;  /* 缩窄以提升阅读舒适度 */
+
+    /* 使用 Merriweather 字体优化阅读 */
+    font-family: 'Merriweather', var(--font-family-base);
+    font-size: var(--font-size-lg);  /* 18px */
+    line-height: 1.6;
+
     background: var(--color-bg-primary);
     color: var(--color-text-primary);
     min-height: 100vh;
@@ -102,6 +112,20 @@ body {
     margin: 0 auto;
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-md);
+}
+
+/* 大屏右侧留白 - 给侧边栏视觉呼吸空间 */
+@media (min-width: 1200px) {
+    .content-main {
+        padding-right: 90px;
+    }
+}
+
+/* 宽屏 Gallery 布局支持 */
+@media (min-width: 1500px) {
+    .content-main.note-gallery {
+        max-width: 1200px;
+    }
 }
 
 /* ========================================================================

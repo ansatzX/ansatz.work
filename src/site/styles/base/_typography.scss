@@ -7,6 +7,7 @@ h1 {
   font-size: var(--font-size-4xl);
   margin-bottom: var(--spacing-xl);
   letter-spacing: -0.02em;
+  font-weight: var(--font-weight-bold);
 }
 
 h2 {
@@ -14,19 +15,23 @@ h2 {
   margin-top: var(--spacing-2xl);
   margin-bottom: var(--spacing-lg);
   padding-bottom: var(--spacing-sm);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 2px solid var(--color-accent);
+  font-weight: var(--font-weight-bold);
 }
 
 h3 {
   font-size: var(--font-size-2xl);
   margin-top: var(--spacing-xl);
   margin-bottom: var(--spacing-md);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-semibold);
 }
 
 h4 {
   font-size: var(--font-size-xl);
   margin-top: var(--spacing-lg);
   margin-bottom: var(--spacing-sm);
+  font-weight: var(--font-weight-semibold);
 }
 
 // 段落和文本
@@ -48,13 +53,13 @@ em {
 a {
   color: var(--color-accent);
   text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
   transition: all var(--transition-fast);
 
   &:hover {
     color: var(--color-accent-hover);
-    text-decoration-thickness: 3px;
+    text-decoration-thickness: 2px;
   }
 }
 
@@ -107,6 +112,40 @@ ul {
 
 ol {
   list-style-type: decimal;
+}
+
+// 任务列表样式
+ul.task-list {
+  list-style: none;
+  padding-left: 0;
+
+  li {
+    position: relative;
+    padding-left: 1.75rem;
+    margin-bottom: var(--spacing-sm);
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.5rem;
+      width: 1rem;
+      height: 1rem;
+      border: 2px solid var(--color-accent);
+      border-radius: var(--radius-sm);
+      transition: all var(--transition-fast);
+    }
+
+    &:hover::before {
+      background-color: var(--color-accent-light);
+    }
+  }
+
+  // 已完成状态
+  li.task-list-item.is-checked::before {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
 }
 
 // 水平线

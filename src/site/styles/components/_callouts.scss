@@ -5,50 +5,140 @@
 .callout {
   padding: var(--spacing-md);
   margin: var(--spacing-md) 0;
-  border-radius: var(--radius-md);
-  border-left: 4px solid var(--color-accent);
-  background-color: var(--color-accent-light);
+  border-radius: var(--radius-lg);
+  border-left: 4px solid;
+  background-color: rgba(var(--callout-color), 0.1);
 
   .callout-title {
     display: flex;
     align-items: center;
     gap: var(--spacing-sm);
-    font-weight: var(--font-weight-semibold);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-base);
     margin-bottom: var(--spacing-sm);
-    color: var(--color-accent);
+    color: rgb(var(--callout-color));
+
+    .callout-icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
   }
 
   .callout-content {
-    font-size: var(--font-size-sm);
-    line-height: var(--line-height-relaxed);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
   }
 }
 
-// 不同类型的 Callout
-.callout-info {
-  border-left-color: #0ea5e9;
-  background-color: rgba(14, 165, 233, 0.1);
+// ========== 默认类型 ==========
+.callout {
+  --callout-color: 0, 102, 204;
+  border-left-color: rgb(var(--callout-color));
+}
 
-  .callout-title { color: #0ea5e9; }
+// ========== 标准类型 ==========
+.callout-info {
+  --callout-color: 14, 165, 233;
+  border-left-color: rgb(var(--callout-color));
 }
 
 .callout-warning {
-  border-left-color: #f59e0b;
-  background-color: rgba(245, 158, 11, 0.1);
-
-  .callout-title { color: #f59e0b; }
+  --callout-color: 245, 158, 11;
+  border-left-color: rgb(var(--callout-color));
 }
 
 .callout-error {
-  border-left-color: #ef4444;
-  background-color: rgba(239, 68, 68, 0.1);
-
-  .callout-title { color: #ef4444; }
+  --callout-color: 239, 68, 68;
+  border-left-color: rgb(var(--callout-color));
 }
 
 .callout-success {
-  border-left-color: #10b981;
-  background-color: rgba(16, 185, 129, 0.1);
+  --callout-color: 16, 185, 129;
+  border-left-color: rgb(var(--callout-color));
+}
 
-  .callout-title { color: #10b981; }
+// ========== 扩展类型（edav-garden 风格）==========
+.callout[data-callout="garden"] {
+  --callout-color: 68, 207, 110;
+  border-left-color: rgb(var(--callout-color));
+
+  .callout-title::before { content: "🌱 "; }
+}
+
+.callout[data-callout="tip"] {
+  --callout-color: 0, 209, 178;
+  border-left-color: rgb(var(--callout-color));
+
+  .callout-title::before { content: "💡 "; }
+}
+
+.callout[data-callout="example"],
+.callout[data-callout="ex"] {
+  --callout-color: 79, 165, 79;
+  border-left-color: rgb(var(--callout-color));
+
+  .callout-title::before { content: "📗 "; }
+}
+
+.callout[data-callout="remark"],
+.callout[data-callout="rmk"] {
+  --callout-color: 219, 1, 1;
+  border-left-color: rgb(var(--callout-color));
+
+  .callout-title::before { content: "❗️ "; }
+}
+
+.callout[data-callout="question"],
+.callout[data-callout="qn"] {
+  --callout-color: 251, 146, 76;
+  border-left-color: rgb(var(--callout-color));
+
+  .callout-title::before { content: "❓ "; }
+}
+
+.callout[data-callout="important"],
+.callout[data-callout="impt"] {
+  --callout-color: 255, 221, 87;
+  border-left-color: rgb(var(--callout-color));
+
+  .callout-title::before { content: "⭐️ "; }
+}
+
+.callout[data-callout="other"],
+.callout[data-callout="oth"] {
+  --callout-color: 82, 139, 212;
+  border-left-color: rgb(var(--callout-color));
+
+  .callout-title::before { content: "📎 "; }
+}
+
+.callout[data-callout="todo"] {
+  --callout-color: 138, 43, 226;
+  border-left-color: rgb(var(--callout-color));
+
+  .callout-title::before { content: "✅ "; }
+}
+
+.callout[data-callout="meta"] {
+  display: none;  // 元数据类型隐藏
+}
+
+// ========== 可折叠 Callout ==========
+.callout.is-collapsed {
+  .callout-content {
+    display: none;
+  }
+
+  .callout-fold .lucide {
+    transform: rotate(-90deg);
+  }
+}
+
+.callout-fold {
+  cursor: pointer;
+
+  .lucide {
+    transition: transform 100ms ease-in-out;
+  }
 }

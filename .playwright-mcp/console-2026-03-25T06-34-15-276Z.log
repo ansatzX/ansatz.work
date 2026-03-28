@@ -1,0 +1,46 @@
+[     135ms] [ERROR] Refused to apply style from 'http://localhost:8082/styles/user/minimalist-theme.css.bak' because its MIME type ('text/html') is not a supported stylesheet MIME type, and strict MIME checking is enabled. @ http://localhost:8082/:0
+[     411ms] [ERROR] Refused to apply style from 'http://localhost:8082/styles/user/minimalist-theme.css.bak' because its MIME type ('text/html') is not a supported stylesheet MIME type, and strict MIME checking is enabled. @ http://localhost:8082/:0
+[     515ms] [WARNING] [Lucide] Some icons were found with the now deprecated icon-name attribute. These will still be replaced for backwards compatibility, but will no longer be supported in v1.0 and you should switch to data-lucide @ https://fastly.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js:7
+[     648ms] [WARNING] [Lucide] Some icons were found with the now deprecated icon-name attribute. These will still be replaced for backwards compatibility, but will no longer be supported in v1.0 and you should switch to data-lucide @ https://fastly.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js:7
+[    5994ms] [ERROR] Refused to apply style from 'http://localhost:8082/styles/user/minimalist-theme.css.bak' because its MIME type ('text/html') is not a supported stylesheet MIME type, and strict MIME checking is enabled. @ http://localhost:8082/:79
+[    5999ms] [WARNING] [Lucide] Some icons were found with the now deprecated icon-name attribute. These will still be replaced for backwards compatibility, but will no longer be supported in v1.0 and you should switch to data-lucide @ https://fastly.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js:7
+[   17806ms] [ERROR] Refused to apply style from 'http://localhost:8082/styles/user/minimalist-theme.css.bak' because its MIME type ('text/html') is not a supported stylesheet MIME type, and strict MIME checking is enabled. @ http://localhost:8082/:0
+[  448732ms] [ERROR] Refused to apply style from 'http://localhost:8082/styles/user/minimalist-theme.css.bak' because its MIME type ('text/html') is not a supported stylesheet MIME type, and strict MIME checking is enabled. @ http://localhost:8082/:0
+[  448758ms] [ERROR] Refused to apply style from 'http://localhost:8082/styles/user/minimalist-theme.css.bak' because its MIME type ('text/html') is not a supported stylesheet MIME type, and strict MIME checking is enabled. @ http://localhost:8082/:0
+[  453919ms] [ERROR] Refused to apply style from 'http://localhost:8082/styles/user/minimalist-theme.css.bak' because its MIME type ('text/html') is not a supported stylesheet MIME type, and strict MIME checking is enabled. @ http://localhost:8082/:0
+[  453936ms] [WARNING] [Lucide] Some icons were found with the now deprecated icon-name attribute. These will still be replaced for backwards compatibility, but will no longer be supported in v1.0 and you should switch to data-lucide @ https://fastly.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js:7
+[  993294ms] [ERROR] Refused to apply style from 'http://localhost:8082/styles/user/minimalist-theme.css.bak' because its MIME type ('text/html') is not a supported stylesheet MIME type, and strict MIME checking is enabled. @ http://localhost:8082/:79
+[  993342ms] [WARNING] [Lucide] Some icons were found with the now deprecated icon-name attribute. These will still be replaced for backwards compatibility, but will no longer be supported in v1.0 and you should switch to data-lucide @ https://fastly.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js:7
+[  993446ms] [WARNING] Alpine Expression Error: ForceGraph is not defined
+
+Expression: "if(graphData) window.graph = renderLocalGraph(graphData, depth, fullScreen)"
+
+ JSHandle@node @ https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:0
+[  993462ms] Uncaught ReferenceError: ForceGraph is not defined
+    at renderGraph (http://localhost:8082/:1215:20)
+    at renderLocalGraph (http://localhost:8082/:1302:15)
+    at eval (:2:72)
+    at eval (:2:121)
+    at <anonymous> (https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:4:987)
+    at Qt (https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:0:4877)
+    at r (https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:4:16816)
+    at _n (https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:0:257)
+[  993463ms] ReferenceError: ForceGraph is not defined
+    at renderGraph (http://localhost:8082/:1216:21)
+    at renderLocalGraph (http://localhost:8082/:1303:16)
+    at eval (eval at <anonymous> (https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:5:651), <anonymous>:3:73)
+    at eval (eval at <anonymous> (https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:5:651), <anonymous>:3:122)
+    at https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:5:988
+    at Qt (https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:1:4878)
+    at Array.r (https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:5:16817)
+    at _n (https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js:1:258)
+[  996402ms] [ERROR] Refused to apply style from 'http://localhost:8082/styles/user/minimalist-theme.css.bak' because its MIME type ('text/html') is not a supported stylesheet MIME type, and strict MIME checking is enabled. @ http://localhost:8082/:0
+[  996411ms] [WARNING] [Lucide] Some icons were found with the now deprecated icon-name attribute. These will still be replaced for backwards compatibility, but will no longer be supported in v1.0 and you should switch to data-lucide @ https://fastly.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js:7
+[ 1153767ms] [ERROR] Refused to apply style from 'http://localhost:8082/styles/user/minimalist-theme.css.bak' because its MIME type ('text/html') is not a supported stylesheet MIME type, and strict MIME checking is enabled. @ http://localhost:8082/:0
+[ 1153773ms] [WARNING] [Lucide] Some icons were found with the now deprecated icon-name attribute. These will still be replaced for backwards compatibility, but will no longer be supported in v1.0 and you should switch to data-lucide @ https://fastly.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js:7
+[ 1162100ms] [ERROR] Refused to apply style from 'http://localhost:8082/styles/user/minimalist-theme.css.bak' because its MIME type ('text/html') is not a supported stylesheet MIME type, and strict MIME checking is enabled. @ http://localhost:8082/blogs/2025-02-01/:0
+[ 1162143ms] [WARNING] [Lucide] Some icons were found with the now deprecated icon-name attribute. These will still be replaced for backwards compatibility, but will no longer be supported in v1.0 and you should switch to data-lucide @ https://fastly.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js:7
+[ 1166847ms] [ERROR] Refused to apply style from 'http://localhost:8082/styles/user/minimalist-theme.css.bak' because its MIME type ('text/html') is not a supported stylesheet MIME type, and strict MIME checking is enabled. @ http://localhost:8082/blogs/2025-02-01/:0
+[ 1166875ms] [WARNING] [Lucide] Some icons were found with the now deprecated icon-name attribute. These will still be replaced for backwards compatibility, but will no longer be supported in v1.0 and you should switch to data-lucide @ https://fastly.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js:7
+[ 1168946ms] [ERROR] Refused to apply style from 'http://localhost:8082/styles/user/minimalist-theme.css.bak' because its MIME type ('text/html') is not a supported stylesheet MIME type, and strict MIME checking is enabled. @ http://localhost:8082/:0
+[ 1168957ms] [WARNING] [Lucide] Some icons were found with the now deprecated icon-name attribute. These will still be replaced for backwards compatibility, but will no longer be supported in v1.0 and you should switch to data-lucide @ https://fastly.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js:7

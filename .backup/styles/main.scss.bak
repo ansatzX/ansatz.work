@@ -1,0 +1,74 @@
+// ============================================================================
+// 主样式文件 - 入口
+// ============================================================================
+
+// 1. 设计令牌
+@import 'tokens/variables';
+@import 'tokens/breakpoints';
+
+// 2. 基础样式
+@import 'base/reset';
+@import 'base/typography';
+
+// 3. 用户自定义主题
+@import 'user/minimalist-theme';
+
+// 4. 布局
+@import 'layout/grid';
+@import 'layout/sidebar';
+@import 'layout/collapsible-nav';
+
+// 5. 组件
+@import 'components/buttons';
+@import 'components/cards';
+@import 'components/code';
+@import 'components/callouts';
+@import 'components/graph';
+@import 'components/backlinks';
+
+// ============================================================================
+// 全局样式
+// ============================================================================
+
+html,
+body {
+  min-height: 100vh;
+}
+
+// 确保所有内容可选择
+* {
+  user-select: text;
+}
+
+// 图片优化
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+// 平滑滚动
+html {
+  scroll-behavior: smooth;
+}
+
+// 选中文本样式
+::selection {
+  background-color: var(--color-accent-light);
+  color: var(--color-text-primary);
+}
+
+// 打印样式
+@media print {
+  .sidebar {
+    display: none;
+  }
+
+  .app-layout {
+    display: block;
+  }
+
+  .content-main {
+    max-width: 100%;
+    padding: 0;
+  }
+}
