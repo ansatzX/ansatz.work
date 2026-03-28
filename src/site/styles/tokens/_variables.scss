@@ -32,12 +32,12 @@
   --gap: 1.5rem;
 
   // ========== 新增：Grid布局变量 ==========
-  --grid-column-left: 0.8fr;
-  --grid-column-main: 3.5fr;
-  --grid-column-right: 0.8fr;
-  --grid-gap: var(--gap);
+  --grid-column-left: 280px;      // 固定宽度
+  --grid-column-main: minmax(0, 1fr);  // 弹性宽度，占据剩余空间
+  --grid-column-right: 280px;     // 固定宽度
+  --grid-gap: var(--spacing-lg);
   --grid-template-wide: var(--grid-column-left) var(--grid-column-main) var(--grid-column-right);
-  --grid-template-medium: 1fr 0.9fr;
+  --grid-template-medium: 1fr 280px;
   --grid-template-narrow: 1fr;
 
   // ========== 字体系统 ==========
