@@ -108,35 +108,35 @@ body {
     height: auto;
     overflow-y: auto;
 
-    /* 页边距设置 */
-    padding: var(--spacing-2xl) var(--spacing-xl);
-    max-width: none;  /* 移除max-width限制，让内容填充整个中间区域 */
+    /* 页边距设置 - 给内容区足够的呼吸空间 */
+    padding: var(--spacing-2xl) var(--spacing-xl) var(--spacing-2xl) var(--spacing-2xl);
 
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-md);
 }
 
-/* 内容区域内的文章容器 */
+/* 内容区域内的文章容器 - 限制宽度以优化阅读 */
 .content-main article,
-.content-main .content {
+.content-main .content,
+.content-main .portal-container {
     max-width: 900px;  /* 文章内容限制在900px */
     margin: 0 auto;     /* 居中 */
 }
 
-/* 大屏右侧留白 - 给侧边栏视觉呼吸空间 */
-@media (min-width: 1200px) {
+/* 大屏优化 - 增加左侧padding使内容更居中 */
+@media (min-width: 1400px) {
     .content-main {
-        padding: var(--spacing-2xl) var(--spacing-2xl);  /* 增大页边距 */
+        padding-left: calc(var(--spacing-2xl) + 2vw);  /* 动态增加左侧padding */
+        padding-right: calc(var(--spacing-2xl) + 2vw); /* 动态增加右侧padding */
     }
 }
 
 /* 宽屏 Gallery 布局支持 */
 @media (min-width: 1500px) {
     .content-main.note-gallery {
-        max-width: none;
-
+        .content,
         article,
-        .content {
+        .portal-container {
             max-width: 1200px;  /* gallery布局更宽 */
         }
     }
