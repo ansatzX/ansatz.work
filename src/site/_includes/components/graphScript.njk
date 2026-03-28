@@ -201,12 +201,12 @@
                 <div class="depth-control">
                     <label for="graph-depth">Depth</label>
                     <div class="slider">
-                            <input x-model.number="depth" name="graph-depth" list="depthmarkers" type="range" step="1" min="1" max="3" id="graph-depth"/>
-                    <datalist id="depthmarkers">
-                            <option value="1" label="1"></option>
-                            <option value="2" label="2"></option>
-                            <option value="3" label="3"></option>
-                    </datalist>
+                            <input x-model.number="depth" name="graph-depth" type="range" step="1" min="1" max="3" id="graph-depth"/>
+                            <div class="slider-markers">
+                                <span class="marker" data-value="1">1</span>
+                                <span class="marker" data-value="2">2</span>
+                                <span class="marker" data-value="3">3</span>
+                            </div>
                     </div>
                     <span id="depth-display" x-text="depth"></span>
                 </div>
