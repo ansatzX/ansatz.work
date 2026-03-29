@@ -140,30 +140,6 @@ pre.mermaid {
     }
   }
 
-  .tikz-preview {
-    padding: var(--spacing-lg);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100px;
-    background-color: var(--color-bg-primary);
-    border-bottom: 1px solid var(--color-border);
-
-    .tikz-placeholder {
-      text-align: center;
-      color: var(--color-text-muted);
-
-      svg {
-        margin-bottom: var(--spacing-xs);
-      }
-
-      p {
-        margin: 0;
-        font-size: var(--font-size-sm);
-      }
-    }
-  }
-
   .tikz-code {
     display: none;
 
