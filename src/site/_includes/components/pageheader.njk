@@ -1,24 +1,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- MathJax for LaTeX formulas -->
-<script>
-  window.MathJax = {
-    tex: {
-      inlineMath: [['$', '$'], ['\\(', '\\)']],
-      displayMath: [['$$', '$$'], ['\\[', '\\]']],
-      processEscapes: true,
-      processEnvironments: true,
-      processRefs: true,
-      packages: {'[+]': ['noerrors', 'noundefined', 'amsmath', 'amssymbols', 'color', 'newcommand']},
-    },
-    options: {
-      skipHtmlTags: {'[-]': ['pre', 'code']},
-    },
-    startup: {
-      typeset: true,
-    }
-  };
-</script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<!-- MathJax 渲染已由 markdown-it-mathjax3 在构建时完成 -->
+<style>
+  /* 确保MathJax行内公式不换行 */
+  mjx-container.MathJax {
+    display: inline !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  mjx-container.MathJax svg {
+    display: inline !important;
+    vertical-align: middle !important;
+  }
+</style>
 <script async type="module">
     import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
 </script>

@@ -30,17 +30,19 @@ export function createMarkdownIt() {
       };
     })
     .use(markdownItMathjax3, {
-      tex: {
-        inlineMath: [['$', '$'], ['\\(', '\\)']],
-        displayMath: [['$$', '$$'], ['\\[', '\\]']],
-        processEscapes: true,
-        processEnvironments: true,
-        processRefs: true,
-        packages: {'[+]': ['noerrors', 'noundefined', 'amsmath', 'amssymbols', 'color', 'newcommand']},
-      },
-      options: {
-        skipHtmlTags: {'[-]': ['pre']},
-      },
+      mathjax: {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']],
+          processEscapes: true,
+          processEnvironments: true,
+          processRefs: true,
+          packages: {'[+]': ['noerrors', 'noundefined', 'amsmath', 'amssymbols', 'color', 'newcommand']},
+        },
+        options: {
+          skipHtmlTags: {'[-]': ['pre']},
+        }
+      }
     })
     .use(markdownItAttrs)
     .use(markdownItTaskCheckbox, {
