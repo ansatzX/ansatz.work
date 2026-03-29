@@ -9,7 +9,7 @@ import markdownItPlantuml from "markdown-it-plantuml";
 
 import { headerToId, namedHeadingsFilter } from "./utils.js";
 import { userMarkdownSetup } from "./userSetup.js";
-import tikzPlugin from "./tikz-plugin.js";
+// import tikzPlugin from "./tikz-plugin.js";
 
 export const tagRegex = /(^|\s|>)(#[^\s!@#$%^&*()=+\.,\[{\]};:'"?><]+)(?![^<]*>)/g;
 
@@ -31,11 +31,15 @@ export function createMarkdownIt() {
     })
     .use(markdownItMathjax3, {
       tex: {
-        inlineMath: [["$", "$"]],
-        displayMath: [["$", "$"]],
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true,
+        processEnvironments: true,
+        processRefs: true,
+        packages: { '[+]': ['noerrors', 'noundefined', 'amsmath', 'amssymbols', 'color', 'newcommand'] },
       },
       options: {
-        skipHtmlTags: { "[-]": ["pre"] },
+        skipHtmlTags: { '[-]': ['pre'] },
       },
     })
     .use(markdownItAttrs)
@@ -52,7 +56,7 @@ export function createMarkdownIt() {
       closeMarker: "```",
     })
     .use(namedHeadingsFilter)
-    .use(tikzPlugin, { outputDir: "./dist/img/tikz" })
+    // .use(tikzPlugin, { outputDir: "./dist/img/tikz" })
     .use(function (md) {
       // https://github.com/DCsunset/markdown-it-mermaid-plugin
       const origFenceRule =

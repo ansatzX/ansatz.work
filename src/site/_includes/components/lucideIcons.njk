@@ -1,7 +1,24 @@
 <script>
-lucide.createIcons({
-            attrs: {
-                class: ["svg-icon"]
-            }
-        });
+// Initialize Lucide icons
+function initLucide() {
+    lucide.createIcons({
+        attrs: {
+            class: ["svg-icon"]
+        }
+    });
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', initLucide);
+
+// Also watch for Alpine.js updates
+document.addEventListener('alpine:init', () => {
+    Alpine.effect(() => {
+        // Small delay to ensure Alpine has updated the DOM
+        setTimeout(initLucide, 10);
+    });
+});
+
+// Initialize immediately in case DOM is already loaded
+initLucide();
 </script>

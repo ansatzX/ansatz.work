@@ -31,16 +31,32 @@
   // 占据全部高度
   height: auto;
   min-height: calc(100vh - var(--spacing-xl) * 2);
+  max-height: calc(100vh - var(--spacing-xl) * 2);
 
   // 关键：固定在左侧，跟随滚动
   position: sticky;
   top: var(--spacing-lg);
 
+  // 独立滚动
+  overflow-y: auto;
+  overflow-x: hidden;
+
   // 平滑过渡
   transition: all var(--transition-base);
 
-  // 响应式：中等屏幕隐藏
-  @include respond-below('2xl') {
+  // 当包含 filetree 时，移除 sidebar 的样式，让 filetree 完全控制
+  &:has(.filetree-sidebar) {
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  // 响应式：小桌面隐藏
+  @include respond-below('lg') {
     display: none;
   }
 }
@@ -54,6 +70,10 @@
   top: var(--spacing-lg);
   height: fit-content;
   max-height: calc(100vh - var(--spacing-2xl));
+
+  // 独立滚动
+  overflow-y: auto;
+  overflow-x: hidden;
 
   // 响应式：小屏幕
   @include respond-below('lg') {
@@ -115,14 +135,6 @@
       position: relative;
       padding-left: var(--spacing-sm);
 
-      &::before {
-        content: '#';
-        color: var(--color-accent);
-        font-size: var(--font-size-sm);
-        position: absolute;
-        left: -0.5em;
-      }
-
       a {
         color: var(--color-text-secondary);
         font-size: var(--font-size-sm);
@@ -154,6 +166,59 @@
       font-size: var(--font-size-sm);
     }
   }
+}
+
+// ========== TOC 基础样式 ==========
+.toc {
+  width: 100%;
+  margin-bottom: var(--spacing-lg);
+}
+
+.toc-title-container {
+  margin-bottom: var(--spacing-md);
+}
+
+.toc-title {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-sm);
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.toc-container {
+  width: 100%;
+}
+
+.toc-container ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.toc-container li {
+  margin-bottom: var(--spacing-xs);
+}
+
+.toc-container a {
+  display: block;
+  padding: var(--spacing-xs) 0;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+
+  &:hover {
+    color: var(--color-accent);
+  }
+}
+
+.toc-container ol ol {
+  padding-left: var(--spacing-md);
+  margin-top: var(--spacing-xs);
 }
 
 .sidebar-container {

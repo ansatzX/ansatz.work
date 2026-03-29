@@ -62,7 +62,7 @@
 }
 
 // 响应式
-@media (max-width: 768px) {
+@include respond-below('md') {  // < 768px
   .backlink-list {
     max-height: 300px;
   }

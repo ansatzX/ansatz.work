@@ -1,178 +1,200 @@
 // ============================================================================
-// 文件树样式
+// 文件树样式 - 完全照搬 hermitage.utsob.me
 // ============================================================================
 
 // ========== 文件树侧边栏 ==========
-.filetree-sidebar {
+.sidebar-left .filetree-sidebar {
   width: 100%;
   height: 100%;
   min-height: 100%;
-  background: var(--color-bg-surface);
-  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
-  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-glass);
+  background: var(--background-primary-alt);
   overflow-y: auto;
   overflow-x: hidden;
   padding: var(--spacing-xl) var(--spacing-lg);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-
-  // 网站标题
-  h1 {
-    font-size: var(--font-size-2xl);
-    font-weight: var(--font-weight-bold);
-    margin-bottom: var(--spacing-lg);
-    color: var(--color-text-primary);
-  }
-
-  // 搜索容器包装器
-  .search-container-wrapper {
-    width: 100%;
-    margin-bottom: var(--spacing-lg);
-  }
-
-  // 文件树容器
-  .folder {
-    width: 100%;
-    flex: 1;
-    overflow-y: auto;
-  }
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
-// ========== 文件图标 ==========
-.notelink {
-  display: inline-flex;
+// 头像区域
+.filetree-avatar {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-lg);
+  border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.avatar-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+// 网站标题
+.filetree-sidebar h1 {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-lg);
+  color: var(--text-normal);
+  text-align: center;
+}
+
+// 搜索按钮样式 - 照搬 hermitage
+.search-button {
+  display: flex;
   align-items: center;
-  padding: var(--spacing-sm) 0;
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: 10px;
+  background: var(--background-primary);
+  border: 1px solid var(--background-modifier-border);
   cursor: pointer;
   transition: all var(--transition-fast);
-
-  [icon-name] {
-    width: 1rem;      // 16px
-    height: 1rem;
-    color: var(--color-text-secondary);
-    margin-right: 0.5rem;
-    flex-shrink: 0;
-    transition: all var(--transition-fast);
-  }
-
-  &:hover {
-    [icon-name] {
-      color: var(--color-accent);
-      transform: scale(1.1);
-    }
-  }
+  margin-bottom: var(--spacing-lg);
 }
 
-// 激活状态
-.active-note {
-  [icon-name] {
-    color: var(--color-accent);
-    font-weight: bold;
-  }
-
-  .filename {
-    color: var(--color-accent);
-    font-weight: var(--font-weight-medium);
-  }
+.search-button:hover {
+  border-color: var(--text-accent);
 }
 
-// ========== 文件夹图标 ==========
+.search-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: var(--spacing-sm);
+}
+
+.search-icon i {
+  width: 16px;
+  height: 16px;
+  color: var(--text-muted);
+}
+
+.search-text {
+  flex: 1;
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.search-keys {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.search-keys code {
+  background: var(--background-secondary);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.75em;
+  color: var(--text-muted);
+}
+
+// 文件树容器
+.filetree-sidebar .folder {
+  width: 100%;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: visible;
+}
+
+// ========== 文件夹和笔记样式 ==========
+
+// 文件夹包装器
 .foldername-wrapper {
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
   cursor: pointer;
   transition: all var(--transition-fast);
-
-  // 文件夹图标
-  .folder-icon {
-    width: 0.875rem;   // 14px
-    height: 0.875rem;
-    color: var(--color-accent);
-    flex-shrink: 0;
-    transition: all var(--transition-fast);
-  }
-
-  // 箭头图标
-  .folder-chevron {
-    width: 0.75rem;    // 12px
-    height: 0.75rem;
-    color: var(--color-text-muted);
-    opacity: 0.6;
-    flex-shrink: 0;
-  }
-
-  .foldername {
-    color: var(--color-text-primary);
-    font-weight: var(--font-weight-medium);
-    transition: color var(--transition-fast);
-  }
-
-  &:hover {
-    .folder-icon {
-      color: var(--color-accent-hover);
-    }
-
-    .foldername {
-      color: var(--color-accent);
-    }
-  }
+  padding: var(--spacing-xs) 0;
 }
 
-// ========== 文件列表 ==========
-.filelist {
-  margin-left: var(--spacing-lg);  // 增加缩进
-  padding-left: var(--spacing-sm);
-  border-left: 1px solid var(--color-border);
-
-  // 多层嵌套时增加缩进
-  .filelist {
-    margin-left: var(--spacing-lg);  // 增加缩进
-    padding-left: var(--spacing-sm);
-  }
+.foldername-wrapper.align-icon {
+  display: inline-flex;
+  align-items: center;
 }
 
-// ========== 文件名 ==========
-.filename {
-  color: var(--color-text-primary);
+// 文件夹图标
+.foldername-wrapper i {
+  width: 16px;
+  height: 16px;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  transition: all var(--transition-fast);
+}
+
+// 文件夹名称
+.foldername {
+  color: var(--text-normal);
+  font-weight: var(--font-weight-medium);
+  transition: color var(--transition-fast);
+}
+
+.foldername-wrapper:hover .foldername {
+  color: var(--text-accent);
+}
+
+// 文件列表（缩进）
+.sidebar-left .filetree-sidebar .filelist {
+  margin-left: 16px !important;  // 关键：固定缩进16px
+  padding-left: 0 !important;
+  border-left: none !important;
+}
+
+.sidebar-left .filetree-sidebar .filelist .filelist {
+  margin-left: 16px !important;  // 嵌套文件夹同样缩进16px
+  padding-left: 0 !important;
+}
+
+// 笔记链接
+.notelink {
+  display: block;
+  padding: 5px 0 5px 8px;
+  border-radius: 10px;
+  border: none;
+  margin-left: 2px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.notelink:hover {
+  background: var(--background-primary);
+}
+
+.notelink.active-note {
+  background: var(--background-primary);
+}
+
+// 笔记文件名
+.notelink .filename {
+  color: var(--text-normal);
   text-decoration: none;
   transition: color var(--transition-fast);
-
-  &:hover {
-    color: var(--color-accent);
-  }
+  display: inline;
 }
 
-// ========== 内部文件夹 ==========
-.inner-folder {
-  margin: var(--spacing-xs) 0;
+.notelink:hover .filename {
+  color: var(--text-accent);
 }
 
-// ========== 自定义图标支持 ==========
-.custom-icon {
-  display: inline-block;
-  margin-right: 0.5rem;
-  font-size: 1rem;
-  line-height: 1;
+.notelink.active-note .filename {
+  color: var(--text-accent);
+  font-weight: var(--font-weight-medium);
 }
 
-// 响应式
-@media (max-width: 768px) {
+// ========== 响应式 ==========
+@include respond-below('md') {  // < 768px
   .filetree-sidebar {
     padding: var(--spacing-lg) var(--spacing-md);
-  }
-
-  .notelink [icon-name] {
-    width: 0.875rem;
-    height: 0.875rem;
-  }
-
-  .foldername-wrapper .folder-icon {
-    width: 0.75rem;
-    height: 0.75rem;
   }
 }

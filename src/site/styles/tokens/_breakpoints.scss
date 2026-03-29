@@ -57,3 +57,14 @@ $breakpoints: (
     @content;
   }
 }
+
+// 断点区间查询
+@mixin respond-between($lower, $upper) {
+  @if map-has-key($breakpoints, $lower) and map-has-key($breakpoints, $upper) {
+    @media (min-width: map-get($breakpoints, $lower)) and (max-width: map-get($breakpoints, $upper) - 1px) {
+      @content;
+    }
+  } @else {
+    @warn "One or both breakpoints '#{$lower}' or '#{$upper}' not found in $breakpoints";
+  }
+}

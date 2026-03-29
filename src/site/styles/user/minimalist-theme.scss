@@ -33,7 +33,7 @@ body {
 /* Reset Obsidian's destructive layout locks - using layer for priority */
 @layer theme.reset {
   body[class*="theme-"] {
-    nav.filetree-sidebar,
+    /* nav.filetree-sidebar, */
     aside .sidebar,
     aside .sidebar-container,
     .backlinks,
@@ -48,11 +48,11 @@ body {
 }
 
 /* --- Left Nav (The Catalog) --- */
-.sidebar-left nav.filetree-sidebar {
+/* .sidebar-left nav.filetree-sidebar {
     width: 100%;
     height: auto;
 
-    /* Vision Pro Glass */
+    Vision Pro Glass
     background: var(--color-bg-surface);
     backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
     -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
@@ -66,7 +66,7 @@ body {
     padding: var(--spacing-xl) var(--spacing-lg);
     display: block;
     box-sizing: border-box;
-}
+} */
 
 /* --- Right Panel (The Nebula Map) --- */
 .sidebar-right .sidebar {

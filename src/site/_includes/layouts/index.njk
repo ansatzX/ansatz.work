@@ -16,7 +16,7 @@
   <!-- 左侧可收起导航 -->
   <div x-data="{ navOpen: true }" class="app-layout" :class="navOpen ? '' : 'nav-collapsed'">
     <button class="nav-toggle-button" @click="navOpen = !navOpen" aria-label="Toggle navigation">
-      <i :icon-name="navOpen ? 'chevron-left' : 'chevron-right'" aria-hidden="true"></i>
+      <i :data-lucide="navOpen ? 'chevron-left' : 'chevron-right'" aria-hidden="true"></i>
     </button>
 
     <aside class="sidebar sidebar-left" x-show="navOpen" x-transition>

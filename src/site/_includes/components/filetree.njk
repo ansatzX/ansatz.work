@@ -1,44 +1,29 @@
 {% macro menuItem(fileOrFolderName, fileOrFolder, step, currentPath) %}
     {%if fileOrFolder.isNote or fileOrFolder.isFolder%}
-        <div x-show="isOpen" style="display:none" class="{{'filelist' if step>0}}">
-            {%if fileOrFolder.isNote and not fileOrFolder.hide %}
+        {%if fileOrFolder.isNote and not fileOrFolder.hide %}
+            <div class="{{'filelist' if step>=1}}">
                 <div @click.stop class="notelink {{ 'active-note' if fileOrFolder.permalink === permalink}}">
-                    {%- if not meta.noteIconsSettings.filetree -%}
-                        {%- if fileOrFolder.noteIcon -%}
-                            <span class="custom-icon" aria-hidden="true">{{ fileOrFolder.noteIcon }}</span>
-                        {%- else -%}
-                            {%- if 'blogs' in currentPath -%}
-                                <i icon-name="journal-text" aria-hidden="true"></i>
-                            {%- elif 'slides' in currentPath -%}
-                                <i icon-name="presentation" aria-hidden="true"></i>
-                            {%- elif 'notes' in currentPath -%}
-                                <i icon-name="file-text" aria-hidden="true"></i>
-                            {%- elif 'projects' in currentPath -%}
-                                <i icon-name="briefcase" aria-hidden="true"></i>
-                            {%- else -%}
-                                <i icon-name="sticky-note" aria-hidden="true"></i>
-                            {%- endif -%}
-                        {%- endif -%}
-                    {%- endif -%}
                     <a data-note-icon="{{fileOrFolder.noteIcon}}" style="text-decoration: none;" class="filename" href="{{fileOrFolder.permalink}}">{{fileOrFolder.name}} </a>
                 </div>
-            {% elif fileOrFolder.isFolder%}
+            </div>
+        {% elif fileOrFolder.isFolder%}
+            <div class="{{'filelist' if step>=1}}">
                 <div class="folder inner-folder"  x-data="{isOpen: $persist(false).as('{{currentPath}}')}" @click.stop="isOpen=!isOpen">
                     <div class="foldername-wrapper align-icon">
-                        <i icon-name="folder" class="folder-icon" x-show="!isOpen"></i>
-                        <i icon-name="folder-open" class="folder-icon" x-show="isOpen" style="display: none;"></i>
-                        <i x-show="isOpen" style="display: none;"  icon-name="chevron-down" class="folder-chevron"></i>
-                        <i x-show="!isOpen"  icon-name="chevron-right" class="folder-chevron"></i>
+                        <i x-show="isOpen" style="display:none" data-lucide="chevron-down"></i>
+                        <i x-show="!isOpen" data-lucide="chevron-right"></i>
                         <span class="foldername">{{fileOrFolderName}}</span>
                     </div>
+                </div>
+                <div x-show="isOpen" style="display:none">
                     {% for fileOrFolderName, child in fileOrFolder %}
                         {{menuItem(fileOrFolderName, child, step+1, (currentPath+"/"+fileOrFolderName))}}
                     {% endfor %}
                 </div>
-            {% endif %}
-        </div>
-        {%endif%}
-    {% endmacro %}
+            </div>
+        {% endif %}
+    {%endif%}
+{% endmacro %}
     
     <div x-init="isDesktop = (window.innerWidth>=1400) ? true: false;" 
             x-on:resize.window="isDesktop = (window.innerWidth>=1400) ? true : false;" 
@@ -51,6 +36,11 @@
         <div x-show="showFilesMobile && !isDesktop" @click="showFilesMobile = false" style="display:none;" class="fullpage-overlay"></div>
 
       <nav class="filetree-sidebar"  x-show.important="isDesktop || showFilesMobile" style="display: none;">
+        <!-- 头像区域 -->
+        <div class="filetree-avatar">
+          <img src="/img/ansatz_cat.jpg" alt="Avatar" class="avatar-image">
+        </div>
+
         {% for imp in dynamics.filetree.beforeTitle %}
             {% include imp %}
         {% endfor %}

@@ -18,7 +18,7 @@ permalink: "notes/{{ page.fileSlug | slugify }}/"
     <div x-data="{ navOpen: true }" class="app-layout" :class="navOpen ? '' : 'nav-collapsed'">
       <!-- 导航切换按钮 -->
       <button class="nav-toggle-button" @click="navOpen = !navOpen" aria-label="Toggle navigation">
-        <i :icon-name="navOpen ? 'chevron-left' : 'chevron-right'" aria-hidden="true"></i>
+        <i :data-lucide="navOpen ? 'chevron-left' : 'chevron-right'" aria-hidden="true"></i>
       </button>
 
       <aside class="sidebar sidebar-left" x-show="navOpen" x-transition>
@@ -54,10 +54,10 @@ permalink: "notes/{{ page.fileSlug | slugify }}/"
             {%- if meta.timestampSettings.showCreated or meta.timestampSettings.showUpdated -%}
             <div class="timestamps">
               {%- if meta.timestampSettings.showCreated and created -%}
-              <div><i icon-name="calendar-plus"></i> <span class="human-date" data-date="{{created}}"></span></div>
+              <div><i data-lucide="calendar-plus"></i> <span class="human-date" data-date="{{created}}"></span></div>
               {%- endif -%}
               {%- if meta.timestampSettings.showUpdated and updated -%}
-              <div><i icon-name="calendar-clock"></i> <span class="human-date" data-date="{{updated}}"></span></div>
+              <div><i data-lucide="calendar-clock"></i> <span class="human-date" data-date="{{updated}}"></span></div>
               {%- endif -%}
             </div>
             {%- endif -%}

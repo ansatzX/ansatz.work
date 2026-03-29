@@ -132,7 +132,7 @@
 }
 
 // 响应式：移动端隐藏固定导航
-@media (max-width: 768px) {
+@include respond-below('md') {  // < 768px
   .collapsible-nav {
     display: none;
   }
