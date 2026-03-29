@@ -17,7 +17,7 @@ const generateComponentPaths = async (namespace, slots) => {
     try {
       const tree = await fsFileTree(`${BASE_PATH}/${namespace}/${slot}`);
       let comps = Object.keys(tree)
-        .filter((p) => p.indexOf(".njk") != -1)
+        .filter((p) => p.endsWith(".njk"))
         .map((p) => `components/user/${namespace}/${slot}/${p}`);
       comps.sort();
       data[slot] = comps;
