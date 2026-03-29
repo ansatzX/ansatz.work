@@ -2,6 +2,7 @@ import markdownIt from "markdown-it";
 import markdownItAnchor from "markdown-it-anchor";
 import markdownItMark from "markdown-it-mark";
 import markdownItFootnote from "markdown-it-footnote";
+import markdownItMathjax3 from "markdown-it-mathjax3";
 import markdownItAttrs from "markdown-it-attrs";
 import markdownItTaskCheckbox from "markdown-it-task-checkbox";
 import markdownItPlantuml from "markdown-it-plantuml";
@@ -27,6 +28,19 @@ export function createMarkdownIt() {
       md.renderer.rules.hashtag_open = function (tokens, idx) {
         return '<a class="tag" onclick="toggleTagSearch(this)">';
       };
+    })
+    .use(markdownItMathjax3, {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true,
+        processEnvironments: true,
+        processRefs: true,
+        packages: {'[+]': ['noerrors', 'noundefined', 'amsmath', 'amssymbols', 'color', 'newcommand']},
+      },
+      options: {
+        skipHtmlTags: {'[-]': ['pre']},
+      },
     })
     .use(markdownItAttrs)
     .use(markdownItTaskCheckbox, {
@@ -55,15 +69,6 @@ export function createMarkdownIt() {
         if (token.info === "mermaid") {
           const code = token.content.trim();
           return `<pre class="mermaid">${code}</pre>`;
-        }
-        if (token.info === "tikz") {
-          const code = token.content.trim();
-          return `<div class="tikz-container">
-            <div style="padding: 1rem; background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-radius: var(--radius-md); margin: 1rem 0;">
-              <div style="font-weight: bold; margin-bottom: 0.5rem; color: var(--color-text-secondary);">TikZ Diagram (requires LaTeX compilation)</div>
-              <pre style="background: var(--color-bg-primary); padding: 0.75rem; border-radius: var(--radius-sm); overflow-x: auto; font-size: 0.875rem;"><code>${md.utils.escapeHtml(code)}</code></pre>
-            </div>
-          </div>`;
         }
         if (token.info === "transclusion") {
           const code = token.content.trim();

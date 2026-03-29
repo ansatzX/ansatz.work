@@ -9,79 +9,16 @@
       processEnvironments: true,
       processRefs: true,
       packages: {'[+]': ['noerrors', 'noundefined', 'amsmath', 'amssymbols', 'color', 'newcommand']},
-      tags: 'ams',
-      tagSide: 'right',
-      tagIndent: '0.8em',
-      useLabelIds: true,
-      multlineWidth: '85%',
-      maxMacros: 1000,
-      maxBuffer: 5 * 1024
     },
     options: {
       skipHtmlTags: {'[-]': ['pre', 'code']},
-      enableMenu: true,
-      menuOptions: {
-        settings: {
-          renderer: 'CommonHTML',
-          scale: 100,
-          minScale: 50,
-          mtextInheritFont: false,
-          merrorInheritFont: false,
-          mathmlSpacing: false,
-          skipAttributes: {},
-          exFactor: 0.5,
-          displayAlign: 'center',
-          displayIndent: '0'
-        }
-      }
-    },
-    loader: {
-      load: ['[tex]/noerrors', '[tex]/noundefined', '[tex]/amsmath', '[tex]/amssymbols', '[tex]/color', '[tex]/newcommand']
     },
     startup: {
       typeset: true,
-      pageReady: () => {
-        return MathJax.startup.defaultPageReady();
-      }
-    },
-    chtml: {
-      scale: 1,
-      minScale: 0.5,
-      mtextInheritFont: false,
-      merrorInheritFont: false,
-      mathmlSpacing: false,
-      skipAttributes: {},
-      exFactor: 0.5,
-      displayAlign: 'center',
-      displayIndent: '0'
-    },
-    svg: {
-      scale: 1,
-      minScale: 0.5,
-      mtextInheritFont: false,
-      merrorInheritFont: false,
-      mathmlSpacing: false,
-      skipAttributes: {},
-      exFactor: 0.5,
-      displayAlign: 'center',
-      displayIndent: '0',
-      fontCache: 'local'
     }
   };
 </script>
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-<!-- 确保MathJax行内公式不换行 -->
-<style>
-  mjx-container.MathJax {
-    display: inline !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-  mjx-container.MathJax svg {
-    display: inline !important;
-    vertical-align: middle !important;
-  }
-</style>
 <script async type="module">
     import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
 </script>
