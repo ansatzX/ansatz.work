@@ -15,14 +15,8 @@ permalink: "notes/{{ page.fileSlug | slugify }}/"
   </head>
   <body class="theme-{{meta.baseTheme}} {{meta.bodyClasses}}">
     {% include "components/notegrowthhistory.njk" %}
-    <div x-data="{ navOpen: true }" class="app-layout" :class="navOpen ? '' : 'nav-collapsed'">
-      <!-- 导航切换按钮 -->
-      <button class="nav-toggle-button" @click="navOpen = !navOpen" aria-label="Toggle navigation">
-        <i :data-lucide="navOpen ? 'chevron-left' : 'chevron-right'" aria-hidden="true"></i>
-      </button>
-
-      <aside class="sidebar sidebar-left" x-show="navOpen" x-transition>
-
+    <div class="app-layout">
+      <aside class="sidebar sidebar-left">
         {% if settings.dgShowFileTree !== true %}
           {%include "components/navbar.njk"%}
         {%else%}
@@ -62,42 +56,42 @@ permalink: "notes/{{ page.fileSlug | slugify }}/"
             </div>
             {%- endif -%}
           </div>
-      </header>
-      {% for imp in dynamics.common.beforeContent %}
-        {% include imp %}
-      {% endfor %}
-      {% for imp in dynamics.notes.beforeContent %}
-        {% include imp %}
-      {% endfor %}
-      {{ content | hideDataview | taggify | link | safe}}
-      {% for imp in dynamics.common.afterContent %}
-        {% include imp %}
-      {% endfor %}
-      {% for imp in dynamics.notes.afterContent %}
-        {% include imp %}
-      {% endfor %}
+        </header>
+        {% for imp in dynamics.common.beforeContent %}
+          {% include imp %}
+        {% endfor %}
+        {% for imp in dynamics.notes.beforeContent %}
+          {% include imp %}
+        {% endfor %}
+        {{ content | hideDataview | taggify | link | safe}}
+        {% for imp in dynamics.common.afterContent %}
+          {% include imp %}
+        {% endfor %}
+        {% for imp in dynamics.notes.afterContent %}
+          {% include imp %}
+        {% endfor %}
 
-      {% if settings.dgLinkPreview === true %}
-        {%include "components/linkPreview.njk"%}
+        {% if settings.dgLinkPreview === true %}
+          {%include "components/linkPreview.njk"%}
+        {% endif %}
+
+        {% for imp in dynamics.notes.footer %}
+          {% include imp %}
+        {% endfor %}
+      </main>
+
+      {% if settings.dgShowBacklinks === true or settings.dgShowLocalGraph === true or settings.dgShowToc === true%}
+        <aside class="sidebar-right">
+          {%include "components/sidebar.njk"%}
+        </aside>
       {% endif %}
+    </div>
 
-      {% for imp in dynamics.notes.footer %}
+    {% include "components/references.njk" %}
+      {% include "components/timestamps.njk" %}
+      {% for imp in dynamics.common.footer %}
         {% include imp %}
       {% endfor %}
-    </main>
-
-    {% if settings.dgShowBacklinks === true or settings.dgShowLocalGraph === true or settings.dgShowToc === true%}
-      <aside class="sidebar-right">
-        {%include "components/sidebar.njk"%}
-      </aside>
-    {% endif %}
-  </div>
-
-  {% include "components/references.njk" %}
-    {% include "components/timestamps.njk" %}
-    {% for imp in dynamics.common.footer %}
-      {% include imp %}
-    {% endfor %}
-    {%include "components/lucideIcons.njk"%}
-  </body>
-</html>
+      {%include "components/lucideIcons.njk"%}
+    </body>
+  </html>

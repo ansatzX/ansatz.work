@@ -40,6 +40,15 @@
   --grid-template-medium: 1fr 0.9fr;
   --grid-template-narrow: 1fr;
 
+  // ========== 新增：可拖动侧边栏变量 ==========
+  --sidebar-left-width: 280px;
+  --sidebar-right-width: 280px;
+  --sidebar-min-width: 180px;
+  --sidebar-max-width: 400px;
+  --sidebar-collapse-width: 48px;
+  --resize-handle-width: 6px;
+  --resize-handle-hover-width: 12px;
+
   // ========== 字体系统 ==========
   --font-family-base: "SF Pro Display", -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", "Microsoft YaHei", sans-serif;
   --font-family-mono: "SF Mono", "Monaco", "Inconsolata", "Fira Code", monospace;

@@ -52,6 +52,18 @@ export const STORAGE_KEY_GRAPH_DEPTH = 'dg-graph-depth';
 /** 搜索索引缓存键名 */
 export const STORAGE_KEY_SEARCH_INDEX = 'dg-search-index';
 
+/** 左侧边栏宽度键名 */
+export const STORAGE_KEY_SIDEBAR_LEFT_WIDTH = 'dg-sidebar-left-width';
+
+/** 右侧边栏宽度键名 */
+export const STORAGE_KEY_SIDEBAR_RIGHT_WIDTH = 'dg-sidebar-right-width';
+
+/** 左侧边栏收起状态键名 */
+export const STORAGE_KEY_SIDEBAR_LEFT_COLLAPSED = 'dg-sidebar-left-collapsed';
+
+/** 右侧边栏收起状态键名 */
+export const STORAGE_KEY_SIDEBAR_RIGHT_COLLAPSED = 'dg-sidebar-right-collapsed';
+
 // ========================================
 // 图谱配置
 // ========================================
@@ -78,6 +90,19 @@ export const TRANSITION_DURATION_BASE = 300;
 /** 过渡动画时长（毫秒） */
 export const TRANSITION_DURATION_SLOW = 500;
 
+// ========================================
+// 侧边栏配置
+// ========================================
+
+/** 侧边栏最小宽度（像素） */
+export const SIDEBAR_MIN_WIDTH = 180;
+
+/** 侧边栏默认宽度（像素） */
+export const SIDEBAR_DEFAULT_WIDTH = 280;
+
+/** 侧边栏收起宽度（像素） */
+export const SIDEBAR_COLLAPSE_WIDTH = 48;
+
 export default {
   ALL_NOTE_SETTINGS,
   BREAKPOINT_DESKTOP,
@@ -87,10 +112,17 @@ export default {
   STORAGE_KEY_FOLDER_STATE,
   STORAGE_KEY_GRAPH_DEPTH,
   STORAGE_KEY_SEARCH_INDEX,
+  STORAGE_KEY_SIDEBAR_LEFT_WIDTH,
+  STORAGE_KEY_SIDEBAR_RIGHT_WIDTH,
+  STORAGE_KEY_SIDEBAR_LEFT_COLLAPSED,
+  STORAGE_KEY_SIDEBAR_RIGHT_COLLAPSED,
   GRAPH_DEPTH_MIN,
   GRAPH_DEPTH_MAX,
   GRAPH_DEPTH_DEFAULT,
   TRANSITION_DURATION_FAST,
   TRANSITION_DURATION_BASE,
   TRANSITION_DURATION_SLOW,
+  SIDEBAR_MIN_WIDTH,
+  SIDEBAR_DEFAULT_WIDTH,
+  SIDEBAR_COLLAPSE_WIDTH,
 };

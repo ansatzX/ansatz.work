@@ -9,7 +9,7 @@ import markdownItPlantuml from "markdown-it-plantuml";
 
 import { headerToId, namedHeadingsFilter } from "./utils.js";
 import { userMarkdownSetup } from "./userSetup.js";
-// import tikzPlugin from "./tikz-plugin.js";
+import tikzPlugin from "./tikz-plugin.js";
 
 export const tagRegex = /(^|\s|>)(#[^\s!@#$%^&*()=+\.,\[{\]};:'"?><]+)(?![^<]*>)/g;
 
@@ -56,7 +56,7 @@ export function createMarkdownIt() {
       closeMarker: "```",
     })
     .use(namedHeadingsFilter)
-    // .use(tikzPlugin, { outputDir: "./dist/img/tikz" })
+    .use(tikzPlugin, { outputDir: "./dist/img/tikz" })
     .use(function (md) {
       // https://github.com/DCsunset/markdown-it-mermaid-plugin
       const origFenceRule =
