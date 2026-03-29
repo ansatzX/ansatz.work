@@ -41,9 +41,7 @@
     startup: {
       typeset: true,
       pageReady: () => {
-        return MathJax.startup.defaultPageReady().then(() => {
-          console.log('[MathJax] Initial typeset complete');
-        });
+        return MathJax.startup.defaultPageReady();
       }
     },
     chtml: {
@@ -72,6 +70,18 @@
   };
 </script>
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<!-- 确保MathJax行内公式不换行 -->
+<style>
+  mjx-container.MathJax {
+    display: inline !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  mjx-container.MathJax svg {
+    display: inline !important;
+    vertical-align: middle !important;
+  }
+</style>
 <script async type="module">
     import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
 </script>
@@ -92,7 +102,7 @@
 <link href="/styles/main.css" rel="stylesheet">
 
 <!-- 可拖动侧边栏脚本 -->
-<script src="/scripts/resizable-sidebar-simple.js" defer></script>
+<script src="/scripts/resizable-sidebar.js" defer></script>
 
 {%-if meta.themeStyle%}
     <link href="{{meta.themeStyle}}" rel="stylesheet">
@@ -115,5 +125,3 @@
         {{ meta.styleSettingsCss | safe }}
     </style>
 {% endif %}
-<style>
-</style>
