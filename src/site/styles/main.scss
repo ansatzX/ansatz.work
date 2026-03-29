@@ -1,39 +1,61 @@
 // ============================================================================
-// 主样式文件 - 入口
+// 主样式入口 - 按 ITCSS 架构组织
 // ============================================================================
 
-// 1. 设计令牌
-@import 'tokens/variables';
-@import 'tokens/migration-map';
-@import 'tokens/breakpoints';
+// 首先导入 mixins 和 functions（必须在 layer 外面）
+@import '01-settings/breakpoints';
+@import '02-tools/mixins';
+@import '02-tools/functions';
 
-// 2. 基础样式
-@import 'base/reset';
-@import 'base/typography';
-
-// 3. 用户自定义主题
-@layer theme {
-  @import 'user/minimalist-theme';
+// 1. Settings - 全局变量和配置
+@layer tokens {
+  @import '01-settings/variables';
+  @import '01-settings/aliases';
+  @import '01-settings/themes';
 }
 
-// 4. 布局
-@layer layout {
-  @import 'layout/grid';
-  @import 'layout/sidebar';
-  @import 'layout/collapsible-nav';
+// 2. Generic - Reset 和基础样式
+@layer generic {
+  @import '03-generic/reset';
 }
 
-// 5. 组件
+// 3. Elements - HTML 元素样式
+@layer elements {
+  @import '04-elements/typography';
+}
+
+// 4. Objects - 布局对象
+@layer objects {
+  @import '05-objects/grid';
+  @import '05-objects/wrapper';
+  @import '05-objects/container';
+}
+
+// 5. Components - UI 组件
 @layer components {
-  @import 'components/buttons';
-  @import 'components/cards';
-  @import 'components/code';
-  @import 'components/callouts';
-  @import 'components/filetree';
-  @import 'components/graph';
-  @import 'components/backlinks';
-  @import 'components/memos';
-  @import 'components/search';
+  @import '06-components/sidebar';
+  @import '06-components/filetree';
+  @import '06-components/search';
+  @import '06-components/graph';
+  @import '06-components/backlinks';
+  @import '06-components/callouts';
+  @import '06-components/buttons';
+  @import '06-components/cards';
+  @import '06-components/code';
+  @import '06-components/memos';
+  @import '06-components/collapsible-nav';
+}
+
+// 6. Utilities - 工具类（最高优先级）
+@layer utilities {
+  @import '07-utilities/display';
+  @import '07-utilities/spacing';
+  @import '07-utilities/helpers';
+}
+
+// 遗留主题层（逐步迁移）
+@layer theme.legacy {
+  @import 'user/minimalist-theme';
 }
 
 // ============================================================================
