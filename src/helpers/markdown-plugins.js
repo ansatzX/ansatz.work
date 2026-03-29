@@ -74,7 +74,17 @@ export function createMarkdownIt() {
         }
         if (token.info === "tikz") {
           const code = token.content.trim();
-          return `<pre><code class="language-tex">${md.utils.escapeHtml(code)}</code></pre>`;
+          return `<div class="tikz-block">
+            <div class="tikz-header" onclick="this.closest('.tikz-block').classList.toggle('show-code')">
+              <span class="tikz-label">TikZ (LaTeX)</span>
+              <span class="tikz-toggle-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </span>
+            </div>
+            <div class="tikz-code">
+              <pre><code>${md.utils.escapeHtml(code)}</code></pre>
+            </div>
+          </div>`;
         }
         if (token.info === "transclusion") {
           const code = token.content.trim();
