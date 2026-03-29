@@ -34,7 +34,7 @@
   // ========== 新增：Grid布局变量 ==========
   --grid-column-left: 0.8fr;
   --grid-column-main: 3.5fr;
-  --grid-column-right: 0.8fr;
+  --grid-column-right: 1fr;
   --grid-gap: var(--spacing-lg);
   --grid-template-wide: var(--grid-column-left) var(--grid-column-main) var(--grid-column-right);
   --grid-template-medium: 1fr 0.9fr;
@@ -42,7 +42,7 @@
 
   // ========== 新增：可拖动侧边栏变量 ==========
   --sidebar-left-width: 280px;
-  --sidebar-right-width: 280px;
+  --sidebar-right-width: 320px;
   --sidebar-min-width: 180px;
   --sidebar-max-width: 400px;
   --sidebar-collapse-width: 48px;
