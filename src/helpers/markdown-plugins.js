@@ -72,6 +72,26 @@ export function createMarkdownIt() {
           const code = token.content.trim();
           return `<pre class="mermaid">${code}</pre>`;
         }
+        if (token.info === "tikz") {
+          const code = token.content.trim();
+          return `<div class="tikz-block">
+            <div class="tikz-header">
+              <span class="tikz-label">TikZ</span>
+              <button class="tikz-toggle" onclick="this.closest('.tikz-block').classList.toggle('show-code')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+              </button>
+            </div>
+            <div class="tikz-preview">
+              <div class="tikz-placeholder">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.4;"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                <p> TikZ diagram (requires LaTeX compilation)</p>
+              </div>
+            </div>
+            <div class="tikz-code">
+              <pre><code class="language-tex">${md.utils.escapeHtml(code)}</code></pre>
+            </div>
+          </div>`;
+        }
         if (token.info === "transclusion") {
           const code = token.content.trim();
           return `<div class="transclusion">${md.render(code)}</div>`;
