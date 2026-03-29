@@ -49,6 +49,14 @@
 }
 
 // 搜索按钮样式 - 照搬 hermitage
+.search-button-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: var(--spacing-lg);
+  cursor: pointer;
+}
+
 .search-button {
   display: flex;
   align-items: center;
@@ -57,9 +65,7 @@
   border-radius: 10px;
   background: var(--background-primary);
   border: 1px solid var(--background-modifier-border);
-  cursor: pointer;
   transition: all var(--transition-fast);
-  margin-bottom: var(--spacing-lg);
 }
 
 .search-button:hover {
@@ -85,18 +91,20 @@
   font-size: var(--font-size-sm);
 }
 
-.search-keys {
+.search-keys-hint {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 4px;
-}
 
-.search-keys code {
-  background: var(--background-secondary);
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-size: 0.75em;
-  color: var(--text-muted);
+  code {
+    background: var(--background-secondary);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.75em;
+    color: var(--text-muted);
+    font-family: var(--font-family-mono);
+  }
 }
 
 // 文件树容器

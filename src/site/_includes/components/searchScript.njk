@@ -97,8 +97,8 @@
     function setCorrectShortcut() {
         if (navigator.platform.toUpperCase().indexOf('MAC') >= 0) {
             document
-                .querySelectorAll(".search-keys")
-                .forEach(x => x.innerHTML = "⌘ + K");
+                .querySelectorAll(".search-keys-hint code:first-child")
+                .forEach(x => x.textContent = "⌘");
         }
     }
 
