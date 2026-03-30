@@ -66,6 +66,7 @@
   grid-area: right;
   min-width: 380px !important;
   width: 380px !important;
+  max-width: 380px !important;
 
   // 关键：固定在右侧，跟随滚动
   position: sticky;
