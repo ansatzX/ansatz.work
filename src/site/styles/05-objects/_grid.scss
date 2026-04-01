@@ -5,7 +5,7 @@
 // ========== 主布局容器 ==========
 .app-layout {
   display: grid;
-  grid-template-columns: 0.8fr 3.2fr 1.2fr !important;
+  grid-template-columns: var(--sidebar-left-width, 280px) var(--grid-column-main, 3.2fr) var(--sidebar-right-width, 380px);
   grid-template-areas: "left main right";
   gap: var(--grid-gap);
   min-height: 100vh;
@@ -13,21 +13,6 @@
   width: 100%;
   max-width: 100vw;
   box-sizing: border-box;
-
-  // 响应式：超大屏幕（优化比例）
-  @include respond-to('3xl') {  // >= 1920px
-    grid-template-columns: 0.8fr 3.2fr 1.2fr !important;
-  }
-
-  // 响应式：大屏幕（1536-1920px，保持三栏）
-  @include respond-between('2xl', '3xl') {
-    grid-template-columns: 0.8fr 3.2fr 1.2fr !important;
-  }
-
-  // 响应式：中等屏幕（1280-1536px，三栏，调整比例）
-  @include respond-between('xl', '2xl') {
-    grid-template-columns: 0.8fr 3.2fr 1.2fr !important;
-  }
 
   // 响应式：小桌面（1024-1280px，两栏布局）
   @include respond-between('lg', 'xl') {
@@ -67,19 +52,7 @@
 
 // ========== 导航收起状态 ==========
 .app-layout.nav-collapsed {
-  grid-template-columns: 0 var(--grid-column-main) var(--grid-column-right);
-
-  @include respond-between('xl', '3xl') {
-    grid-template-columns: 0 var(--grid-column-main) var(--grid-column-right);
-  }
-
-  @include respond-between('2xl', '3xl') {
-    grid-template-columns: 0 var(--grid-column-main) var(--grid-column-right);
-  }
-
-  @include respond-to('3xl') {
-    grid-template-columns: 0 var(--grid-column-main) var(--grid-column-right);
-  }
+  grid-template-columns: 0 var(--grid-column-main) var(--sidebar-right-width, 380px);
 
   @include respond-between('lg', 'xl') {
     grid-template-columns: var(--grid-template-medium);

@@ -64,9 +64,6 @@
 // ========== 右侧栏 ==========
 .sidebar-right {
   grid-area: right;
-  min-width: 380px !important;
-  width: 380px !important;
-  max-width: 380px !important;
 
   // 关键：固定在右侧，跟随滚动
   position: sticky;
@@ -335,15 +332,15 @@
 
 // 关键：使用 CSS 类控制 grid 布局
 .app-layout.sidebar-left-collapsed {
-  grid-template-columns: 0fr var(--grid-column-main) var(--grid-column-right) !important;
+  grid-template-columns: 0 var(--grid-column-main) var(--sidebar-right-width, 380px);
 }
 
 .app-layout.sidebar-right-collapsed {
-  grid-template-columns: var(--grid-column-left) var(--grid-column-main) 0fr !important;
+  grid-template-columns: var(--sidebar-left-width, 280px) var(--grid-column-main) 0;
 }
 
 .app-layout.sidebar-left-collapsed.sidebar-right-collapsed {
-  grid-template-columns: 0fr var(--grid-column-main) 0fr !important;
+  grid-template-columns: 0 var(--grid-column-main) 0;
 }
 
 // 拖动时光标

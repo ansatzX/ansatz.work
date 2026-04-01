@@ -32,7 +32,9 @@ export function createMarkdownIt() {
     .use(markdownItMathjax3, {
       mathjax: {
         tex: {
+          // 行间公式：单$或\(...\)
           inlineMath: [['$', '$'], ['\\(', '\\)']],
+          // 块级公式：双$$或\[...\]（需要前后有空行）
           displayMath: [['$$', '$$'], ['\\[', '\\]']],
           processEscapes: true,
           processEnvironments: true,

@@ -494,16 +494,3 @@ body.theme-dark .search-container .search-header input[type="search"]::placehold
 [data-theme="dark"] .search-container .search-header input[type="search"]::placeholder {
     color: #aaaaaa !important;
 }
-
-/* ========================================================================
-   最高优先级：强制设置右侧栏宽度
-   ======================================================================== */
-.app-layout {
-    grid-template-columns: 0.8fr 3.2fr 1.2fr !important;
-}
-
-.sidebar-right {
-    min-width: 380px !important;
-    width: 380px !important;
-    max-width: 380px !important;
-}

@@ -42,7 +42,7 @@
 
   // ========== 新增：可拖动侧边栏变量 ==========
   --sidebar-left-width: 280px;
-  --sidebar-right-width: 360px;
+  --sidebar-right-width: 380px;
   --sidebar-min-width: 180px;
   --sidebar-max-width: 400px;
   --sidebar-collapse-width: 48px;
@@ -126,8 +126,6 @@
   --interactive-accent: var(--color-accent);
 
   // ========== 向后兼容 minimalist-theme.scss ==========
-  --sidebar-left-width: var(--grid-column-left);
-  --sidebar-right-width: var(--grid-column-right);
   --color-bg-base: var(--color-bg-primary);
   --color-bg-nebula: var(--color-bg-primary);
   --shadow-element: var(--shadow-md);

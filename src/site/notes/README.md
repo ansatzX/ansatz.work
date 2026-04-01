@@ -2,254 +2,117 @@
 {"dg-publish":true,"permalink":"/","dgPassFrontmatter":true,"dg-home":true,"dgShowInlineTitle":false}
 ---
 
-<div class="portal-container">
+# Welcome to My Digital Garden
 
-<!-- Hero Section -->
-<div class="hero-section">
+**Cunxi Gong (ansatz)**
 
-<h1>Welcome to My Digital Garden</h1>
+_PhD Student in Physics | Computational Chemistry Scientist_
 
-<strong>Cunxi Gong (ansatz)</strong>
+> Exploring the intersection of Quantum Computing, Tensor Network, Machine Learning, and Theoretical Chemistry
 
-<em>PhD Student in Physics | Computational Chemistry Scientist</em>
+📧 **ansatzMe@outlook.com**
 
-<blockquote>
-Exploring the intersection of quantum computing, machine learning, and computational chemistry
-</blockquote>
+---
 
-<p>📧 <strong>ansatzMe@outlook.com</strong></p>
+## Connect With Me
 
-</div>
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/cunxigong/)
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ansatzX)
+[![ORCID](https://img.shields.io/badge/ORCID-A6CE39?style=for-the-badge&logo=orcid&logoColor=white)](https://orcid.org/0009-0005-9974-9170)
+[![Website](https://img.shields.io/badge/Website-FF7139?style=for-the-badge&logo=firefox-browser&logoColor=white)](https://ansatz.work)
 
-<!-- Social Links -->
-<div class="social-links">
+---
 
-<h2>Connect With Me</h2>
+## 🎓 About Me
 
-<p>
-<a href="https://linkedin.com/in/cunxi-gong"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"></a>
-<a href="https://github.com/ansatzX"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"></a>
-<a href="https://scholar.google.com/citations?user=YOUR_ID"><img src="https://img.shields.io/badge/Google_Scholar-4285F4?style=for-the-badge&logo=google-scholar&logoColor=white" alt="Google Scholar"></a>
-<a href="https://orcid.org/YOUR_ORCID"><img src="https://img.shields.io/badge/ORCID-A6CE39?style=for-the-badge&logo=orcid&logoColor=white" alt="ORCID"></a>
-<a href="https://ansatz.work"><img src="https://img.shields.io/badge/Website-FF7139?style=for-the-badge&logo=firefox-browser&logoColor=white" alt="Website"></a>
-</p>
+I am a **PhD student in Physics** at **The Chinese University of Hong Kong, Shenzhen** under the supervision of **Prof. Weitang Li**. My research focuses on the intersection of Quantum Physics, Machine Learning, and Theoretical chemistry.
 
-</div>
+---
 
-<!-- About Section -->
-<div class="about-section">
+## 🔬 Research Interests
 
-<h2>🎓 About Me</h2>
+### Quantum science
+Quantum algorithms for chemistry, quantum machine learning, tensor networks, DFT, valence bond theory, reaction mechanisms, molecular dynamics
 
-<p>I am a <strong>PhD student in Physics</strong> at <strong>The Chinese University of Hong Kong, Shenzhen</strong>, working under the supervision of <strong>Prof. Weitang Li</strong>. My research focuses on the intersection of quantum computing, machine learning, and computational chemistry.</p>
 
-<p>Previously, I worked as a <strong>Computational Chemistry Scientist</strong> at Quanmol Tech Inc. (USA) and as a Research Assistant in Prof. Zhigang Shuai's group. I hold a <strong>BSc in Applied Chemistry</strong> from Zhengzhou University.</p>
+### 💻 Software Development
+Python, Fortran, C/C++, high-performance computing, scientific software
 
-</div>
 
-<!-- Research Interests -->
-<div class="interests-grid">
+---
 
-<h2>Research Interests</h2>
 
-<div class="interest-card">
-<h3>Quantum Computing</h3>
-<p>Quantum algorithms for chemistry, ADAPT-VQE, quantum machine learning</p>
-</div>
 
-<div class="interest-card">
-<h3>AI for Science</h3>
-<p>Machine learning potentials, neural network wavefunctions, tensor networks</p>
-</div>
+## 🛠️ Technical Skills
 
-<div class="interest-card">
-<h3>Computational Chemistry</h3>
-<p>DFT, valence bond theory, reaction mechanisms, molecular dynamics</p>
-</div>
+**Programming Languages:**
+`Python` `C/C++` `Fortran` `R` `LaTeX` `Julia`
 
-<div class="interest-card">
-<h3>💻 Software Development</h3>
-<p>Python, Fortran, C/C++, high-performance computing, scientific software</p>
-</div>
+**Scientific Software:**
+`ORCA` `CP2K` `Gaussian` `ABACUS` `XMVB` `MOMAP` `Renormalizer` `TensorCircuit` `Gromacs`
 
-</div>
+**Specialties:**
+Quantum algorithms • Machine learning • HPC • Molecular modeling • Tensor networks
 
-<!-- Recent News -->
-<div class="news-section">
+---
 
-<h2>Recent News</h2>
+## 💻 Featured Projects
 
-<ul>
-<li><strong>[2025]</strong> Started PhD program at CUHK-Shenzhen</li>
-<li><strong>[2025]</strong> Published in <em>J. Chem. Phys.</em> on efficient ADAPT-VQE</li>
-<li><strong>[2025]</strong> Published in <em>Digital Discovery</em> on quantum machine learning</li>
-<li><strong>[2024]</strong> Technical Consultant for SAI HPC Project</li>
-<li><strong>[2024]</strong> Research on spin-boson model and entanglement entropy</li>
-</ul>
+### Autostruct
+Automated protein and ligand structure processing package
+_Role:_ Lead Developer | _Tech:_ Python, Computational Chemistry
 
-</div>
+### Renormalizer
+Tensor network package for electron-phonon quantum dynamics
+_Role:_ Contributor | _Tech:_ Python, Tensor Networks
 
-<!-- Publications -->
-<div class="publications-section">
+### Protein-Ligand Database
+Comprehensive database with Python API
+_Role:_ Lead Developer | _Tech:_ Python, Databases
 
-<h2>Selected Publications</h2>
+---
 
-<div class="publication-item">
-<strong>Measurement-efficient ADAPT-VQE with the SOAP parameter optimizer</strong><br>
-<em>J. Chem. Phys.</em>, <strong>163</strong>, 224118 (2025)<br>
-X. Jiang, Z. Sheng, C. Gong, W. Li, Z. Shuai<br>
-<a href="https://doi.org/10.1063/5.0296397">DOI: 10.1063/5.0296397</a>
-</div>
+## 🎓 Academic Journey
 
-<div class="publication-item">
-<strong>Quantum machine learning of molecular energies with hybrid quantum-neural wavefunction</strong><br>
-<em>Digital Discovery</em>, <strong>4</strong>, 2697-2710 (2025)<br>
-W. Li, S.-X. Zhang, Z. Sheng, C. Gong, J. Chen, Z. Shuai<br>
-<a href="https://doi.org/10.1039/D5DD00222B">DOI: 10.1039/D5DD00222B</a>
-</div>
-
-<div class="publication-item">
-<strong>Electrostatic effects in N-heterocyclic carbene catalysis</strong><br>
-<em>Phys. Chem. Chem. Phys.</em>, <strong>23</strong>, 24627-24633 (2023)<br>
-Z. Pei, Q. Qiao, C. Gong, D. Wei, M. L. Coote<br>
-<a href="https://doi.org/10.1039/D1CP04444C">DOI: 10.1039/D1CP04444C</a>
-</div>
-
-<div class="publication-item">
-<strong>Reaction sequence in phosphine-catalyzed [8+2] cycloaddition</strong><br>
-<em>Chem. Commun.</em>, <strong>57</strong>, 761-764 (2021)<br>
-W.-X. Lin, Z. Pei, C. Gong, et al.<br>
-<a href="https://doi.org/10.1039/D0CC07370A">DOI: 10.1039/D0CC07370A</a>
-</div>
-
-<p><a href="https://scholar.google.com/citations?user=YOUR_ID">View all publications →</a></p>
-
-</div>
-
-<!-- Technical Skills -->
-<div class="skills-section">
-
-<h2>Technical Skills</h2>
-
-<p><strong>Programming Languages:</strong><br>
-<code>Python</code> <code>C/C++</code> <code>Fortran</code> <code>R</code> <code>LaTeX</code> <code>Julia</code></p>
-
-<p><strong>Scientific Software:</strong><br>
-<code>ORCA</code> <code>CP2K</code> <code>Gaussian</code> <code>ABACUS</code> <code>XMVB</code> <code>MOMAP</code> <code>Renormalizer</code> <code>TensorCircuit</code> <code>Gromacs</code></p>
-
-<p><strong>Specialties:</strong><br>
-Quantum algorithms • Machine learning • HPC • Molecular modeling • Tensor networks</p>
-
-</div>
-
-<!-- Featured Projects -->
-<div class="projects-section">
+- **2025 – Present**: **PhD in Physics** | CUHK-Shenzhen
+  _Supervisor: Prof. Weitang Li_
+  Research: Quantum computing, machine learning, tensor networks
 
-<h2>Featured Projects</h2>
+- **2024 – 2025**: **Research Assistant** | CUHK-Shenzhen
+  _Prof. Zhigang Shuai's Group_
+  Research: Computational chemistry and quantum dynamics
 
-<div class="project-card">
-<strong>Autostruct</strong><br>
-<p>Automated protein and ligand structure processing package<br>
-<em>Role:</em> Lead Developer | <em>Tech:</em> Python, Computational Chemistry</p>
-</div>
+- **2018 – 2022**: **BSc in Applied Chemistry** | Zhengzhou University
+  _Thesis: Development of Organic Chemical Bond Energy and Reaction Database_
+  Research: Machine learning for valence bond theory, supervised by Prof. Jinshuai Song
 
-<div class="project-card">
-<strong>Renormalizer</strong><br>
-<p>Tensor network package for electron-phonon quantum dynamics<br>
-<em>Role:</em> Contributor | <em>Tech:</em> Python, Tensor Networks</p>
-</div>
+---
 
-<div class="project-card">
-<strong>Protein-Ligand Database</strong><br>
-<p>Comprehensive database with Python API<br>
-<em>Role:</em> Lead Developer | <em>Tech:</em> Python, Databases</p>
-</div>
+## Professional Experience
 
-</div>
+- **2026 – Present**: **Scientific Software Engineer**
+  Beijing Sidereus Intelligent Computing Technology Co., Ltd.
 
-<!-- Academic Journey -->
-<div class="timeline-section">
+- **2025 – Present**: **Technical Consultant**
+  SAI HPC Project, Hubei Zhongke Tuzhi Technology
+  _HPC cluster procurement & deployment_
 
-<h2>🎓 Academic Journey</h2>
+- **2024 – 2025**: **Research Assistant**
+  CUHK-Shenzhen (Prof. Zhigang Shuai's Group)
+  _Computational chemistry and quantum dynamics_
 
-<div class="timeline-item">
-<strong>2025 – Present</strong><br>
-<strong>PhD in Physics</strong> | CUHK-Shenzhen<br>
-<em>Supervisor: Prof. Weitang Li</em><br>
-<p>Quantum computing, machine learning, tensor networks</p>
-</div>
+- **2022 – 2024**: **Computational Chemistry Scientist**
+  Quanmol Tech, Inc., USA
+  _Full-time research & development_
 
-<div class="timeline-item">
-<strong>2024 – 2025</strong><br>
-<strong>Research Assistant</strong> | CUHK-Shenzhen<br>
-<em>Prof. Zhigang Shuai's Group</em><br>
-<p>Computational chemistry and quantum dynamics</p>
-</div>
+---
 
-<div class="timeline-item">
-<strong>2018 – 2022</strong><br>
-<strong>BSc in Applied Chemistry</strong> | Zhengzhou University<br>
-<em>Thesis: Development of Organic Chemical Bond Energy and Reaction Database</em><br>
-<p>Machine learning for valence bond theory, supervised by Prof. Jinshuai Song</p>
-</div>
 
-</div>
+## Get In Touch
 
-<!-- Professional Experience -->
-<div class="experience-section">
+I'm always open to discussing research collaborations, job opportunities, or just chatting about science and technology!
 
-<h2>Professional Experience</h2>
+[Email Me](mailto:ansatzMe@outlook.com) •
+[LinkedIn](https://linkedin.com/in/cunxi-gong) •
+[GitHub](https://github.com/ansatzX)
 
-<div class="experience-item">
-<strong>2025 – Present</strong><br>
-<strong>Scientific Software Engineer</strong><br>
-<p>Beijing Sidereus Intelligent Computing Technology Co., Ltd.</p>
-</div>
-
-<div class="experience-item">
-<strong>2025 – Present</strong><br>
-<strong>Technical Consultant</strong><br>
-<p>SAI HPC Project, Hubei Zhongke Tuzhi Technology<br>
-<em>HPC cluster procurement & deployment</em></p>
-</div>
-
-<div class="experience-item">
-<strong>2024 – 2025</strong><br>
-<strong>Research Assistant</strong><br>
-<p>CUHK-Shenzhen (Prof. Zhigang Shuai's Group)<br>
-<em>Computational chemistry and quantum dynamics</em></p>
-</div>
-
-<div class="experience-item">
-<strong>2022 – 2024</strong><br>
-<strong>Computational Chemistry Scientist</strong><br>
-<p>Quanmol Tech, Inc., USA<br>
-<em>Full-time research & development</em></p>
-</div>
-
-</div>
-
-<!-- Call to Action -->
-<div class="cta-section">
-
-<h2>Get In Touch</h2>
-
-<p>I'm always open to discussing research collaborations, job opportunities, or just chatting about science and technology!</p>
-
-<a href="mailto:ansatzMe@outlook.com">Email Me</a> •
-<a href="https://linkedin.com/in/cunxi-gong"> LinkedIn</a> •
-<a href="https://github.com/ansatzX">GitHub</a>
-
-</div>
-
-<hr>
-
-<div class="portal-footer">
-
-<p><strong>Made by Cunxi Gong</strong></p>
-
-<p><em>Last updated: March 2025</em></p>
-
-</div>
-
-</div>

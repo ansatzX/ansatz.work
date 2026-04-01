@@ -8,10 +8,13 @@
  */
 const SIDEBAR_MIN_WIDTH = 180;
 const SIDEBAR_DEFAULT_WIDTH = 280;
+const SIDEBAR_RIGHT_DEFAULT_WIDTH = 380;
 const STORAGE_KEY_SIDEBAR_LEFT_WIDTH = 'dg-sidebar-left-width';
 const STORAGE_KEY_SIDEBAR_RIGHT_WIDTH = 'dg-sidebar-right-width';
 const STORAGE_KEY_SIDEBAR_LEFT_COLLAPSED = 'dg-sidebar-left-collapsed';
 const STORAGE_KEY_SIDEBAR_RIGHT_COLLAPSED = 'dg-sidebar-right-collapsed';
+const STORAGE_KEY_LAYOUT_VERSION = 'dg-sidebar-layout-version';
+const CURRENT_LAYOUT_VERSION = '2';
 
 /**
  * 侧边栏配置
@@ -58,6 +61,24 @@ function cleanup() {
  */
 function loadState() {
   try {
+    // 检查布局版本，如果是旧版本则清除旧数据
+    const storedVersion = localStorage.getItem(STORAGE_KEY_LAYOUT_VERSION);
+    if (storedVersion !== CURRENT_LAYOUT_VERSION) {
+      // 清除旧的 localStorage 数据
+      localStorage.removeItem(STORAGE_KEY_SIDEBAR_LEFT_WIDTH);
+      localStorage.removeItem(STORAGE_KEY_SIDEBAR_RIGHT_WIDTH);
+      localStorage.removeItem(STORAGE_KEY_SIDEBAR_LEFT_COLLAPSED);
+      localStorage.removeItem(STORAGE_KEY_SIDEBAR_RIGHT_COLLAPSED);
+      // 移除旧版本的 storage key
+      localStorage.removeItem('sidebar-cssclass-v1');
+      // 设置新版本
+      localStorage.setItem(STORAGE_KEY_LAYOUT_VERSION, CURRENT_LAYOUT_VERSION);
+      // 使用默认值
+      state.currentWidth.left = SIDEBAR_DEFAULT_WIDTH;
+      state.currentWidth.right = SIDEBAR_RIGHT_DEFAULT_WIDTH;
+      return;
+    }
+
     // 尝试从新的常量键名加载
     const leftWidth = localStorage.getItem(STORAGE_KEY_SIDEBAR_LEFT_WIDTH);
     const rightWidth = localStorage.getItem(STORAGE_KEY_SIDEBAR_RIGHT_WIDTH);
@@ -66,29 +87,19 @@ function loadState() {
 
     if (leftWidth !== null) {
       state.currentWidth.left = parseInt(leftWidth, 10);
+    } else {
+      state.currentWidth.left = SIDEBAR_DEFAULT_WIDTH;
     }
     if (rightWidth !== null) {
       state.currentWidth.right = parseInt(rightWidth, 10);
+    } else {
+      state.currentWidth.right = SIDEBAR_RIGHT_DEFAULT_WIDTH;
     }
     if (leftCollapsed !== null) {
       state.collapsed.left = leftCollapsed === 'true';
     }
     if (rightCollapsed !== null) {
       state.collapsed.right = rightCollapsed === 'true';
-    }
-
-    // 兼容旧的存储格式
-    if (leftWidth === null && rightWidth === null) {
-      const saved = localStorage.getItem(CONFIG.storageKey);
-      if (saved) {
-        const data = JSON.parse(saved);
-        if (data.widths) {
-          state.currentWidth = Object.assign(state.currentWidth, data.widths);
-        }
-        if (data.collapsed) {
-          state.collapsed = Object.assign(state.collapsed, data.collapsed);
-        }
-      }
     }
   } catch (e) {
     // 静默失败，使用默认值
@@ -115,12 +126,20 @@ function saveState() {
 function applyState() {
   const root = document.documentElement;
 
-  // 先设置宽度
-  if (dom.leftSidebar && !state.collapsed.left) {
-    root.style.setProperty('--grid-column-left', state.currentWidth.left + 'px');
+  // 设置侧边栏宽度变量（专门用于像素宽度）
+  if (dom.leftSidebar) {
+    if (!state.collapsed.left) {
+      root.style.setProperty('--sidebar-left-width', state.currentWidth.left + 'px');
+    } else {
+      root.style.removeProperty('--sidebar-left-width');
+    }
   }
-  if (dom.rightSidebar && !state.collapsed.right) {
-    root.style.setProperty('--grid-column-right', state.currentWidth.right + 'px');
+  if (dom.rightSidebar) {
+    if (!state.collapsed.right) {
+      root.style.setProperty('--sidebar-right-width', state.currentWidth.right + 'px');
+    } else {
+      root.style.removeProperty('--sidebar-right-width');
+    }
   }
 
   // 添加/移除 CSS 类
@@ -297,7 +316,7 @@ function init() {
   }
   if (dom.rightSidebar) {
     state.startWidth.right = state.currentWidth.right =
-      dom.rightSidebar.offsetWidth || SIDEBAR_DEFAULT_WIDTH;
+      dom.rightSidebar.offsetWidth || SIDEBAR_RIGHT_DEFAULT_WIDTH;
   }
 
   // 加载保存的状态
