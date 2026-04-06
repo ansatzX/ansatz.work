@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/slides/literature-report-first-quant-2/","dgPassFrontmatter":true}
+{"dg-publish":true,"permalink":"/slides/literature-report-first-quant-2/","dgPassFrontmatter":true,"dg-note-properties":{}}
 ---
 
 
@@ -31,9 +31,9 @@ Contents:
 ---
 # Today's Paper
 
-  ![paper](/img/user/pics/LiteratureReport-first-quant-2-1744915514699.webp)
+  ![](/img/user/pics/LiteratureReport-first-quant-2-1744969392319.png)
 
-
+now
 [paper](zotero://open-pdf/library/items/XYPFG4LA?page=1)
 This paper is mainly about how to write a quantum simulator with Qiskit to meet the minimum need of chemistry reaction.
 

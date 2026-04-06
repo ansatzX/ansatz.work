@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/slides/tensor-network-for-quantum-computing/","dgPassFrontmatter":true}
+{"dg-publish":true,"permalink":"/slides/tensor-network-for-quantum-computing/","dgPassFrontmatter":true,"dg-note-properties":{}}
 ---
 
 **Speaker** : Cunxi Gong
