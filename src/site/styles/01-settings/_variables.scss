@@ -3,6 +3,8 @@
 // ============================================================================
 
 :root {
+  color-scheme: light;
+
   // ========== 颜色系统 ==========
   // 背景色
   --color-bg-primary: #ffffff;
@@ -133,6 +135,8 @@
 
 // ========== 深色主题（可选） ==========
 [data-theme="dark"] {
+  color-scheme: dark;
+
   --color-bg-primary: #0a0a0a;
   --color-bg-secondary: #1a1a1a;
   --color-bg-surface: rgba(30, 30, 30, 0.8);

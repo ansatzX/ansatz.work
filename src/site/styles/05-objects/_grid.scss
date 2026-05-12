@@ -59,6 +59,19 @@
   }
 }
 
+// ========== 侧边栏收起状态 ==========
+.app-layout.sidebar-left-collapsed {
+  grid-template-columns: 0 var(--grid-column-main) var(--sidebar-right-width, 380px);
+}
+
+.app-layout.sidebar-right-collapsed {
+  grid-template-columns: var(--sidebar-left-width, 280px) var(--grid-column-main) 0;
+}
+
+.app-layout.sidebar-left-collapsed.sidebar-right-collapsed {
+  grid-template-columns: 0 var(--grid-column-main) 0;
+}
+
 // ========== 打印样式 ==========
 @media print {
   .app-layout {

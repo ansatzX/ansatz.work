@@ -7,6 +7,8 @@ import buildTransforms from "./src/helpers/eleventy-transforms.js";
 import { getAnchorAttributes, getAnchorLink } from "./src/helpers/getAnchorAttributes.js";
 import { userEleventySetup } from "./src/helpers/userSetup.js";
 import { createMarkdownIt, tagRegex } from "./src/helpers/markdown-plugins.js";
+import { compileTikzToSvg, getTikzBlocks, clearTikzBlocks } from "./src/helpers/tikz-plugin.js";
+import path from "path";
 
 
 export default function (eleventyConfig) {
@@ -47,6 +49,25 @@ export default function (eleventyConfig) {
   });
 
   userEleventySetup(eleventyConfig);
+
+  // Post-build: compile TikZ code blocks to SVG
+  eleventyConfig.on("eleventy.after", async ({ dir, outputMode }) => {
+    const blocks = getTikzBlocks();
+    if (blocks.length === 0) return;
+    const svgDir = path.join(dir.output, "img", "tikz");
+    console.log(`[tikz] compiling ${blocks.length} diagram(s) to ${svgDir}`);
+    const results = await Promise.allSettled(
+      blocks.map(({ code }) => compileTikzToSvg(code, svgDir)),
+    );
+    const succeeded = results.filter((r) => r.status === "fulfilled" && r.value).length;
+    const failed = results.length - succeeded;
+    if (failed > 0) {
+      console.warn(`[tikz] ${failed}/${results.length} diagram(s) failed to compile`);
+    } else {
+      console.log(`[tikz] all ${succeeded} diagram(s) compiled successfully`);
+    }
+    clearTikzBlocks();
+  });
 
   return {
     dir: {
