@@ -1,6 +1,7 @@
 import express from 'express';
 const app = express();
 const port = process.env.PORT || 8080;
+const host = process.env.HOST || '0.0.0.0';
 
 // 注释：搜索功能已在前端实现，此处保留接口以保持兼容性
 // 如果需要服务端搜索，可以在此实现 searchHandler 函数
@@ -26,9 +27,9 @@ app.get('/api/search', async (req, res) => {
 app.use(express.static('dist'));
 
 app.get('*', (req, res) => {
-  res.redirect('/404');
+  res.status(404).sendFile('404/index.html', { root: 'dist' });
 });
 
-app.listen(port, () => {
-  console.log(`Digital garden running on port ${port}`);
+app.listen(port, host, () => {
+  console.log(`Digital garden running on ${host}:${port}`);
 });

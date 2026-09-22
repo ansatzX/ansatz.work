@@ -137,24 +137,12 @@
     async function init() {
         //init offline search index
 
-        const searchIndexDate = '{{meta.buildDate|isoDate}}';
-        let shouldFetch = true;
-        if(localStorage.getItem("searchIndex")) {
-            let {date, docs}= JSON.parse(localStorage.getItem('searchIndex'));
-            if(date === searchIndexDate){
-                shouldFetch = false;
-                let index = createIndex(docs);
-                window.docs = docs
-                window.index = index;
-            }        
-        }
-        if(shouldFetch){
-            let docs = await(await fetch('/searchIndex.json?v={{meta.buildDate|isoDate}}')).json();
-            let index = createIndex(docs);
-            localStorage.setItem("searchIndex", JSON.stringify({date: '{{meta.buildDate|isoDate}}', docs}));
-            window.docs = docs
-            window.index = index;
-        }
+        // Revalidate the index even when SOURCE_DATE_EPOCH is unchanged.
+        // A permanent localStorage copy can retain obsolete content indefinitely.
+        const response = await fetch('/searchIndex.json', { cache: 'no-cache' });
+        if (!response.ok) throw new Error('Search index could not be loaded');
+        window.docs = await response.json();
+        window.index = createIndex(window.docs);
 
         //open searchmodal when ctrl + k is pressed, cmd + k on mac
         document.addEventListener('keydown', (e) => {
@@ -299,27 +287,31 @@
         results.forEach(r => {
             if(r.tags && r.tags.length > 0){
                 resultsHTML += `<div class="searchresult">
-                    <a class="search-link" href="${r.url}">${r.title}</a>
+                    <a class="search-link" href="${r.url}">${escapeHtml(r.title)}</a>
                     <div onclick="window.location='${r.url}'">
                         <div class="header-meta">
                             <div class="header-tags">
                                 ${r.tags.map(tag=>'<a class="tag" href="JavaScript:Void(0);">#'+tag+'</a>').join("")}
                             </div>
                         </div>
-                        ${r.content}
+                        ${escapeHtml(r.content)}
                     </div>
                 </div>`;
             } else {
                 resultsHTML += `<div class="searchresult">
-                    <a class="search-link" href="${r.url}">${r.title}</a>
+                    <a class="search-link" href="${r.url}">${escapeHtml(r.title)}</a>
                     <div onclick="window.location='${r.url}'">
-                        ${r.content}
+                        ${escapeHtml(r.content)}
                     </div>
                 </div>`;
             }
         });
         resultsHTML += '</div>';
         resultsDiv.innerHTML = resultsHTML;
+    }
+
+    function escapeHtml(value) {
+        return String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
     }
 
     function truncate(str, size) {

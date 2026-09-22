@@ -1,0 +1,13 @@
+{
+  "plugins": {
+    "dg-search": {
+      "enabled": true
+    },
+    "dg-link-preview": {
+      "enabled": true
+    },
+    "dg-math": {
+      "enabled": false
+    }
+  }
+}

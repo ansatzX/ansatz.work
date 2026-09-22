@@ -113,6 +113,6 @@ _Role:_ Lead Developer | _Tech:_ Python, Databases
 I'm always open to discussing research collaborations, job opportunities, or just chatting about science and technology!
 
 [Email Me](mailto:ansatzMe@outlook.com) •
-[LinkedIn](https://linkedin.com/in/cunxi-gong) •
+[LinkedIn](https://www.linkedin.com/in/cunxigong/) •
 [GitHub](https://github.com/ansatzX)
 

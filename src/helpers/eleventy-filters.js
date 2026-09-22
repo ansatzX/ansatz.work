@@ -1,3 +1,4 @@
+import { parse } from "node-html-parser";
 import { tagRegex } from "./markdown-plugins.js";
 import { getAnchorLink } from "./getAnchorAttributes.js";
 
@@ -19,31 +20,11 @@ export default function buildFilters(eleventyConfig) {
     });
   });
 
-  eleventyConfig.addFilter("taggify", function (str) {
-    return (
-      str &&
-      str.replace(tagRegex, function (match, precede, tag) {
-        return `${precede}<a class="tag" onclick="toggleTagSearch(this)" data-content="${tag}">${tag}</a>`;
-      })
-    );
-  });
-
-  eleventyConfig.addFilter("searchableTags", function (str) {
-    let tags;
-    let match = str && str.match(tagRegex);
-    if (match) {
-      tags = match
-        .map((m) => {
-          return `"${m.split("#")[1]}"`;
-        })
-        .join(", ");
-    }
-    if (tags) {
-      return `${tags},
-`;
-    } else {
-      return "";
-    }
+  eleventyConfig.addFilter("taggify", taggify);
+  eleventyConfig.addFilter("searchText", searchText);
+  eleventyConfig.addFilter("searchTags", (html, tags = []) => {
+    const inline = [...searchText(html).matchAll(tagRegex)].map(m => m[2].slice(1));
+    return [...new Set([...inline, ...(Array.isArray(tags) ? tags : [tags])])];
   });
 
   eleventyConfig.addFilter("hideDataview", function (str) {
@@ -75,4 +56,26 @@ export default function buildFilters(eleventyConfig) {
     }
     return variable;
   });
+}
+
+// Work on prose text nodes only: generated CSS, SVG and code are not hashtags.
+export function taggify(html) {
+  if (!html) return html;
+  const root = parse(html);
+  const skip = new Set(["STYLE", "SCRIPT", "PRE", "CODE", "A", "SVG", "MJX-CONTAINER", "MATH"]);
+  const walk = node => {
+    if (skip.has(node.tagName)) return;
+    if (node.nodeType === 3) {
+      node.rawText = node.rawText.replace(tagRegex, (_, prefix, tag) =>
+        `${prefix}<a class="tag" data-content="${tag}">${tag}</a>`);
+    } else node.childNodes.forEach(walk);
+  };
+  walk(root);
+  return root.toString();
+}
+
+export function searchText(html) {
+  const root = parse(html || "");
+  root.querySelectorAll("style, script, pre, code, svg, .tikz-container summary").forEach(n => n.remove());
+  return root.structuredText.replace(/\s+/g, " ").trim();
 }

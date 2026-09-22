@@ -74,16 +74,23 @@ function getPermalinkMeta(note, key) {
     if (note.data.title) {
       name = note.data.title;
     }
-    if (note.data.noteIcon) {
-      noteIcon = note.data.noteIcon;
+    if (note.data["dg-note-icon"] ?? note.data.noteIcon) {
+      noteIcon = note.data["dg-note-icon"] ?? note.data.noteIcon;
     }
     // Reason for adding the hide flag instead of removing completely from file tree is to
     // allow users to use the filetree data elsewhere without the fear of losing any data.
-    if (note.data.hide) {
-      hide = note.data.hide;
+    if (
+      note.data["dg-hide-in-filetree"] ??
+      note.data.hideInFiletree ??
+      note.data.hide
+    ) {
+      hide =
+        note.data["dg-hide-in-filetree"] ??
+        note.data.hideInFiletree ??
+        note.data.hide;
     }
-    if (note.data.pinned) {
-      pinned = note.data.pinned;
+    if (note.data["dg-pinned"] ?? note.data.pinned) {
+      pinned = note.data["dg-pinned"] ?? note.data.pinned;
     }
     if (note.data["dg-path"]) {
       folders = note.data["dg-path"].split("/");
@@ -121,3 +128,5 @@ export function getFileTree(data) {
   const fileTree = sortTree(tree);
   return fileTree;
 }
+
+export { getPermalinkMeta };

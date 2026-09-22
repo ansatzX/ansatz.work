@@ -15,36 +15,6 @@ function getTikzHash(tikzCode) {
 }
 
 /**
- * Find Ghostscript binary (needed by dvisvgm for TikZ PostScript specials).
- * Returns the path string, or empty string if not found.
- */
-function findGs() {
-  const candidates = [
-    "/opt/homebrew/bin/gs",
-    "/usr/local/bin/gs",
-    "/usr/bin/gs",
-  ];
-  for (const p of candidates) {
-    if (fs.existsSync(p)) return p;
-  }
-  // Try PATH
-  try {
-    const { stdout } = execSync("which gs 2>/dev/null");
-    return stdout.trim();
-  } catch {
-    return "";
-  }
-}
-
-import { execSync } from "child_process";
-
-let _gsPath = undefined;
-function getGsPath() {
-  if (_gsPath === undefined) _gsPath = findGs();
-  return _gsPath;
-}
-
-/**
  * Compile one TikZ code block to SVG.
  * Uses latex -> DVI -> dvisvgm pipeline (more reliable than pdflatex -> PDF).
  * @param {string} tikzCode
@@ -70,7 +40,7 @@ async function compileTikzToSvg(tikzCode, outputDir) {
 \usepackage{tikz}
 \usetikzlibrary{arrows,calc,patterns,shapes,shadows,positioning}
 \begin{document}
-${tikzCode}
+    ${extractDocumentBody(tikzCode)}
 \end{document}
 `;
 
@@ -90,21 +60,52 @@ ${tikzCode}
       throw new Error("No DVI generated");
     }
 
-    // DVI -> SVG via dvisvgm (with Ghostscript for PostScript specials)
-    const gsPath = getGsPath();
-    const libgsFlag = gsPath ? `--libgs=${gsPath}` : "";
+    // DVI -> SVG via dvisvgm. Modern dvisvgm discovers Ghostscript through
+    // its compiled-in integration; the removed --libgs option is unsupported
+    // by current dvisvgm releases.
     await execAsync(
-      `dvisvgm --no-fonts ${libgsFlag} --output=${svgFile} ${dviFile}`,
+      `dvisvgm --no-fonts --output=${svgFile} ${dviFile}`,
       { stdio: "pipe" },
     );
 
+    // dvisvgm can return successfully without producing the requested file
+    // (for example when a converter/plugin is unavailable). Never publish a
+    // URL for an artifact that is not actually present in dist.
+    if (!fs.existsSync(svgFile) || fs.statSync(svgFile).size === 0) {
+      throw new Error("dvisvgm completed without producing a non-empty SVG");
+    }
+
     return `/img/tikz/${svgFileName}`;
   } catch (err) {
-    console.error(`[tikz] compilation failed (hash=${hash}):`, err.message);
+    const details = err.stderr?.trim() || err.stdout?.trim();
+    console.error(
+      `[tikz] compilation failed (hash=${hash}):`,
+      details ? `${err.message}\n${details}` : err.message,
+    );
+    fs.rmSync(svgFile, { force: true });
     return null;
   } finally {
     fs.rmSync(tmpDir, { recursive: true, force: true });
   }
+}
+
+/**
+ * Accept both a TikZ fragment and a pasted LaTeX document fragment. Markdown
+ * notes in the wild sometimes include \begin{document}/\end{document} and
+ * package declarations even though this plugin supplies the document shell.
+ * Keep only the document body so those declarations cannot land in the body.
+ */
+function extractDocumentBody(code) {
+  const begin = code.indexOf("\\begin{document}");
+  if (begin === -1) {
+    return code
+      .replace(/^\\documentclass(?:\[[^\]]*\])?\{[^}]+\}\s*/gm, "")
+      .replace(/^\\usepackage(?:\[[^\]]*\])?\{[^}]+\}\s*/gm, "");
+  }
+
+  const bodyStart = begin + "\\begin{document}".length;
+  const end = code.lastIndexOf("\\end{document}");
+  return code.slice(bodyStart, end === -1 ? code.length : end).trim();
 }
 
 /**
@@ -161,4 +162,10 @@ function clearTikzBlocks() {
   tikzCodeMap.clear();
 }
 
-export { compileTikzToSvg, getTikzBlocks, clearTikzBlocks, getTikzHash };
+export {
+  compileTikzToSvg,
+  getTikzBlocks,
+  clearTikzBlocks,
+  getTikzHash,
+  extractDocumentBody,
+};

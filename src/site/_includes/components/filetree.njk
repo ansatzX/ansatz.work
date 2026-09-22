@@ -7,14 +7,14 @@
                 </div>
             </div>
         {% elif fileOrFolder.isFolder%}
-            <div class="{{'filelist' if step>=1}}">
-                <div class="folder inner-folder"  x-data="{isOpen: $persist(false).as('{{currentPath}}')}" @click.stop="isOpen=!isOpen">
+            <div class="{{'filelist' if step>=1}}" x-data="{isOpen: $persist(false).as('{{currentPath}}')}">
+                <button type="button" class="folder inner-folder folder-toggle" @click.stop="isOpen=!isOpen" :aria-expanded="isOpen.toString()">
                     <div class="foldername-wrapper align-icon">
                         <i x-show="isOpen" style="display:none" data-lucide="chevron-down"></i>
                         <i x-show="!isOpen" data-lucide="chevron-right"></i>
                         <span class="foldername">{{fileOrFolderName}}</span>
                     </div>
-                </div>
+                </button>
                 <div x-show="isOpen" style="display:none">
                     {% for fileOrFolderName, child in fileOrFolder %}
                         {{menuItem(fileOrFolderName, child, step+1, (currentPath+"/"+fileOrFolderName))}}
@@ -27,7 +27,7 @@
     
     <div x-init="isDesktop = (window.innerWidth>=1400) ? true: false;" 
             x-on:resize.window="isDesktop = (window.innerWidth>=1400) ? true : false;" 
-            x-data="{isDesktop: true, showFilesMobile: false}">
+            x-data="{isDesktop: true, showFilesMobile: false}" @keydown.escape="showFilesMobile=false; $el.querySelector('.menu-toggle').focus()">
 
         <div x-show.important="!isDesktop" style="display: none;">
             {%include "components/filetreeNavbar.njk"%}
@@ -35,7 +35,7 @@
         
         <div x-show="showFilesMobile && !isDesktop" @click="showFilesMobile = false" style="display:none;" class="fullpage-overlay"></div>
 
-      <nav class="filetree-sidebar"  x-show.important="isDesktop || showFilesMobile" style="display: none;">
+      <nav id="filetree-menu" aria-label="Notes" class="filetree-sidebar"  x-show.important="isDesktop || showFilesMobile" style="display: none;">
         <!-- 头像区域 -->
         <div class="filetree-avatar">
           <img src="/img/ansatz_cat.jpg" alt="Avatar" class="avatar-image">
@@ -44,17 +44,15 @@
         {% for imp in dynamics.filetree.beforeTitle %}
             {% include imp %}
         {% endfor %}
+{% set slotName = "filetree.beforeTitle" %}{% include "components/pluginSlot.njk" %}
          <a href="/" style="text-decoration: none;">
                <h1 style="text-align:center;">{{meta.siteName}}</h1>
          </a>
          {% for imp in dynamics.filetree.afterTitle %}
             {% include imp %}
         {% endfor %}
-        {% if settings.dgEnableSearch === true%}
-            <div class="search-container-wrapper">
-                {% include "components/searchButton.njk" %}
-            </div>
-        {%endif%}
+{% set slotName = "filetree.afterTitle" %}{% include "components/pluginSlot.njk" %}
+        {% set slotName = "filetree.actions" %}{% include "components/pluginSlot.njk" %}
          <div class="folder" x-data="{isOpen: true}">
                {%- for fileOrFolderName, fileOrFolder in filetree -%}
                   {{menuItem(fileOrFolderName, fileOrFolder, 0, fileOrFolderName)}}

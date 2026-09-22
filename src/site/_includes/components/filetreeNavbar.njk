@@ -1,18 +1,18 @@
 <nav class="navbar">
     <div class="navbar-inner">
-        <span style="font-size: 1.5rem; margin-right: 10px;" @click="showFilesMobile=!showFilesMobile"><i  icon-name="menu"></i></span>
+        <button type="button" class="menu-toggle" @click="showFilesMobile=!showFilesMobile" :aria-expanded="showFilesMobile.toString()" aria-controls="filetree-menu">Menu</button>
         {% for imp in dynamics.filetree.beforeTitle %}
             {% include imp %}
         {% endfor %}
+{% set slotName = "filetree.beforeTitle" %}{% include "components/pluginSlot.njk" %}
         <a href="/" style="text-decoration: none;">
             <h1 style="margin: 15px !important;">{{meta.siteName}}</h1>
         </a>
         {% for imp in dynamics.filetree.afterTitle %}
             {% include imp %}
         {% endfor %}
+{% set slotName = "filetree.afterTitle" %}{% include "components/pluginSlot.njk" %}
     </div>
     
-    {% if settings.dgEnableSearch === true%}
-        {% include "components/searchButton.njk" %}
-    {%endif%}
+    {% set slotName = "navbar.actions" %}{% include "components/pluginSlot.njk" %}
 </nav>

@@ -4,11 +4,23 @@ import { globSync } from "glob";
 // Load environment variables
 dotenv.config();
 
+function getBuildDate() {
+  const sourceDateEpoch = process.env.SOURCE_DATE_EPOCH;
+  if (sourceDateEpoch !== undefined && sourceDateEpoch !== "") {
+    const epoch = Number(sourceDateEpoch);
+    if (Number.isFinite(epoch)) {
+      return new Date(epoch * 1000);
+    }
+  }
+  return new Date();
+}
+
 export default async (data) => {
-  let baseUrl = process.env.SITE_BASE_URL || "";
+  let baseUrl = process.env.SITE_BASE_URL || "https://ansatz.work";
   if (baseUrl && !baseUrl.startsWith("http")) {
     baseUrl = "https://" + baseUrl;
   }
+  baseUrl = new URL(baseUrl).origin;
   let themeStyle = globSync("src/site/styles/_theme.*.css")[0] || "";
   if (themeStyle) {
     themeStyle = themeStyle.split("site")[1];
@@ -64,6 +76,12 @@ export default async (data) => {
     updatedDateField: process.env.DG_UPDATED_DATE || "updated",
   };
   const meta = {
+    uiStrings: {
+      searchButtonText: "Search", searchPlaceholder: "Search notes…", searchNotStarted: "Type to search",
+      searchNoResults: "No results for", searchPreviewPlaceholder: "Select a result to preview",
+      searchEnterHotkey: "Enter", searchEnterHint: "open", searchNavigateHotkey: "↑ ↓", searchNavigateHint: "navigate",
+      searchCloseHotkey: "Esc", searchCloseHint: "close"
+    },
     env: process.env.ELEVENTY_ENV,
     theme: process.env.THEME,
     themeStyle,
@@ -75,7 +93,7 @@ export default async (data) => {
     mainLanguage: process.env.SITE_MAIN_LANGUAGE || "en",
     siteBaseUrl: baseUrl,
     styleSettingsCss,
-    buildDate: new Date(),
+    buildDate: getBuildDate(),
   };
 
   return meta;

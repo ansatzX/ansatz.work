@@ -14,3 +14,6 @@ _site/
 .worktrees
 docs/
 .worktrees/
+
+# Generated Garden plugin slot templates
+src/site/_includes/plugins/

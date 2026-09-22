@@ -4,7 +4,7 @@ permalink: "notes/{{ page.fileSlug | slugify }}/"
 <!DOCTYPE html>
 <html lang="{{ meta.mainLanguage }}">
   <head>
-    <title>{% if title %}{{ title }}{% else %}{{ page.fileSlug }}{% endif %}</title>
+    {% include "components/seo.njk" %}
     {%include "components/pageheader.njk"%}
     {% for imp in dynamics.common.head %}
       {% include imp %}
@@ -12,22 +12,21 @@ permalink: "notes/{{ page.fileSlug | slugify }}/"
     {% for imp in dynamics.notes.head %}
       {% include imp %}
     {% endfor %}
-  </head>
+  {% set slotName = "common.head" %}{% include "components/pluginSlot.njk" %}
+{% set slotName = "notes.head" %}{% include "components/pluginSlot.njk" %}
+</head>
   <body class="theme-{{meta.baseTheme}} {{meta.bodyClasses}}">
     {% include "components/notegrowthhistory.njk" %}
+    <a class="skip-link" href="#main-content">Skip to content</a>
     <div class="app-layout">
       <aside class="sidebar sidebar-left">
-        {% if settings.dgShowFileTree !== true %}
-          {%include "components/navbar.njk"%}
-        {%else%}
-          {%include "components/filetree.njk"%}
-        {% endif %}
+{% set regionName = "navigation" %}
+        {% set regionFallback = "components/navigation.njk" %}
+        {% include "components/pluginRegion.njk" %}
       </aside>
 
-      <main class="content-main cm-s-obsidian markdown-rendered theme-dark {{contentClasses}}">
-        {% if settings.dgEnableSearch === true %}
-          {%include "components/searchContainer.njk"%}
-        {% endif %}
+      <main id="main-content" tabindex="-1" class="content-main cm-s-obsidian markdown-rendered theme-dark {{contentClasses}}">
+
 
         <header>
           {% if settings.dgShowInlineTitle === true %}
@@ -38,7 +37,7 @@ permalink: "notes/{{ page.fileSlug | slugify }}/"
               <div class="header-tags">
                 {% for tag in tags %}
                   {% if tag != 'gardenEntry' and tag !='note' %}
-                    <a class="tag" onclick="toggleTagSearch(this)">
+                    <a class="tag">
                       #{{tag}}
                     </a>
                   {% endif %}
@@ -56,14 +55,20 @@ permalink: "notes/{{ page.fileSlug | slugify }}/"
             </div>
             {%- endif -%}
           </div>
-        </header>
+        {% set slotName = "common.header" %}{% include "components/pluginSlot.njk" %}
+{% set slotName = "notes.header" %}{% include "components/pluginSlot.njk" %}
+</header>
         {% for imp in dynamics.common.beforeContent %}
           {% include imp %}
         {% endfor %}
         {% for imp in dynamics.notes.beforeContent %}
           {% include imp %}
         {% endfor %}
-        {{ content | hideDataview | taggify | link | safe}}
+        {% set slotName = "common.beforeContent" %}{% include "components/pluginSlot.njk" %}
+{% set slotName = "notes.beforeContent" %}{% include "components/pluginSlot.njk" %}
+<div class="content">{{ content | hideDataview | taggify | link | safe}}</div>
+{% set slotName = "common.afterContent" %}{% include "components/pluginSlot.njk" %}
+{% set slotName = "notes.afterContent" %}{% include "components/pluginSlot.njk" %}
         {% for imp in dynamics.common.afterContent %}
           {% include imp %}
         {% endfor %}
@@ -71,16 +76,14 @@ permalink: "notes/{{ page.fileSlug | slugify }}/"
           {% include imp %}
         {% endfor %}
 
-        {% if settings.dgLinkPreview === true %}
-          {%include "components/linkPreview.njk"%}
-        {% endif %}
+
 
         {% for imp in dynamics.notes.footer %}
           {% include imp %}
         {% endfor %}
       </main>
 
-      {% if settings.dgShowBacklinks === true or settings.dgShowLocalGraph === true or settings.dgShowToc === true%}
+      {% if settings.dgShowBacklinks === true or settings.dgShowLocalGraph === true or settings.dgShowToc === true or plugins.slots["sidebar.top"] or plugins.slots["sidebar.bottom"]%}
         <aside class="sidebar-right">
           {%include "components/sidebar.njk"%}
         </aside>
@@ -93,5 +96,8 @@ permalink: "notes/{{ page.fileSlug | slugify }}/"
         {% include imp %}
       {% endfor %}
       {%include "components/lucideIcons.njk"%}
-    </body>
+    {% set slotName = "common.footer" %}{% include "components/pluginSlot.njk" %}
+{% set slotName = "notes.footer" %}{% include "components/pluginSlot.njk" %}
+<div class="floating-actions floating-bottom-right">{% set slotName = "floating.bottomRight" %}{% include "components/pluginSlot.njk" %}</div>
+</body>
   </html>

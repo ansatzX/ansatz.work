@@ -9,6 +9,7 @@ import { userEleventySetup } from "./src/helpers/userSetup.js";
 import { createMarkdownIt, tagRegex } from "./src/helpers/markdown-plugins.js";
 import { compileTikzToSvg, getTikzBlocks, clearTikzBlocks } from "./src/helpers/tikz-plugin.js";
 import path from "path";
+import pluginLoader from "./src/helpers/pluginLoader.cjs";
 
 
 export default function (eleventyConfig) {
@@ -35,6 +36,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/site/img");
   eleventyConfig.addPassthroughCopy({"src/site/_includes/scripts": "scripts"});
   eleventyConfig.addPassthroughCopy("src/site/styles/_theme.*.css");
+  eleventyConfig.addPassthroughCopy("src/site/styles/user/*.css");
   eleventyConfig.addPlugin(faviconsPlugin, { outputDir: "dist" });
   eleventyConfig.addPlugin(tocPlugin, {
     ul: true,
@@ -48,6 +50,7 @@ export default function (eleventyConfig) {
     },
   });
 
+  pluginLoader.applyEleventyHooks(eleventyConfig);
   userEleventySetup(eleventyConfig);
 
   // Post-build: compile TikZ code blocks to SVG
@@ -62,7 +65,14 @@ export default function (eleventyConfig) {
     const succeeded = results.filter((r) => r.status === "fulfilled" && r.value).length;
     const failed = results.length - succeeded;
     if (failed > 0) {
-      console.warn(`[tikz] ${failed}/${results.length} diagram(s) failed to compile`);
+      clearTikzBlocks();
+      const message =
+        `[tikz] ${failed}/${results.length} diagram(s) failed to compile; ` +
+        "install the LaTeX/dvisvgm toolchain (TinyTeX is supported) and retry";
+      if (["1", "true"].includes(process.env.TIKZ_STRICT?.toLowerCase())) {
+        throw new Error(message);
+      }
+      console.warn(message);
     } else {
       console.log(`[tikz] all ${succeeded} diagram(s) compiled successfully`);
     }

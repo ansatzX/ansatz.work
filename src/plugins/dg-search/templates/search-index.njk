@@ -1,0 +1,9 @@
+[{% for post in collections.note %}
+{
+		"title": {% if post.data.title %}{{post.data.title | jsonify | safe }}{% else %}{{post.fileSlug | jsonify | safe }}{% endif %},
+		"date":"{{ post.date }}",
+		"url":"{{ post.url }}",
+		"content": {{ post.templateContent | searchText | jsonify | safe  }},
+        "tags": {{ post.templateContent | searchTags(post.data.tags) | jsonify | safe }}
+}{% if not loop.last %},{% endif %}
+{% endfor %}]

@@ -104,3 +104,9 @@ html {
     padding: 0;
   }
 }
+
+.error-page { max-width: 48rem; margin: 12vh auto; padding: 2rem; }
+.error-page h1 { margin: 1rem 0; }
+.error-page p { margin-bottom: 1.5rem; }
+
+@import '07-utilities/accessibility';

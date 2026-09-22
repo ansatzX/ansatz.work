@@ -1,0 +1,64 @@
+
+:focus-visible { outline: 3px solid #1768ac; outline-offset: 4px; }
+.skip-link { position: fixed; left: 1rem; top: -8rem; z-index: 3000; background: white; color: #123; padding: .8rem 1rem; }
+.skip-link:focus { top: 1rem; }
+button, a { -webkit-tap-highlight-color: transparent; }
+.folder-toggle { border: 0; background: none; color: inherit; font: inherit; text-align: left; min-height: 44px; cursor: pointer; width: 100%; }
+.menu-toggle { min-width: 44px; min-height: 44px; font: inherit; border: 1px solid #bbb; border-radius: 6px; background: white; }
+.content-main { min-width: 0; box-sizing: border-box; }
+.content-main .content { min-width: 0; overflow-wrap: anywhere; }
+.content-main pre, .content-main table { max-width: 100%; overflow-x: auto; }
+.content-main table { display: block; }
+.content-main mjx-container[display="true"] { max-width: 100%; overflow-x: auto; }
+#globalsearch { max-width: none; max-height: none; width: 100%; margin: 0; border: 0; color: inherit; }
+#globalsearch::backdrop { background: transparent; }
+.search-close { min-width: 44px; min-height: 44px; border: 1px solid #ccc; background: white; border-radius: 6px; font: inherit; }
+#globalsearch .search-header { display: flex; align-items: center; gap: .5rem; }
+#globalsearch #term { min-width: 0; flex: 1; }
+#globalsearch .searchresult { display: block; color: inherit; text-decoration: none; }
+@media (max-width: 1399px) {
+  .app-layout, .app-layout.nav-collapsed { display: flex; flex-direction: column; gap: 1rem; padding: .75rem; }
+  .app-layout .sidebar-left { display: block; position: relative; top: auto; width: 100%; height: auto; min-height: 0; max-height: none; overflow: visible; }
+  .sidebar-left.sidebar-collapsed > *:not(.toggle-btn) { position: static; opacity: 1; visibility: visible; pointer-events: auto; }
+  .app-layout .drag-handle, .app-layout .toggle-btn, .nav-toggle-button { display: none; }
+  .sidebar-left .fullpage-overlay { display: none !important; }
+  .sidebar-left .filetree-sidebar { position: static; width: 100%; min-height: 0; max-height: 65vh; padding: 1rem; overflow-y: auto; }
+  .sidebar-left .filetree-avatar { display: none; }
+  .sidebar-left .navbar { display: flex; align-items: center; flex-wrap: wrap; gap: .6rem; padding: .5rem; }
+  .navbar h1 { margin: 0 !important; font-size: 1.4rem; }
+  .navbar-inner { display: flex; align-items: center; gap: .75rem; }
+  .navbar .search-button { width: auto; min-height: 44px; margin-left: auto; }
+  .navbar .search-keys { display: none; }
+  .app-layout .content-main { width: 100%; min-height: 0; max-height: none; overflow: visible; padding: 1rem; }
+  .content-main h1 { font-size: clamp(1.8rem, 6vw, 2.6rem); letter-spacing: -.02em; line-height: 1.2; overflow-wrap: anywhere; }
+  .content-main h2 { font-size: 1.55rem; line-height: 1.3; }
+  .content-main h3 { font-size: 1.25rem; }
+  .content-main p, .content-main li { font-size: 1rem; line-height: 1.7; }
+  .sidebar-right, .sidebar-right.sidebar-collapsed { position: static; width: 100%; max-height: none; }
+  .sidebar-right.sidebar-collapsed > *:not(.toggle-btn) { position: static; opacity: 1; visibility: visible; pointer-events: auto; }
+}
+@media (max-width: 767px) {
+  #globalsearch.active { padding: .5rem; align-items: flex-start; }
+  #globalsearch .search-box { max-height: calc(100dvh - 1rem); }
+  #globalsearch .search-box-footer { flex-direction: row; flex-wrap: wrap; gap: .5rem; }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+
+#full-graph { border: 0; margin: 0; max-width: none; max-height: none; }
+#full-graph::backdrop { background: rgba(0,0,0,.4); }
+
+.content-main mjx-container.MathJax:not([display="true"]) { display: inline-block; vertical-align: middle; max-width: 100%; overflow-x: auto; overflow-y: hidden; }
+
+.comments-shortcut {
+  margin-block: 1rem;
+}
+.comments-shortcut a {
+  display: block;
+  padding: .75rem 1rem;
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: .2em;
+}
+#giscus-container {
+  scroll-margin-top: 5rem;
+}

@@ -63,8 +63,10 @@ async function getGraph(data) {
       outBound: extractLinks(content),
       neighbors: new Set(),
       backLinks: new Set(),
-      noteIcon: v.data.noteIcon || process.env.NOTE_ICON_DEFAULT,
-      hide: v.data.hideInGraph || false,
+      noteIcon:
+        v.data["dg-note-icon"] ?? v.data.noteIcon ?? process.env.NOTE_ICON_DEFAULT,
+      hide:
+        v.data["dg-hide-in-graph"] ?? v.data.hideInGraph ?? false,
     };
     stemURLs[fpath] = v.url;
     if (

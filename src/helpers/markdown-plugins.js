@@ -9,6 +9,7 @@ import markdownItPlantuml from "markdown-it-plantuml";
 
 import { headerToId, namedHeadingsFilter } from "./utils.js";
 import { userMarkdownSetup } from "./userSetup.js";
+import pluginLoader from "./pluginLoader.cjs";
 import tikzPlugin from "./tikz-plugin.js";
 
 export const tagRegex = /(^|\s|>)(#[^\s!@#$%^&*()=+\.,\[{\]};:'"?><]+)(?![^<]*>)/g;
@@ -26,7 +27,7 @@ export function createMarkdownIt() {
     .use(markdownItFootnote)
     .use(function (md) {
       md.renderer.rules.hashtag_open = function (tokens, idx) {
-        return '<a class="tag" onclick="toggleTagSearch(this)">';
+        return '<a class="tag">';
       };
     })
     .use(markdownItMathjax3, {
@@ -193,6 +194,7 @@ export function createMarkdownIt() {
         return defaultLinkRule(tokens, idx, options, env, self);
       };
     })
+    .use((md) => pluginLoader.applyMarkdownHooks(md))
     .use(userMarkdownSetup);
 
   return markdownLib;

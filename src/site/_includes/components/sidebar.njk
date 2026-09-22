@@ -1,4 +1,4 @@
-<div class="sidebar-container">
+<div class="sidebar-container">{% set slotName = "sidebar.top" %}{% include "components/pluginSlot.njk" %}
       {% for imp in dynamics.sidebar.top %}
             {% include imp %}
       {% endfor %}
@@ -25,6 +25,12 @@
             {%endif%}
 
       {%endif%}
+
+      {% if comments != false and "components/user/notes/footer/001-comment.njk" in dynamics.notes.footer %}
+            <nav class="comments-shortcut" aria-label="评论导航">
+                  <a href="#giscus-container">评论区 ↓</a>
+            </nav>
+      {% endif %}
 
       {%if settings.dgShowBacklinks === true %}
             <div class="backlinks">
@@ -64,4 +70,5 @@
       {% for imp in dynamics.sidebar.bottom %}
             {% include imp %}
       {% endfor %}
+{% set slotName = "sidebar.bottom" %}{% include "components/pluginSlot.njk" %}
 </div>

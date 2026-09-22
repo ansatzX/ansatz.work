@@ -17,7 +17,7 @@
                 }
                 return acc;
             }, {});
-        return existing, n_remaining;
+        return n_remaining;
     }
 
     function filterLocalGraphData(graphData, depth) {
@@ -37,9 +37,9 @@
         let existing = {};
         existing[currentNode.url] = currentNode;
         for (let i = 0; i < depth; i++) {
-            existing, remaining = getNextLevelNeighbours(existing, remaining);
+            remaining = getNextLevelNeighbours(existing, remaining);
         }
-        nodes = Object.values(existing);
+        let nodes = Object.values(existing);
         if (!currentNode.home) {
             nodes = nodes.filter(n => !n.home);
         }
@@ -64,8 +64,8 @@
             return;
         }
         const el = document.getElementById(id);
-        width = el.offsetWidth;
-        height = el.offsetHeight;
+        const width = el.clientWidth;
+        const height = el.clientHeight;
         const highlightNodes = new Set();
         let hoverNode = null;
 
@@ -82,6 +82,8 @@
             .linkSource('source')
             .linkTarget('target')
             .d3AlphaDecay(0.10)
+            .minZoom(0.25)
+            .maxZoom(3)
             .width(width)
             .height(height)
             .linkDirectionalArrowLength(2)
@@ -98,9 +100,9 @@
                 }
 
             })
-            .nodeCanvasObject((node, ctx) => {
+            .nodeCanvasObject((node, ctx, globalScale) => {
                 const numberOfNeighbours = (node.neighbors && node.neighbors.length) || 2;
-                const nodeR = Math.min(7, Math.max(numberOfNeighbours / 2, 2));
+                const nodeR = Math.min(7, Math.max(numberOfNeighbours / 2, 4));
 
                 ctx.beginPath();
                 ctx.arc(node.x, node.y, nodeR, 0, 2 * Math.PI, false);
@@ -127,7 +129,7 @@
                 }
 
                 const label = htmlDecode(node.title)
-                const fontSize = 3.5;
+                const fontSize = 12 / globalScale;
                 ctx.font = `${fontSize}px Sans-Serif`;
 
                 ctx.textAlign = 'center';
@@ -146,11 +148,26 @@
                 hoverNode = node || null;
 
             });
-            if (fullScreen || (delay != null && graphData.nodes.length > 4)) {
-                setTimeout(() => {
-                    Graph.zoomToFit(5, 75);
-                }, delay || 200);
-            }
+        // Single-node bounds are zero: zoomToFit would magnify the node enormously.
+        let fitTimer;
+        const resize = () => {
+            Graph.width(el.clientWidth).height(el.clientHeight);
+            clearTimeout(fitTimer);
+            fitTimer = setTimeout(() => {
+                if (graphData.nodes.length <= 1) {
+                    Graph.centerAt(0, 0, 0);
+                    Graph.zoom(1.5, 0);
+                } else {
+                    Graph.zoomToFit(0, 60);
+                    Graph.zoom(Math.min(3, Graph.zoom()), 0);
+                }
+            }, delay || 200);
+        };
+        const observer = new ResizeObserver(resize);
+        observer.observe(el);
+        resize();
+        const destroy = Graph._destructor.bind(Graph);
+        Graph._destructor = () => { clearTimeout(fitTimer); observer.disconnect(); destroy(); };
         return Graph;
     }
 
@@ -193,6 +210,7 @@
 </script>
 <div x-data="{ graphData: null, depth: 1, graph: null, fullGraph: null, showFullGraph: false, fullScreen: false, fullGraphData: null}"
      x-init="const data = await fetchGraphData(); graphData = data.graphData; fullGraphData = data.fullGraphData;"
+     @keydown.escape.window="if(fullScreen) { fullScreen=false; $nextTick(() => document.getElementById('graph-fs-btn').focus()); }"
      id="graph-component"
      x-bind:class="fullScreen ? 'graph graph-fs' : 'graph'">
     <div class="graph-title-container">
@@ -211,15 +229,20 @@
                     <span id="depth-display" x-text="depth"></span>
                 </div>
                 <div class="ctrl-right">
-                    <span id="global-graph-btn" x-on:click="showFullGraph = true; setTimeout(() => {fullGraph = openFullGraph(fullGraphData)}, 100)"><i  icon-name="globe" aria-hidden="true"></i></span>
-                    <span id="graph-fs-btn" x-on:click="fullScreen = !fullScreen"><i :icon-name="fullScreen ? 'shrink' : 'expand'" aria-hidden="true"></i></span>
+                    <button type="button" aria-label="Open global graph" id="global-graph-btn" x-on:click="showFullGraph = true; $nextTick(() => {fullGraph = openFullGraph(fullGraphData)})"><i  icon-name="globe" aria-hidden="true"></i></button>
+                    <button type="button" aria-label="Toggle graph fullscreen" id="graph-fs-btn" x-on:click="fullScreen = !fullScreen"><i :icon-name="fullScreen ? 'shrink' : 'expand'" aria-hidden="true"></i></button>
                 </div>
         </div>
     </div>
-    <div x-effect="if(graphData) window.graph = renderLocalGraph(graphData, depth, fullScreen)" id="link-graph" ></div>
+    <div x-effect="if(graphData) { const d = depth, fs = fullScreen; $nextTick(() => { window.graph = renderLocalGraph(graphData, d, fs) }) }" id="link-graph" ></div>
 
-    <div x-show="showFullGraph" id="full-graph" style="display: none;">
-        <span id="full-graph-close" x-on:click="fullGraph = closefullGraph(fullGraph); showFullGraph = false;"><i icon-name="x" aria-hidden="true"></i></span>
+    <template x-teleport="body">
+    <dialog x-show="showFullGraph" id="full-graph" aria-label="Global graph" style="display: none;"
+      x-effect="if(showFullGraph) { if(!$el.open) { $el.showModal(); $nextTick(() => $el.querySelector('button').focus()); } } else { $el.close(); }"
+      @cancel.prevent="fullGraph = closefullGraph(fullGraph); showFullGraph = false"
+      @keydown.tab.prevent="$el.querySelector('button').focus()">
+        <button type="button" aria-label="Close global graph" id="full-graph-close" x-on:click="fullGraph = closefullGraph(fullGraph); showFullGraph = false;"><i icon-name="x" aria-hidden="true"></i></button>
         <div id="full-graph-container"></div>
-    </div>
+    </dialog>
+    </template>
 </div>

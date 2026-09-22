@@ -211,7 +211,8 @@ export default function buildTransforms(eleventyConfig) {
         collapseWhitespace: true,
         conservativeCollapse: true,
         preserveLineBreaks: true,
-        minifyCSS: true,
+        // MathJax emits nested CSS; clean-css cannot safely minify it.
+        minifyCSS: false,
         minifyJS: true,
         keepClosingSlash: true,
       });

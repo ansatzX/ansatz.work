@@ -156,11 +156,11 @@ function createButtons() {
 function updateButtonIcons() {
   if (dom.leftSidebar) {
     const btn = dom.leftSidebar.querySelector(".btn-left");
-    if (btn) btn.textContent = state.collapsed.left ? "\u203A" : "\u2039";
+    if (btn) { btn.textContent = state.collapsed.left ? "\u203A" : "\u2039"; btn.setAttribute("aria-label", "Toggle left sidebar"); btn.setAttribute("aria-expanded", String(!state.collapsed.left)); }
   }
   if (dom.rightSidebar) {
     const btn = dom.rightSidebar.querySelector(".btn-right");
-    if (btn) btn.textContent = state.collapsed.right ? "\u2039" : "\u203A";
+    if (btn) { btn.textContent = state.collapsed.right ? "\u2039" : "\u203A"; btn.setAttribute("aria-label", "Toggle right sidebar"); btn.setAttribute("aria-expanded", String(!state.collapsed.right)); }
   }
 }
 

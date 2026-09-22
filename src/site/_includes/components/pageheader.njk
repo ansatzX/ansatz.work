@@ -1,16 +1,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- MathJax 渲染已由 markdown-it-mathjax3 在构建时完成 -->
 <style>
-  /* 确保MathJax行内公式不换行 */
-  mjx-container.MathJax {
-    display: inline !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-  mjx-container.MathJax svg {
-    display: inline !important;
-    vertical-align: middle !important;
-  }
+  mjx-container.MathJax { padding: 0; }
+  mjx-container.MathJax:not([display="true"]) { display: inline; margin: 0; }
+  mjx-container.MathJax[display="true"] { display: block; overflow-x: auto; margin: 1em 0; }
+  mjx-container.MathJax > svg { display: inline; max-width: none; }
 </style>
 <script async type="module">
     import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
@@ -20,11 +14,11 @@
 
 {%include "components/calloutScript.njk"%}
 
-<script async src="https://fastly.jsdelivr.net/npm/force-graph@1.43.0/dist/force-graph.min.js"></script>
+<script defer src="https://fastly.jsdelivr.net/npm/force-graph@1.43.0/dist/force-graph.min.js"></script>
 
 <script src="https://fastly.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
-<script async src="https://fastly.jsdelivr.net/npm/@alpinejs/persist@3.11.1/dist/cdn.min.js"></script>
-<script src="https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js" async></script>
+<script defer src="https://fastly.jsdelivr.net/npm/@alpinejs/persist@3.11.1/dist/cdn.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/alpinejs@3.11.1/dist/cdn.min.js" defer></script>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" async/>
 <script src="https://fastly.jsdelivr.net/npm/whatwg-fetch@3.6.2/dist/fetch.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" async></script>
@@ -33,11 +27,14 @@
 
 <!-- 可拖动侧边栏脚本 -->
 <script src="/scripts/resizable-sidebar.js" defer></script>
+<script src="/scripts/reading-accessibility.js" defer></script>
 
 {%-if meta.themeStyle%}
     <link href="{{meta.themeStyle}}" rel="stylesheet">
 {%endif%}
 
+{% for style in plugins.styles %}<link rel="stylesheet" href="{{style}}">{% endfor %}
+{% for script in plugins.scripts %}<script defer src="{{script}}"></script>{% endfor %}
 {%- for style in dynamics.styles -%}
 <link href="{{style}}" rel="stylesheet">
 {%- endfor -%}
@@ -46,7 +43,7 @@
 
 {% if metatags %}
     {% for name, content in metatags %}
-        <meta name="{{ name }}" content="{{ content }}">
+      {% if name != "description" and name != "robots" %}<meta name="{{ name | escape }}" content="{{ content | escape }}">{% endif %}
     {% endfor %}
 {% endif %}
 

@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="{{ meta.mainLanguage }}">
 <head>
-  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% if title %}{{ title }}{% else %}{{ page.fileSlug }}{% endif %}</title>
-  <link rel="stylesheet" href="/styles/main.css">
+  {% include "components/seo.njk" %}
+  {% include "components/pageheader.njk" %}
   {% for imp in dynamics.common.head %}
     {% include imp %}
   {% endfor %}
   {% for imp in dynamics.index.head %}
     {% include imp %}
   {% endfor %}
+{% set slotName = "common.head" %}{% include "components/pluginSlot.njk" %}
+{% set slotName = "index.head" %}{% include "components/pluginSlot.njk" %}
 </head>
 <body class="theme-{{ meta.baseTheme }}">
+  <a class="skip-link" href="#main-content">Skip to content</a>
   <!-- 左侧可收起导航 -->
   <div x-data="{ navOpen: true }" class="app-layout" :class="navOpen ? '' : 'nav-collapsed'">
     <button class="nav-toggle-button" @click="navOpen = !navOpen" aria-label="Toggle navigation">
@@ -20,17 +22,13 @@
     </button>
 
     <aside class="sidebar sidebar-left" x-show="navOpen" x-transition>
-      {% if settings.dgShowFileTree !== true %}
-        {% include "components/navbar.njk" %}
-      {% else %}
-        {% include "components/filetree.njk" %}
-      {% endif %}
+{% set regionName = "navigation" %}
+        {% set regionFallback = "components/navigation.njk" %}
+        {% include "components/pluginRegion.njk" %}
     </aside>
 
-    <main class="content-main">
-      {% if settings.dgEnableSearch === true %}
-        {% include "components/searchContainer.njk" %}
-      {% endif %}
+    <main id="main-content" tabindex="-1" class="content-main">
+
 
       <header>
         {% if settings.dgShowInlineTitle === true %}
@@ -41,14 +39,16 @@
           <div class="header-tags">
             {% for tag in tags %}
               {% if tag != 'gardenEntry' and tag != 'note' %}
-                <a class="tag" onclick="toggleTagSearch(this)">
+                <a class="tag">
                   #{{ tag }}
                 </a>
               {% endif %}
             {% endfor %}
           </div>
         {% endif %}
-      </header>
+      {% set slotName = "common.header" %}{% include "components/pluginSlot.njk" %}
+{% set slotName = "index.header" %}{% include "components/pluginSlot.njk" %}
+</header>
 
       {% for imp in dynamics.common.beforeContent %}
         {% include imp %}
@@ -57,7 +57,11 @@
         {% include imp %}
       {% endfor %}
 
-      {{ content | hideDataview | taggify | link | safe }}
+      {% set slotName = "common.beforeContent" %}{% include "components/pluginSlot.njk" %}
+{% set slotName = "index.beforeContent" %}{% include "components/pluginSlot.njk" %}
+<div class="content">{{ content | hideDataview | taggify | link | safe }}</div>
+{% set slotName = "common.afterContent" %}{% include "components/pluginSlot.njk" %}
+{% set slotName = "index.afterContent" %}{% include "components/pluginSlot.njk" %}
 
       {% for imp in dynamics.common.afterContent %}
         {% include imp %}
@@ -70,12 +74,10 @@
         {% include imp %}
       {% endfor %}
 
-      {% if settings.dgLinkPreview === true %}
-        {% include "components/linkPreview.njk" %}
-      {% endif %}
+
     </main>
 
-    {% if settings.dgShowBacklinks === true or settings.dgShowLocalGraph === true or settings.dgShowToc === true %}
+    {% if settings.dgShowBacklinks === true or settings.dgShowLocalGraph === true or settings.dgShowToc === true or plugins.slots["sidebar.top"] or plugins.slots["sidebar.bottom"] %}
       <aside class="sidebar-right">
         {% include "components/sidebar.njk" %}
       </aside>
@@ -86,5 +88,8 @@
     {% include imp %}
   {% endfor %}
   {% include "components/lucideIcons.njk" %}
+{% set slotName = "common.footer" %}{% include "components/pluginSlot.njk" %}
+{% set slotName = "index.footer" %}{% include "components/pluginSlot.njk" %}
+<div class="floating-actions floating-bottom-right">{% set slotName = "floating.bottomRight" %}{% include "components/pluginSlot.njk" %}</div>
 </body>
 </html>
