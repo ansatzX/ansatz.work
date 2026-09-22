@@ -7,7 +7,7 @@ import buildTransforms from "./src/helpers/eleventy-transforms.js";
 import { getAnchorAttributes, getAnchorLink } from "./src/helpers/getAnchorAttributes.js";
 import { userEleventySetup } from "./src/helpers/userSetup.js";
 import { createMarkdownIt, tagRegex } from "./src/helpers/markdown-plugins.js";
-import { compileTikzToSvg, getTikzBlocks, clearTikzBlocks } from "./src/helpers/tikz-plugin.js";
+import { compileTikzBlocks, getTikzBlocks, clearTikzBlocks } from "./src/helpers/tikz-plugin.js";
 import path from "path";
 import pluginLoader from "./src/helpers/pluginLoader.cjs";
 
@@ -59,9 +59,7 @@ export default function (eleventyConfig) {
     if (blocks.length === 0) return;
     const svgDir = path.join(dir.output, "img", "tikz");
     console.log(`[tikz] compiling ${blocks.length} diagram(s) to ${svgDir}`);
-    const results = await Promise.allSettled(
-      blocks.map(({ code }) => compileTikzToSvg(code, svgDir)),
-    );
+    const results = await compileTikzBlocks(blocks, svgDir);
     const succeeded = results.filter((r) => r.status === "fulfilled" && r.value).length;
     const failed = results.length - succeeded;
     if (failed > 0) {
@@ -69,7 +67,7 @@ export default function (eleventyConfig) {
       const message =
         `[tikz] ${failed}/${results.length} diagram(s) failed to compile; ` +
         "install the LaTeX/dvisvgm toolchain (TinyTeX is supported) and retry";
-      if (["1", "true"].includes(process.env.TIKZ_STRICT?.toLowerCase())) {
+      if (process.env.ELEVENTY_ENV === "prod" || ["1", "true"].includes(process.env.TIKZ_STRICT?.toLowerCase())) {
         throw new Error(message);
       }
       console.warn(message);

@@ -25,12 +25,15 @@ test('Garden interface renders slots, settings, hooks, assets and navigation; di
   write('src/plugins/contract/asset.txt','contract asset');
   write('src/plugins/contract/index.js',`module.exports={setupMarkdown(md){md.core.ruler.push('contract',state=>{for(const t of state.tokens)if(t.type==='inline')for(const c of t.children||[])if(c.type==='text')c.content=c.content.replaceAll('CONTRACT_TOKEN','HOOK_OK');});},setupEleventy(c){c.addTemplate('contract-hook.njk','HOOK_OUTPUT',{permalink:'/contract-hook.txt'});}};`);
   write('src/site/notes/contract.md','---\ntags: [note]\npermalink: /contract/\ncontractFlag: true\n---\nCONTRACT_TOKEN and $q$\n');
+  write('src/site/notes/no-comments.md','---\ntags: [note]\npermalink: /no-comments/\ncomments: false\n---\nNo comments here.\n');
   const registry={plugins:{'dg-search':{enabled:true},'dg-link-preview':{enabled:true},'dg-math':{enabled:false},contract:{settings:{greeting:'configured'}}}};
-  const build=()=>{fs.rmSync(path.join(root,'dist'),{force:true,recursive:true});write('src/plugins/plugins.json',JSON.stringify(registry));execFileSync(process.execPath,[path.join(source,'node_modules/@11ty/eleventy/cmd.cjs')],{cwd:root,env:{...process.env,ELEVENTY_ENV:'prod',SOURCE_DATE_EPOCH:'1700000000',TIKZ_STRICT:'1'},stdio:'pipe',timeout:90000});};
+  const build=(extraEnv={})=>{fs.rmSync(path.join(root,'dist'),{force:true,recursive:true});write('src/plugins/plugins.json',JSON.stringify(registry));execFileSync(process.execPath,[path.join(source,'node_modules/@11ty/eleventy/cmd.cjs')],{cwd:root,env:{...process.env,ELEVENTY_ENV:'prod',SOURCE_DATE_EPOCH:'1700000000',TIKZ_STRICT:'1',GISCUS_ENABLED:'true',...extraEnv},stdio:'pipe',timeout:90000});};
   build();
   let note=read('dist/contract/index.html'), home=read('dist/index.html');
+  assert.match(home,/id="giscus-container"/);
+  assert.doesNotMatch(read('dist/no-comments/index.html'),/id="giscus-container"|class="comments-shortcut"/);
   for(const slot of loader.KNOWN_SLOTS){assert.ok((slot.startsWith('index.')?home:note).includes(`data-contract="${slot}"`),slot);}
-  assert.match(note,/configured:true/);assert.match(note,/HOOK_OK/);assert.match(note,/<mjx-container/);
+  assert.match(note,/configured:true/);assert.match(note,/HOOK_OK/);assert.match(note,/<mjx-container/);assert.equal(note.includes('id="giscus-container"'),note.includes('class="comments-shortcut"'));
   assert.equal(read('dist/contract-hook.txt'),'HOOK_OUTPUT');assert.match(read('dist/plugins/contract/style.css'),/color:red/);assert.equal(read('dist/plugins/contract/asset.txt'),'contract asset');
   assert.match(note,/src="\/plugins\/contract\/script.js"/);
   assert.equal((note.match(/id="globalsearch"/g)||[]).length,1);assert.equal((note.match(/id="tooltip-wrapper"/g)||[]).length,1);
@@ -40,7 +43,10 @@ test('Garden interface renders slots, settings, hooks, assets and navigation; di
   registry.plugins['dg-search'].enabled=false;registry.plugins['dg-link-preview'].enabled=false;
   build();note=read('dist/contract/index.html');
   assert.match(note,/id="contract-nav"/);assert.doesNotMatch(note,/class="filetree-sidebar"/);assert.doesNotMatch(note,/id="globalsearch"|id="tooltip-wrapper"/);assert.ok(!fs.existsSync(path.join(root,'dist/searchIndex.json')));assert.match(note,/<mjx-container/);
-  registry.plugins.contract.enabled=false;build();note=read('dist/contract/index.html');
+  registry.plugins.contract.enabled=false;build({GISCUS_ENABLED:"false"});note=read('dist/contract/index.html');
+  assert.doesNotMatch(note,/id="giscus-container"|class="comments-shortcut"/);
   assert.doesNotMatch(note,/data-contract=|contract-nav|HOOK_OK/);assert.match(note,/CONTRACT_TOKEN/);assert.match(note,/<mjx-container/);assert.ok(!fs.existsSync(path.join(root,'dist/contract-hook.txt')));
+  write('src/site/notes/bad-tikz.md','---\ntags: [note]\n---\n```tikz\n\\notARealTeXCommand\n```\n');
+  assert.throws(()=>build({TIKZ_STRICT:'0'}),error=>{assert.match(String(error.stdout)+String(error.stderr),/diagram\(s\) failed to compile/);return true;});
  } finally {fs.rmSync(root,{recursive:true,force:true});}
 });

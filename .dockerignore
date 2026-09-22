@@ -1,5 +1,4 @@
 # 
-src/site/_includes/components/user/notes/footer/001-comment.njk
 # 
 node_modules
 npm-debug.log
@@ -9,3 +8,8 @@ dist
 .git
 .github
 .DS_Store
+
+.playwright-mcp
+playwright-report
+test-results
+*.log

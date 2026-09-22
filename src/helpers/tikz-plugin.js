@@ -1,11 +1,30 @@
-import { exec } from "child_process";
+import { execFile } from "child_process";
 import { promisify } from "util";
 import fs from "fs";
 import os from "os";
 import path from "path";
 import crypto from "crypto";
 
-const execAsync = promisify(exec);
+const execAsync = promisify(execFile);
+export function tikzLimits(env = process.env) {
+  const bounded = (key, fallback, max) => {
+    const n = Number(env[key]);
+    return Number.isInteger(n) && n > 0 ? Math.min(n, max) : fallback;
+  };
+  return { concurrency: bounded("TIKZ_CONCURRENCY", 2, 4), timeout: bounded("TIKZ_TIMEOUT_MS", 30000, 120000) };
+}
+export async function compileTikzBlocks(blocks, outputDir, compile = compileTikzToSvg) {
+  const results = new Array(blocks.length);
+  let next = 0;
+  await Promise.all(Array.from({length: Math.min(tikzLimits().concurrency, blocks.length)}, async () => {
+    while (next < blocks.length) {
+      const index = next++;
+      try { results[index] = {status: "fulfilled", value: await compile(blocks[index].code, outputDir)}; }
+      catch (reason) { results[index] = {status: "rejected", reason}; }
+    }
+  }));
+  return results;
+}
 
 // Per-build collection: hash -> {code, hash}
 const tikzCodeMap = new Map();
@@ -51,8 +70,8 @@ async function compileTikzToSvg(tikzCode, outputDir) {
 
     // latex -> DVI
     await execAsync(
-      `latex -interaction=nonstopmode -output-directory=${tmpDir} ${texFile}`,
-      { stdio: "pipe" },
+      "latex", ["-no-shell-escape", "-halt-on-error", "-interaction=nonstopmode", `-output-directory=${tmpDir}`, texFile],
+      { timeout: tikzLimits().timeout, killSignal: "SIGKILL", maxBuffer: 1024 * 1024 },
     );
 
     const dviFile = path.join(tmpDir, "tikz.dvi");
@@ -64,8 +83,8 @@ async function compileTikzToSvg(tikzCode, outputDir) {
     // its compiled-in integration; the removed --libgs option is unsupported
     // by current dvisvgm releases.
     await execAsync(
-      `dvisvgm --no-fonts --output=${svgFile} ${dviFile}`,
-      { stdio: "pipe" },
+      "dvisvgm", ["--no-fonts", `--output=${svgFile}`, dviFile],
+      { timeout: tikzLimits().timeout, killSignal: "SIGKILL", maxBuffer: 1024 * 1024 },
     );
 
     // dvisvgm can return successfully without producing the requested file

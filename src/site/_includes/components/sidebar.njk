@@ -26,7 +26,7 @@
 
       {%endif%}
 
-      {% if comments != false and "components/user/notes/footer/001-comment.njk" in dynamics.notes.footer %}
+      {% if commentConfig.enabled and "components/user/notes/footer/001-comment.njk" in dynamics.notes.footer %}
             <nav class="comments-shortcut" aria-label="评论导航">
                   <a href="#giscus-container">评论区 ↓</a>
             </nav>
