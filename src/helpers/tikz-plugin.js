@@ -57,7 +57,7 @@ async function compileTikzToSvg(tikzCode, outputDir) {
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{tikz}
-\usetikzlibrary{arrows,calc,patterns,shapes,shadows,positioning}
+\usetikzlibrary{arrows,arrows.meta,calc,patterns,shapes,shadows,positioning}
 \begin{document}
     ${extractDocumentBody(tikzCode)}
 \end{document}
