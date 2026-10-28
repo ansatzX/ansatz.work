@@ -1,6 +1,7 @@
 ---
-{"dg-publish":true,"permalink":"/","dgPassFrontmatter":true,"dg-home":true,"dgShowInlineTitle":false}
+{"dg-publish":true,"permalink":"/readme/","dgPassFrontmatter":true,"dg-home":true,"dgShowInlineTitle":false,"tags":["gardenEntry"],"dg-note-properties":{"permalink":"/","dgPassFrontmatter":true,"dgShowInlineTitle":false}}
 ---
+
 
 # Welcome to My Digital Garden
 
@@ -115,4 +116,3 @@ I'm always open to discussing research collaborations, job opportunities, or jus
 [Email Me](mailto:ansatzMe@outlook.com) •
 [LinkedIn](https://www.linkedin.com/in/cunxigong/) •
 [GitHub](https://github.com/ansatzX)
-
